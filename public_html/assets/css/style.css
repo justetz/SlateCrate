@@ -90,6 +90,10 @@ a:focus {
 	color: #da291c !important;
 }
 
+.sidebar-header {
+	margin-top: 0;
+}
+
 /*	################################################################
 	BOOTSTRAP MODIFICATIONS & TWEAKS
 ################################################################# */
@@ -225,6 +229,18 @@ a:focus {
 	border-bottom: 2px solid #ffffff;
 	margin-bottom: 25px;
 }
+
+.well {
+	transition: all .7s;
+}
+
+.well:hover {
+	box-shadow: none;
+	-webkit-box-shadow: none;
+	-moz-box-shadow: none;
+	background-color: rgba(156, 190, 228, 0.31);
+}
+
 /*	################################################################
 	SITE WRAPS
 ################################################################# */
