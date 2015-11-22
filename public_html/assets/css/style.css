@@ -163,7 +163,10 @@ a:focus {
 	margin-top:10px;
 }
 
-.btn-outline:hover {
+.btn-outline:hover,
+.btn-outline:focus,
+.btn-outline:active,
+.btn-outline.active {
 	background-color: #fff;
 	color: #384452;
 }
