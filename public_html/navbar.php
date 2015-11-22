@@ -16,8 +16,8 @@
         </div>
         <div class="navbar-collapse collapse navbar-right">
             <ul class="nav navbar-nav">
-                <li class="active"><a href="index.html">HOME</a></li>
-                <li><a href="about.html">LINKS</a></li>
+                <li class="active"><a href="index.php">HOME</a></li>
+                <li><a href="posts.php">LINKS</a></li>
                 <li><a href="contact.html">SIGN IN</a></li>
                 <li class="dropdown">
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown">PERSON NAME <b class="caret"></b></a>
