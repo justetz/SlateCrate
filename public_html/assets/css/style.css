@@ -86,6 +86,10 @@ a:focus {
 	color: #384452 !important;
 }
 
+.text-rpi {
+	color: #da291c !important;
+}
+
 /*	################################################################
 	BOOTSTRAP MODIFICATIONS & TWEAKS
 ################################################################# */
@@ -149,6 +153,19 @@ a:focus {
   color: #fff;
   background-color: #00b3fe;
   border-color: #00b3fe;
+}
+
+.btn-outline {
+	background-color: transparent;
+	color: #fff;
+	transition: all .5s;
+	border-color: #fff;
+	margin-top:10px;
+}
+
+.btn-outline:hover {
+	background-color: #fff;
+	color: #384452;
 }
 
 .dmbutton:hover,
