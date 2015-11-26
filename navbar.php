@@ -9,7 +9,7 @@
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
             </button>
-            <a class="navbar-brand" href="index.html">
+            <a class="navbar-brand" href="index.php">
                 <span class="fa fa-th"></span>
                 SlateCrate
             </a>
@@ -18,12 +18,12 @@
             <ul class="nav navbar-nav">
                 <li class="active"><a href="index.php">HOME</a></li>
                 <li><a href="posts.php">LINKS</a></li>
-                <li><a href="contact.html">SIGN IN</a></li>
+                <li><a href="contact.php">SIGN IN</a></li>
                 <li class="dropdown">
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown">PERSON NAME <b class="caret"></b></a>
                     <ul class="dropdown-menu">
-                        <li><a href="single-project.html">ADD A LINK</a></li>
-                        <li><a href="single-project.html">SIGN OUT</a></li>
+                        <li><a href="single-project.php">ADD A LINK</a></li>
+                        <li><a href="single-project.php">SIGN OUT</a></li>
                     </ul>
                 </li>
             </ul>
