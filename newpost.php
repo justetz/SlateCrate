@@ -12,21 +12,13 @@ if (!phpCAS::isAuthenticated()) {
 <html lang="en">
 <?php require 'partials/head.partial.php'; ?>
 <body>
-<? require 'partials/navigation.partial.php'; ?>
+<?php
+require 'partials/navigation.partial.php';
 
-<!-- *****************************************************************************************************************
- BLUE WRAP
- ***************************************************************************************************************** -->
-<header id="blue">
-    <div class="container">
-        <div class="row">
-            <h3>Add a new link</h3>
-        </div>
-        <!-- /row -->
-    </div>
-    <!-- /container -->
-</header>
-<!-- /blue -->
+$pageHeader = "Add a new link";
+
+require 'partials/pageheader.partial.php';
+?>
 
 <div class="container mtb">
     <div class="row">

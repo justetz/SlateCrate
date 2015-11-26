@@ -13,7 +13,7 @@ require 'resources/rpiCAS.php';
 <html lang="en">
 <?php require 'partials/head.partial.php'; ?>
 <body>
-<? require 'partials/navigation.partial.php'; ?>
+<?php require 'partials/navigation.partial.php'; ?>
 <!-- *****************************************************************************************************************
  HEADERWRAP
  ***************************************************************************************************************** -->
@@ -27,7 +27,7 @@ require 'resources/rpiCAS.php';
                 if (phpCAS::isAuthenticated()) {
                     echo "<p><a class='btn btn-outline btn-lg' href='posts.php'>View posts</a></p>";
                 } else {
-                    echo "<p><a class='btn btn-outline btn-lg' href='login.php'>Sign up with RCS</a></p>";
+                    echo "<p><a class='btn btn-outline btn-lg' href='login.php'>Sign in with RCS</a></p>";
                 }
                 ?>
 
