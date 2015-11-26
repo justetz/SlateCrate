@@ -1,16 +1,12 @@
 <?php
 require 'resources/functions.php';
 require 'resources/config.php';
+require 'resources/rpiCAS.php';
 
 //$conn = connect($config['DB_HOST'], $config['DB_USERNAME'],
   //              $config['DB_PASSWORD'], 'slatecratedb');
 
 //$results = query('SELECT * FROM customers', $conn);
-
-
-include_once("resources/CAS.php");
-phpCAS::client(CAS_VERSION_2_0,'cas-auth.rpi.edu',443,'/cas/');
-phpCAS::setCasServerCACert("./CACert.pem");
 
 ?>
 <!DOCTYPE html>
@@ -27,7 +23,14 @@ phpCAS::setCasServerCACert("./CACert.pem");
             <div class="col-lg-8 col-lg-offset-2">
                 <h1>Find useful, online resources</h1>
                 <h3>A link database created by RPI students, for RPI students</h3>
-                <p><a class="btn btn-outline btn-lg">Sign up with CAS</a></p>
+                <?php
+                if (phpCAS::isAuthenticated()) {
+                    echo "<p><a class='btn btn-outline btn-lg' href='posts.php'>View posts</a></p>";
+                } else {
+                    echo "<p><a class='btn btn-outline btn-lg' href='login.php'>Sign up with RCS</a></p>";
+                }
+                ?>
+
             </div>
             <!--<div class="col-lg-8 col-lg-offset-2 himg">-->
             <!--<img src="assets/img/browser.png" class="img-responsive">-->

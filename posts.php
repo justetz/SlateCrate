@@ -1,3 +1,8 @@
+<?php
+require 'resources/functions.php';
+require 'resources/config.php';
+require 'resources/rpiCAS.php';
+?>
 <!DOCTYPE html>
 <html lang="en">
 <?php require 'partials/head.partial.php'; ?>
@@ -383,7 +388,7 @@
 </div>
 <! --/container -->
 
-<?php require '_footer.php'; ?>
+<?php require 'partials/footer.partial.php'; ?>
 
 
 
