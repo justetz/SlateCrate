@@ -230,11 +230,11 @@ a:focus {
 	margin-bottom: 25px;
 }
 
-.well {
+.well-hover {
 	transition: all .7s;
 }
 
-.well:hover {
+.well-hover:hover {
 	box-shadow: none;
 	-webkit-box-shadow: none;
 	-moz-box-shadow: none;

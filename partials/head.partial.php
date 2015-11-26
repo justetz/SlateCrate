@@ -7,6 +7,9 @@
             case "slatecrate":
                 echo "Home";
                 break;
+            case "newpost":
+                echo "New Post";
+                break;
             default:
                 echo ucfirst(basename($_SERVER['REQUEST_URI'], ".php"));
                 break;

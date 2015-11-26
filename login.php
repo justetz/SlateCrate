@@ -1,15 +1,14 @@
 <?php
 
-include_once("./resources/CAS.php");
-phpCAS::client(CAS_VERSION_2_0,'cas-auth.rpi.edu',443,'/cas/');
-// SSL!
-phpCAS::setCasServerCACert("./CACert.pem");//this is relative to the cas client.php file
+// Necessary phpCAS Setup files for RPI's system
+require 'resources/rpiCAS.php';
 
-if (!phpCAS::isAuthenticated())
-{
+if (!phpCAS::isAuthenticated()) {
+    // If they're not currently logged in, take them to the RPI CAS page
     phpCAS::forceAuthentication();
-}else{
-    header('location: ./index.php');
+} else{
+    // Otherwise, they don't need to be logged in, go to posts
+    header('location: ./posts.php');
 }
 
 ?>

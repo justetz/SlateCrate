@@ -12,7 +12,7 @@ require 'resources/rpiCAS.php';
 <!-- *****************************************************************************************************************
  BLUE WRAP
  ***************************************************************************************************************** -->
-<div id="blue">
+<header id="blue">
     <div class="container">
         <div class="row">
             <div class="btn-group pull-right">
@@ -26,7 +26,7 @@ require 'resources/rpiCAS.php';
         <!-- /row -->
     </div>
     <!-- /container -->
-</div>
+</header>
 <!-- /blue -->
 
 
@@ -39,7 +39,7 @@ require 'resources/rpiCAS.php';
         <div class="col-md-9">
             <div class="row">
                 <div class="col-md-4">
-                    <div class="well well-sm">
+                    <div class="well well-sm well-hover">
                         <h6 class="text-muted">Category</h6>
                         <h4><a href="">More About Our Agency</a></h4>
 
@@ -54,7 +54,7 @@ require 'resources/rpiCAS.php';
                     </div>
                 </div>
                 <div class="col-md-4">
-                    <div class="well well-sm">
+                    <div class="well well-sm well-hover">
                         <h6 class="text-muted">Category</h6>
                         <h4><a href="">More About Our Agency</a></h4>
 
@@ -69,7 +69,7 @@ require 'resources/rpiCAS.php';
                     </div>
                 </div>
                 <div class="col-md-4">
-                    <div class="well well-sm">
+                    <div class="well well-sm well-hover">
                         <h6 class="text-muted">Category</h6>
                         <h4><a href="">More About Our Agency</a></h4>
 
@@ -84,7 +84,7 @@ require 'resources/rpiCAS.php';
                     </div>
                 </div>
                 <div class="col-md-4">
-                    <div class="well well-sm">
+                    <div class="well well-sm well-hover">
                         <h6 class="text-muted">Category</h6>
                         <h4><a href="">More About Our Agency</a></h4>
 
@@ -99,7 +99,7 @@ require 'resources/rpiCAS.php';
                     </div>
                 </div>
                 <div class="col-md-4">
-                    <div class="well well-sm">
+                    <div class="well well-sm well-hover">
                         <h6 class="text-muted">Category</h6>
                         <h4><a href="">More About Our Agency</a></h4>
 
@@ -114,7 +114,7 @@ require 'resources/rpiCAS.php';
                     </div>
                 </div>
                 <div class="col-md-4">
-                    <div class="well well-sm">
+                    <div class="well well-sm well-hover">
                         <h6 class="text-muted">Category</h6>
                         <h4><a href="">More About Our Agency</a></h4>
 
@@ -129,7 +129,7 @@ require 'resources/rpiCAS.php';
                     </div>
                 </div>
                 <div class="col-md-4">
-                    <div class="well well-sm">
+                    <div class="well well-sm well-hover">
                         <h6 class="text-muted">Category</h6>
                         <h4><a href="">More About Our Agency</a></h4>
 
@@ -144,7 +144,7 @@ require 'resources/rpiCAS.php';
                     </div>
                 </div>
                 <div class="col-md-4">
-                    <div class="well well-sm">
+                    <div class="well well-sm well-hover">
                         <h6 class="text-muted">Category</h6>
                         <h4><a href="">More About Our Agency</a></h4>
 
@@ -159,7 +159,7 @@ require 'resources/rpiCAS.php';
                     </div>
                 </div>
                 <div class="col-md-4">
-                    <div class="well well-sm">
+                    <div class="well well-sm well-hover">
                         <h6 class="text-muted">Category</h6>
                         <h4><a href="">More About Our Agency</a></h4>
 
@@ -174,7 +174,7 @@ require 'resources/rpiCAS.php';
                     </div>
                 </div>
                 <div class="col-md-4">
-                    <div class="well well-sm">
+                    <div class="well well-sm well-hover">
                         <h6 class="text-muted">Category</h6>
                         <h4><a href="">More About Our Agency</a></h4>
 
@@ -189,7 +189,7 @@ require 'resources/rpiCAS.php';
                     </div>
                 </div>
                 <div class="col-md-4">
-                    <div class="well well-sm">
+                    <div class="well well-sm well-hover">
                         <h6 class="text-muted">Category</h6>
                         <h4><a href="">More About Our Agency</a></h4>
 
@@ -204,7 +204,7 @@ require 'resources/rpiCAS.php';
                     </div>
                 </div>
                 <div class="col-md-4">
-                    <div class="well well-sm">
+                    <div class="well well-sm well-hover">
                         <h6 class="text-muted">Category</h6>
                         <h4><a href="">More About Our Agency</a></h4>
 
@@ -219,7 +219,7 @@ require 'resources/rpiCAS.php';
                     </div>
                 </div>
                 <div class="col-md-4">
-                    <div class="well well-sm">
+                    <div class="well well-sm well-hover">
                         <h6 class="text-muted">Category</h6>
                         <h4><a href="">More About Our Agency</a></h4>
 
@@ -234,7 +234,7 @@ require 'resources/rpiCAS.php';
                     </div>
                 </div>
                 <div class="col-md-4">
-                    <div class="well well-sm">
+                    <div class="well well-sm well-hover">
                         <h6 class="text-muted">Category</h6>
                         <h4><a href="">More About Our Agency</a></h4>
 
@@ -249,7 +249,7 @@ require 'resources/rpiCAS.php';
                     </div>
                 </div>
                 <div class="col-md-4">
-                    <div class="well well-sm">
+                    <div class="well well-sm well-hover">
                         <h6 class="text-muted">Category</h6>
                         <h4><a href="">More About Our Agency</a></h4>
 
@@ -264,7 +264,7 @@ require 'resources/rpiCAS.php';
                     </div>
                 </div>
                 <div class="col-md-4">
-                    <div class="well well-sm">
+                    <div class="well well-sm well-hover">
                         <h6 class="text-muted">Category</h6>
                         <h4><a href="">More About Our Agency</a></h4>
 
@@ -279,7 +279,7 @@ require 'resources/rpiCAS.php';
                     </div>
                 </div>
                 <div class="col-md-4">
-                    <div class="well well-sm">
+                    <div class="well well-sm well-hover">
                         <h6 class="text-muted">Category</h6>
                         <h4><a href="">More About Our Agency</a></h4>
 
@@ -294,7 +294,7 @@ require 'resources/rpiCAS.php';
                     </div>
                 </div>
                 <div class="col-md-4">
-                    <div class="well well-sm">
+                    <div class="well well-sm well-hover">
                         <h6 class="text-muted">Category</h6>
                         <h4><a href="">More About Our Agency</a></h4>
 
@@ -309,7 +309,7 @@ require 'resources/rpiCAS.php';
                     </div>
                 </div>
                 <div class="col-md-4">
-                    <div class="well well-sm">
+                    <div class="well well-sm well-hover">
                         <h6 class="text-muted">Category</h6>
                         <h4><a href="">More About Our Agency</a></h4>
 
@@ -324,7 +324,7 @@ require 'resources/rpiCAS.php';
                     </div>
                 </div>
                 <div class="col-md-4">
-                    <div class="well well-sm">
+                    <div class="well well-sm well-hover">
                         <h6 class="text-muted">Category</h6>
                         <h4><a href="">More About Our Agency</a></h4>
 
@@ -339,7 +339,7 @@ require 'resources/rpiCAS.php';
                     </div>
                 </div>
                 <div class="col-md-4">
-                    <div class="well well-sm">
+                    <div class="well well-sm well-hover">
                         <h6 class="text-muted">Category</h6>
                         <h4><a href="">More About Our Agency</a></h4>
 
