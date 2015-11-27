@@ -1,7 +1,9 @@
 <?php
 require 'resources/functions.php';
-require 'resources/config.php';
+require '../config.php';
 require 'resources/rpiCAS.php';
+
+$conn = new PDO('mysql:host=localhost;dbname=slatecrate', $config['DB_USERNAME'], $config['DB_PASSWORD']);
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -23,322 +25,34 @@ require 'partials/pageheader.partial.php';
 <div class="container mtb">
     <div class="row">
         <div class="col-md-9">
-            <div class="row">
-                <div class="col-md-4">
-                    <div class="well well-sm well-hover">
-                        <h6 class="text-muted">Category</h6>
-                        <h4><a href="">More About Our Agency</a></h4>
+            <?php
+                try{
+                    $var = $conn->prepare("SELECT * FROM `categories` ORDER BY `title`");
+                    $var->execute();
 
-                        <p>Lorem Ipsum is simply dummy text of the printing
-                            and</p>
+                    $count = 0;
 
-                        <p class="text-muted small">
-                            <span class="pull-left">submitted by rcsId</span>
-                            <span class="pull-right">November 20, 2015</span>
-                            <span class="clearfix"></span>
-                        </p>
-                    </div>
-                </div>
-                <div class="col-md-4">
-                    <div class="well well-sm well-hover">
-                        <h6 class="text-muted">Category</h6>
-                        <h4><a href="">More About Our Agency</a></h4>
+                    echo "<div class='row'>";
+                    while($result = $var->fetch(PDO::FETCH_ASSOC)){
+                        echo "<div class='col-md-4'><div class='well well-sm well-hover'><h6 class='text-muted'>Category</h6><h4><a href=''>";
+                        echo $result["title"];
+                        echo "</a></h4><p>Contains ";
+                        echo $result["links"];
+                        echo " links.</p><p class='text-muted small'><span class='pull-left'>submitted by ";
+                        echo $result["user_id"];
+                        echo "</span><span class='pull-right'>";
+                        echo $result["creation_date"];
+                        echo "</span><span class='clearfix'></span></p></div></div>";
+                        $count++;
+                    }
 
-                        <p>Lorem Ipsum is simply dummy text of the printing
-                            and</p>
-
-                        <p class="text-muted small">
-                            <span class="pull-left">submitted by rcsId</span>
-                            <span class="pull-right">November 20, 2015</span>
-                            <span class="clearfix"></span>
-                        </p>
-                    </div>
-                </div>
-                <div class="col-md-4">
-                    <div class="well well-sm well-hover">
-                        <h6 class="text-muted">Category</h6>
-                        <h4><a href="">More About Our Agency</a></h4>
-
-                        <p>Lorem Ipsum is simply dummy text of the printing
-                            and</p>
-
-                        <p class="text-muted small">
-                            <span class="pull-left">submitted by rcsId</span>
-                            <span class="pull-right">November 20, 2015</span>
-                            <span class="clearfix"></span>
-                        </p>
-                    </div>
-                </div>
-                <div class="col-md-4">
-                    <div class="well well-sm well-hover">
-                        <h6 class="text-muted">Category</h6>
-                        <h4><a href="">More About Our Agency</a></h4>
-
-                        <p>Lorem Ipsum is simply dummy text of the printing
-                            and</p>
-
-                        <p class="text-muted small">
-                            <span class="pull-left">submitted by rcsId</span>
-                            <span class="pull-right">November 20, 2015</span>
-                            <span class="clearfix"></span>
-                        </p>
-                    </div>
-                </div>
-                <div class="col-md-4">
-                    <div class="well well-sm well-hover">
-                        <h6 class="text-muted">Category</h6>
-                        <h4><a href="">More About Our Agency</a></h4>
-
-                        <p>Lorem Ipsum is simply dummy text of the printing
-                            and</p>
-
-                        <p class="text-muted small">
-                            <span class="pull-left">submitted by rcsId</span>
-                            <span class="pull-right">November 20, 2015</span>
-                            <span class="clearfix"></span>
-                        </p>
-                    </div>
-                </div>
-                <div class="col-md-4">
-                    <div class="well well-sm well-hover">
-                        <h6 class="text-muted">Category</h6>
-                        <h4><a href="">More About Our Agency</a></h4>
-
-                        <p>Lorem Ipsum is simply dummy text of the printing
-                            and</p>
-
-                        <p class="text-muted small">
-                            <span class="pull-left">submitted by rcsId</span>
-                            <span class="pull-right">November 20, 2015</span>
-                            <span class="clearfix"></span>
-                        </p>
-                    </div>
-                </div>
-                <div class="col-md-4">
-                    <div class="well well-sm well-hover">
-                        <h6 class="text-muted">Category</h6>
-                        <h4><a href="">More About Our Agency</a></h4>
-
-                        <p>Lorem Ipsum is simply dummy text of the printing
-                            and</p>
-
-                        <p class="text-muted small">
-                            <span class="pull-left">submitted by rcsId</span>
-                            <span class="pull-right">November 20, 2015</span>
-                            <span class="clearfix"></span>
-                        </p>
-                    </div>
-                </div>
-                <div class="col-md-4">
-                    <div class="well well-sm well-hover">
-                        <h6 class="text-muted">Category</h6>
-                        <h4><a href="">More About Our Agency</a></h4>
-
-                        <p>Lorem Ipsum is simply dummy text of the printing
-                            and</p>
-
-                        <p class="text-muted small">
-                            <span class="pull-left">submitted by rcsId</span>
-                            <span class="pull-right">November 20, 2015</span>
-                            <span class="clearfix"></span>
-                        </p>
-                    </div>
-                </div>
-                <div class="col-md-4">
-                    <div class="well well-sm well-hover">
-                        <h6 class="text-muted">Category</h6>
-                        <h4><a href="">More About Our Agency</a></h4>
-
-                        <p>Lorem Ipsum is simply dummy text of the printing
-                            and</p>
-
-                        <p class="text-muted small">
-                            <span class="pull-left">submitted by rcsId</span>
-                            <span class="pull-right">November 20, 2015</span>
-                            <span class="clearfix"></span>
-                        </p>
-                    </div>
-                </div>
-                <div class="col-md-4">
-                    <div class="well well-sm well-hover">
-                        <h6 class="text-muted">Category</h6>
-                        <h4><a href="">More About Our Agency</a></h4>
-
-                        <p>Lorem Ipsum is simply dummy text of the printing
-                            and</p>
-
-                        <p class="text-muted small">
-                            <span class="pull-left">submitted by rcsId</span>
-                            <span class="pull-right">November 20, 2015</span>
-                            <span class="clearfix"></span>
-                        </p>
-                    </div>
-                </div>
-                <div class="col-md-4">
-                    <div class="well well-sm well-hover">
-                        <h6 class="text-muted">Category</h6>
-                        <h4><a href="">More About Our Agency</a></h4>
-
-                        <p>Lorem Ipsum is simply dummy text of the printing
-                            and</p>
-
-                        <p class="text-muted small">
-                            <span class="pull-left">submitted by rcsId</span>
-                            <span class="pull-right">November 20, 2015</span>
-                            <span class="clearfix"></span>
-                        </p>
-                    </div>
-                </div>
-                <div class="col-md-4">
-                    <div class="well well-sm well-hover">
-                        <h6 class="text-muted">Category</h6>
-                        <h4><a href="">More About Our Agency</a></h4>
-
-                        <p>Lorem Ipsum is simply dummy text of the printing
-                            and</p>
-
-                        <p class="text-muted small">
-                            <span class="pull-left">submitted by rcsId</span>
-                            <span class="pull-right">November 20, 2015</span>
-                            <span class="clearfix"></span>
-                        </p>
-                    </div>
-                </div>
-                <div class="col-md-4">
-                    <div class="well well-sm well-hover">
-                        <h6 class="text-muted">Category</h6>
-                        <h4><a href="">More About Our Agency</a></h4>
-
-                        <p>Lorem Ipsum is simply dummy text of the printing
-                            and</p>
-
-                        <p class="text-muted small">
-                            <span class="pull-left">submitted by rcsId</span>
-                            <span class="pull-right">November 20, 2015</span>
-                            <span class="clearfix"></span>
-                        </p>
-                    </div>
-                </div>
-                <div class="col-md-4">
-                    <div class="well well-sm well-hover">
-                        <h6 class="text-muted">Category</h6>
-                        <h4><a href="">More About Our Agency</a></h4>
-
-                        <p>Lorem Ipsum is simply dummy text of the printing
-                            and</p>
-
-                        <p class="text-muted small">
-                            <span class="pull-left">submitted by rcsId</span>
-                            <span class="pull-right">November 20, 2015</span>
-                            <span class="clearfix"></span>
-                        </p>
-                    </div>
-                </div>
-                <div class="col-md-4">
-                    <div class="well well-sm well-hover">
-                        <h6 class="text-muted">Category</h6>
-                        <h4><a href="">More About Our Agency</a></h4>
-
-                        <p>Lorem Ipsum is simply dummy text of the printing
-                            and</p>
-
-                        <p class="text-muted small">
-                            <span class="pull-left">submitted by rcsId</span>
-                            <span class="pull-right">November 20, 2015</span>
-                            <span class="clearfix"></span>
-                        </p>
-                    </div>
-                </div>
-                <div class="col-md-4">
-                    <div class="well well-sm well-hover">
-                        <h6 class="text-muted">Category</h6>
-                        <h4><a href="">More About Our Agency</a></h4>
-
-                        <p>Lorem Ipsum is simply dummy text of the printing
-                            and</p>
-
-                        <p class="text-muted small">
-                            <span class="pull-left">submitted by rcsId</span>
-                            <span class="pull-right">November 20, 2015</span>
-                            <span class="clearfix"></span>
-                        </p>
-                    </div>
-                </div>
-                <div class="col-md-4">
-                    <div class="well well-sm well-hover">
-                        <h6 class="text-muted">Category</h6>
-                        <h4><a href="">More About Our Agency</a></h4>
-
-                        <p>Lorem Ipsum is simply dummy text of the printing
-                            and</p>
-
-                        <p class="text-muted small">
-                            <span class="pull-left">submitted by rcsId</span>
-                            <span class="pull-right">November 20, 2015</span>
-                            <span class="clearfix"></span>
-                        </p>
-                    </div>
-                </div>
-                <div class="col-md-4">
-                    <div class="well well-sm well-hover">
-                        <h6 class="text-muted">Category</h6>
-                        <h4><a href="">More About Our Agency</a></h4>
-
-                        <p>Lorem Ipsum is simply dummy text of the printing
-                            and</p>
-
-                        <p class="text-muted small">
-                            <span class="pull-left">submitted by rcsId</span>
-                            <span class="pull-right">November 20, 2015</span>
-                            <span class="clearfix"></span>
-                        </p>
-                    </div>
-                </div>
-                <div class="col-md-4">
-                    <div class="well well-sm well-hover">
-                        <h6 class="text-muted">Category</h6>
-                        <h4><a href="">More About Our Agency</a></h4>
-
-                        <p>Lorem Ipsum is simply dummy text of the printing
-                            and</p>
-
-                        <p class="text-muted small">
-                            <span class="pull-left">submitted by rcsId</span>
-                            <span class="pull-right">November 20, 2015</span>
-                            <span class="clearfix"></span>
-                        </p>
-                    </div>
-                </div>
-                <div class="col-md-4">
-                    <div class="well well-sm well-hover">
-                        <h6 class="text-muted">Category</h6>
-                        <h4><a href="">More About Our Agency</a></h4>
-
-                        <p>Lorem Ipsum is simply dummy text of the printing
-                            and</p>
-
-                        <p class="text-muted small">
-                            <span class="pull-left">submitted by rcsId</span>
-                            <span class="pull-right">November 20, 2015</span>
-                            <span class="clearfix"></span>
-                        </p>
-                    </div>
-                </div>
-                <div class="col-md-4">
-                    <div class="well well-sm well-hover">
-                        <h6 class="text-muted">Category</h6>
-                        <h4><a href="">More About Our Agency</a></h4>
-
-                        <p>Lorem Ipsum is simply dummy text of the printing
-                            and</p>
-
-                        <p class="text-muted small">
-                            <span class="pull-left">submitted by rcsId</span>
-                            <span class="pull-right">November 20, 2015</span>
-                            <span class="clearfix"></span>
-                        </p>
-                    </div>
-                </div>
+                    if($count == 0){
+                        echo "No classes. You should add one.";
+                    }else{
+                        echo "Found $count classes";
+                    }
+                }catch(PDOException $e){ echo $e; }
+            ?>
                 <div class="col-xs-12 centered">
                     <div class="btn-group">
                         <a href="" class="btn btn-primary">1</a>
@@ -370,9 +84,9 @@ require 'partials/pageheader.partial.php';
             </ul>
         </div>
     </div>
-    <! --/row -->
+    <!--/row -->
 </div>
-<! --/container -->
+<!--/container -->
 
 <?php require 'partials/footer.partial.php'; ?>
 

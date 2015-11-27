@@ -44,7 +44,10 @@ DROP TABLE IF EXISTS `slatecrate`.`categories` ;
 CREATE TABLE IF NOT EXISTS `slatecrate`.`categories` (
   `category_id` INT NOT NULL AUTO_INCREMENT COMMENT '',
   `title` VARCHAR(50) NOT NULL COMMENT '',
-  `slug` VARCHAR(50) NOT NULL COMMENT '',
+  `links` INT(3) NOT NULL DEFAULT 0 COMMENT '',
+  `prefix` INT(2) NOT NULL COMMENT '',
+  `prefix_char` VARCHAR(4) NOT NULL COMMENT '',
+--`slug` VARCHAR(50) NOT NULL COMMENT '',
   `user_id` VARCHAR(50) NOT NULL COMMENT '',
   `creation_date` DATETIME NOT NULL COMMENT '',
   PRIMARY KEY (`category_id`)  COMMENT '',
