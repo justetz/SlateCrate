@@ -51,6 +51,7 @@ require 'partials/pageheader.partial.php';
                     }else{
                         echo "Found $count classes";
                     }
+                    echo "<a href='addClass.php'>Add a class</a>";
                 }catch(PDOException $e){ echo $e; }
             ?>
                 <div class="col-xs-12 centered">

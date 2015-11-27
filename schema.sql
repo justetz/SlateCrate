@@ -18,23 +18,6 @@ DROP SCHEMA IF EXISTS `slatecrate` ;
 CREATE SCHEMA IF NOT EXISTS `slatecrate` DEFAULT CHARACTER SET utf8 COLLATE utf8_general_ci ;
 USE `slatecrate` ;
 
--- -----------------------------------------------------
--- Table `slatecrate`.`users`
--- -----------------------------------------------------
-DROP TABLE IF EXISTS `slatecrate`.`users` ;
-
-CREATE TABLE IF NOT EXISTS `slatecrate`.`users` (
-  `user_id` VARCHAR(50) NOT NULL COMMENT '',
-  `password` VARCHAR(50) NOT NULL COMMENT '',
-  `first_name` VARCHAR(50) NOT NULL COMMENT '',
-  `last_name` VARCHAR(50) NOT NULL COMMENT '',
-  `rcs_id` VARCHAR(32) NOT NULL COMMENT '',
-  `creation_date` DATETIME NOT NULL COMMENT '',
-  `is_admin` TINYINT(1) NOT NULL DEFAULT 0 COMMENT '',
-  `email` VARCHAR(50) NOT NULL COMMENT '',
-  PRIMARY KEY (`user_id`)  COMMENT '')
-ENGINE = InnoDB;
-
 
 -- -----------------------------------------------------
 -- Table `slatecrate`.`categories`
@@ -45,18 +28,11 @@ CREATE TABLE IF NOT EXISTS `slatecrate`.`categories` (
   `category_id` INT NOT NULL AUTO_INCREMENT COMMENT '',
   `title` VARCHAR(50) NOT NULL COMMENT '',
   `links` INT(3) NOT NULL DEFAULT 0 COMMENT '',
-  `prefix` INT(2) NOT NULL COMMENT '',
-  `prefix_char` VARCHAR(4) NOT NULL COMMENT '',
---`slug` VARCHAR(50) NOT NULL COMMENT '',
+  `prefix` VARCHAR(4) NOT NULL COMMENT '',
   `user_id` VARCHAR(50) NOT NULL COMMENT '',
   `creation_date` DATETIME NOT NULL COMMENT '',
   PRIMARY KEY (`category_id`)  COMMENT '',
-  INDEX `CATEGORIES_FK1_idx` (`user_id` ASC)  COMMENT '',
-  CONSTRAINT `CATEGORIES_FK1`
-    FOREIGN KEY (`user_id`)
-    REFERENCES `slatecrate`.`users` (`user_id`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION)
+  INDEX `CATEGORIES_FK1_idx` (`user_id` ASC)  COMMENT '')
 ENGINE = InnoDB;
 
 
