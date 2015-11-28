@@ -41,44 +41,44 @@ require 'partials/pageheader.partial.php';
                         </label>
 
                         <div class="col-sm-9">
-                            <select id="inputCategory" class="form-control">
-                                <option>ARCH</option>
-                                <option>ARTS</option>
-                                <option>ASTR</option>
-                                <option>BCBP</option>
-                                <option>BIOL</option>
-                                <option>BMED</option>
-                                <option>CHEM</option>
-                                <option>CISH</option>
-                                <option>CSCI</option>
-                                <option>DSES</option>
-                                <option>ECON</option>
-                                <option>ECSE</option>
-                                <option>ENGR</option>
-                                <option>ENVE</option>
-                                <option>ERTH</option>
-                                <option>ESCE</option>
-                                <option>IENV</option>
-                                <option>IHSS</option>
-                                <option>ISCI</option>
-                                <option>ITEC</option>
-                                <option>LANG</option>
-                                <option>LGHT</option>
-                                <option>LITR</option>
-                                <option>MANE</option>
-                                <option>MATH</option>
-                                <option>MATP</option>
-                                <option>MGMT</option>
-                                <option>MTLE</option>
-                                <option>PHIL</option>
-                                <option>PHYS</option>
-                                <option>PSYC</option>
-                                <option>STSH</option>
-                                <option>STSS</option>
-                                <option>USAF</option>
-                                <option>USAR</option>
-                                <option>USNA</option>
-                                <option>WRIT</option>
+                            <select id="inputCategory" class="form-control" name="inputCategory">
+                                <option value='ARCH'>ARCH</option>
+                                <option value='ARTS'>ARTS</option>
+                                <option value='ASTR'>ASTR</option>
+                                <option value='BCBP'>BCBP</option>
+                                <option value='BIOL'>BIOL</option>
+                                <option value='BMED'>BMED</option>
+                                <option value='CHEM'>CHEM</option>
+                                <option value='CISH'>CISH</option>
+                                <option value='CSCI'>CSCI</option>
+                                <option value='DSES'>DSES</option>
+                                <option value='ECON'>ECON</option>
+                                <option value='ECSE'>ECSE</option>
+                                <option value='ENGR'>ENGR</option>
+                                <option value='ENVE'>ENVE</option>
+                                <option value='ERTH'>ERTH</option>
+                                <option value='ESCE'>ESCE</option>
+                                <option value='IENV'>IENV</option>
+                                <option value='IHSS'>IHSS</option>
+                                <option value='ISCI'>ISCI</option>
+                                <option value='ITEC'>ITEC</option>
+                                <option value='LANG'>LANG</option>
+                                <option value='LGHT'>LGHT</option>
+                                <option value='LITR'>LITR</option>
+                                <option value='MANE'>MANE</option>
+                                <option value='MATH'>MATH</option>
+                                <option value='MATP'>MATP</option>
+                                <option value='MGMT'>MGMT</option>
+                                <option value='MTLE'>MTLE</option>
+                                <option value='PHIL'>PHIL</option>
+                                <option value='PHYS'>PHYS</option>
+                                <option value='PSYC'>PSYC</option>
+                                <option value='STSH'>STSH</option>
+                                <option value='STSS'>STSS</option>
+                                <option value='USAF'>USAF</option>
+                                <option value='USAR'>USAR</option>
+                                <option value='USNA'>USNA</option>
+                                <option value='WRIT'>WRIT</option>
                             </select>
                             <p class="help-block">Note: Spam links will be deleted.</p>
                         </div>
