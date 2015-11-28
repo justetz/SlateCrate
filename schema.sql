@@ -29,7 +29,7 @@ CREATE TABLE IF NOT EXISTS `slatecrate`.`categories` (
   `title` VARCHAR(50) NOT NULL COMMENT '',
   `links` INT(3) NOT NULL DEFAULT 0 COMMENT '',
   `prefix` VARCHAR(4) NOT NULL COMMENT '',
-  `user_id` VARCHAR(50) NOT NULL COMMENT '',
+  `rcs_id` VARCHAR(20) NOT NULL COMMENT '',
   `creation_date` DATETIME NOT NULL COMMENT '',
   PRIMARY KEY (`category_id`)  COMMENT '',
   INDEX `CATEGORIES_FK1_idx` (`user_id` ASC)  COMMENT '')
@@ -44,19 +44,13 @@ DROP TABLE IF EXISTS `slatecrate`.`links` ;
 CREATE TABLE IF NOT EXISTS `slatecrate`.`links` (
   `link_id` INT NOT NULL AUTO_INCREMENT COMMENT '',
   `link` VARCHAR(2000) NOT NULL COMMENT '',
-  `user_id` VARCHAR(50) NOT NULL COMMENT '',
+  `rcs_id` VARCHAR(20) NOT NULL COMMENT '',
   `creation_date` DATETIME NOT NULL COMMENT '',
   `title` VARCHAR(200) NOT NULL COMMENT '',
   `category_id` INT NOT NULL COMMENT '',
   PRIMARY KEY (`link_id`)  COMMENT '',
-  INDEX `LINKS_FK1_idx` (`user_id` ASC)  COMMENT '',
   INDEX `LINKS_FK2_idx` (`category_id` ASC)  COMMENT '',
   CONSTRAINT `LINKS_FK1`
-    FOREIGN KEY (`user_id`)
-    REFERENCES `slatecrate`.`users` (`user_id`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION,
-  CONSTRAINT `LINKS_FK2`
     FOREIGN KEY (`category_id`)
     REFERENCES `slatecrate`.`categories` (`category_id`)
     ON DELETE NO ACTION
