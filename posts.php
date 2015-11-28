@@ -1,6 +1,6 @@
 <?php
 require 'resources/functions.php';
-require '../config.php';
+require 'resources/config.php';
 require 'resources/rpiCAS.php';
 
 $conn = new PDO('mysql:host=localhost;dbname=slatecrate', $config['DB_USERNAME'], $config['DB_PASSWORD']);
