@@ -69,19 +69,43 @@ require 'partials/pageheader.partial.php';
         <div class="col-md-3">
             <ul class="nav nav-pills nav-stacked">
                 <li role="presentation" class="active"><a href="">All Links</a></li>
-                <li role="presentation"><a href="">Computer Science</a></li>
-                <li role="presentation"><a href="">Information Technology & Web
-                        Science</a></li>
-                <li role="presentation"><a href="">Electrical Engineering</a>
-                </li>
-                <li role="presentation"><a href="">Games Simulation Arts &
-                        Sciences</a></li>
-                <li role="presentation"><a href="">Computer and Systems
-                        Engineering</a></li>
-                <li role="presentation"><a href="">Economics</a></li>
-                <li role="presentation"><a href="">Test</a></li>
-                <li role="presentation"><a href="">Test</a></li>
-                <li role="presentation"><a href="">Test</a></li>
+                <li role="presentation" class="active"><a href="">ARCH</a></li>
+                <li role="presentation" class="active"><a href="">ARTS</a></li>
+                <li role="presentation" class="active"><a href="">ASTR</a></li>
+                <li role="presentation" class="active"><a href="">BCBP</a></li>
+                <li role="presentation" class="active"><a href="">BIOL</a></li>
+                <li role="presentation" class="active"><a href="">BMED</a></li>
+                <li role="presentation" class="active"><a href="">CHEM</a></li>
+                <li role="presentation" class="active"><a href="">CISH</a></li>
+                <li role="presentation" class="active"><a href="">CSCI</a></li>
+                <li role="presentation" class="active"><a href="">DSES</a></li>
+                <li role="presentation" class="active"><a href="">ECON</a></li>
+                <li role="presentation" class="active"><a href="">ECSE</a></li>
+                <li role="presentation" class="active"><a href="">ENGR</a></li>
+                <li role="presentation" class="active"><a href="">ENVE</a></li>
+                <li role="presentation" class="active"><a href="">ERTH</a></li>
+                <li role="presentation" class="active"><a href="">ESCE</a></li>
+                <li role="presentation" class="active"><a href="">IENV</a></li>
+                <li role="presentation" class="active"><a href="">IHSS</a></li>
+                <li role="presentation" class="active"><a href="">ISCI</a></li>
+                <li role="presentation" class="active"><a href="">ITEC</a></li>
+                <li role="presentation" class="active"><a href="">LANG</a></li>
+                <li role="presentation" class="active"><a href="">LGHT</a></li>
+                <li role="presentation" class="active"><a href="">LITR</a></li>
+                <li role="presentation" class="active"><a href="">MANE</a></li>
+                <li role="presentation" class="active"><a href="">MATH</a></li>
+                <li role="presentation" class="active"><a href="">MATP</a></li>
+                <li role="presentation" class="active"><a href="">MGMT</a></li>
+                <li role="presentation" class="active"><a href="">MTLE</a></li>
+                <li role="presentation" class="active"><a href="">PHIL</a></li>
+                <li role="presentation" class="active"><a href="">PHYS</a></li>
+                <li role="presentation" class="active"><a href="">PSYC</a></li>
+                <li role="presentation" class="active"><a href="">STSH</a></li>
+                <li role="presentation" class="active"><a href="">STSS</a></li>
+                <li role="presentation" class="active"><a href="">USAF</a></li>
+                <li role="presentation" class="active"><a href="">USAR</a></li>
+                <li role="presentation" class="active"><a href="">USNA</a></li>
+                <li role="presentation" class="active"><a href="">WRIT</a></li>
             </ul>
         </div>
     </div>

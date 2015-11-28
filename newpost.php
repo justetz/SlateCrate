@@ -62,15 +62,43 @@ require 'partials/pageheader.partial.php';
 
                         <div class="col-sm-9">
                             <select id="inputCategory" class="form-control">
-                                <option>Computer Science</option>
-                                <option>Information Technology & Web
-                                        Science</option>
-                                <option>Electrical Engineering</option>
-                                <option>Games Simulation Arts &
-                                        Sciences</option>
-                                <option>Computer and Systems
-                                        Engineering</option>
-                                <option>Economics</option>
+                                <option value='ARCH'>ARCH</option>
+                                <option value='ARTS'>ARTS</option>
+                                <option value='ASTR'>ASTR</option>
+                                <option value='BCBP'>BCBP</option>
+                                <option value='BIOL'>BIOL</option>
+                                <option value='BMED'>BMED</option>
+                                <option value='CHEM'>CHEM</option>
+                                <option value='CISH'>CISH</option>
+                                <option value='CSCI'>CSCI</option>
+                                <option value='DSES'>DSES</option>
+                                <option value='ECON'>ECON</option>
+                                <option value='ECSE'>ECSE</option>
+                                <option value='ENGR'>ENGR</option>
+                                <option value='ENVE'>ENVE</option>
+                                <option value='ERTH'>ERTH</option>
+                                <option value='ESCE'>ESCE</option>
+                                <option value='IENV'>IENV</option>
+                                <option value='IHSS'>IHSS</option>
+                                <option value='ISCI'>ISCI</option>
+                                <option value='ITEC'>ITEC</option>
+                                <option value='LANG'>LANG</option>
+                                <option value='LGHT'>LGHT</option>
+                                <option value='LITR'>LITR</option>
+                                <option value='MANE'>MANE</option>
+                                <option value='MATH'>MATH</option>
+                                <option value='MATP'>MATP</option>
+                                <option value='MGMT'>MGMT</option>
+                                <option value='MTLE'>MTLE</option>
+                                <option value='PHIL'>PHIL</option>
+                                <option value='PHYS'>PHYS</option>
+                                <option value='PSYC'>PSYC</option>
+                                <option value='STSH'>STSH</option>
+                                <option value='STSS'>STSS</option>
+                                <option value='USAF'>USAF</option>
+                                <option value='USAR'>USAR</option>
+                                <option value='USNA'>USNA</option>
+                                <option value='WRIT'>WRIT</option>
                             </select>
                             <p class="help-block">Note: Spam links will be deleted.</p>
                         </div>
