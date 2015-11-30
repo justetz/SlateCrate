@@ -15,6 +15,20 @@ require 'partials/navigation.partial.php';
 $pageHeader = "Links";
 
 require 'partials/pageheader.partial.php';
+
+//add class if we need to
+if(isset($_POST["className"])){
+    try{
+        $string = "'" . $_POST["className"] . "', '" . $_POST["inputCategory"] . "', '" . $_POST["user"] . "', " . "CURDATE()";
+
+        $conn->query("INSERT INTO `categories` (`title`, `prefix`, `rcs_id`, `creation_date`)
+            VALUES (" . $string . ");");
+
+        echo "<p>Class added!</p>";
+    }catch(PDOException $e){
+        echo $e;
+    }
+}
 ?>
 
 
@@ -27,22 +41,29 @@ require 'partials/pageheader.partial.php';
         <div class="col-md-9">
             <?php
                 try{
-                    $var = $conn->prepare("SELECT * FROM `categories` ORDER BY `title`");
+                    if(isset($_GET["prefix"])){
+                        $p = "'" . $_GET["prefix"] . "'";
+                        $var = $conn->prepare("SELECT * FROM `categories` WHERE `prefix` = $p ORDER BY `title`");
+                    }else{ $var = $conn->prepare("SELECT * FROM `categories` ORDER BY `title`"); }
                     $var->execute();
 
                     $count = 0;
 
                     echo "<div class='row'>";
                     while($result = $var->fetch(PDO::FETCH_ASSOC)){
-                        echo "<div class='col-md-4'><div class='well well-sm well-hover'><h6 class='text-muted'>Category</h6><h4><a href=''>";
+                        echo "<a href='links.php?class=";
+                        echo $result["category_id"];
+                        echo "''><div class='col-md-4'><div class='well well-sm well-hover'><h6 class='text-muted'>";
+                        echo $result["prefix"];
+                        echo "</h6><h4>";
                         echo $result["title"];
-                        echo "</a></h4><p>Contains ";
+                        echo "</h4><p>Contains ";
                         echo $result["links"];
                         echo " links.</p><p class='text-muted small'><span class='pull-left'>submitted by ";
-                        echo $result["user_id"];
+                        echo $result["rcs_id"];
                         echo "</span><span class='pull-right'>";
                         echo $result["creation_date"];
-                        echo "</span><span class='clearfix'></span></p></div></div>";
+                        echo "</span><span class='clearfix'></span></p></div></div></a>";
                         $count++;
                     }
 
@@ -68,44 +89,44 @@ require 'partials/pageheader.partial.php';
         </div>
         <div class="col-md-3">
             <ul class="nav nav-pills nav-stacked">
-                <li role="presentation" class="active"><a href="">All Links</a></li>
-                <li role="presentation" class="active"><a href="">ARCH</a></li>
-                <li role="presentation" class="active"><a href="">ARTS</a></li>
-                <li role="presentation" class="active"><a href="">ASTR</a></li>
-                <li role="presentation" class="active"><a href="">BCBP</a></li>
-                <li role="presentation" class="active"><a href="">BIOL</a></li>
-                <li role="presentation" class="active"><a href="">BMED</a></li>
-                <li role="presentation" class="active"><a href="">CHEM</a></li>
-                <li role="presentation" class="active"><a href="">CISH</a></li>
-                <li role="presentation" class="active"><a href="">CSCI</a></li>
-                <li role="presentation" class="active"><a href="">DSES</a></li>
-                <li role="presentation" class="active"><a href="">ECON</a></li>
-                <li role="presentation" class="active"><a href="">ECSE</a></li>
-                <li role="presentation" class="active"><a href="">ENGR</a></li>
-                <li role="presentation" class="active"><a href="">ENVE</a></li>
-                <li role="presentation" class="active"><a href="">ERTH</a></li>
-                <li role="presentation" class="active"><a href="">ESCE</a></li>
-                <li role="presentation" class="active"><a href="">IENV</a></li>
-                <li role="presentation" class="active"><a href="">IHSS</a></li>
-                <li role="presentation" class="active"><a href="">ISCI</a></li>
-                <li role="presentation" class="active"><a href="">ITEC</a></li>
-                <li role="presentation" class="active"><a href="">LANG</a></li>
-                <li role="presentation" class="active"><a href="">LGHT</a></li>
-                <li role="presentation" class="active"><a href="">LITR</a></li>
-                <li role="presentation" class="active"><a href="">MANE</a></li>
-                <li role="presentation" class="active"><a href="">MATH</a></li>
-                <li role="presentation" class="active"><a href="">MATP</a></li>
-                <li role="presentation" class="active"><a href="">MGMT</a></li>
-                <li role="presentation" class="active"><a href="">MTLE</a></li>
-                <li role="presentation" class="active"><a href="">PHIL</a></li>
-                <li role="presentation" class="active"><a href="">PHYS</a></li>
-                <li role="presentation" class="active"><a href="">PSYC</a></li>
-                <li role="presentation" class="active"><a href="">STSH</a></li>
-                <li role="presentation" class="active"><a href="">STSS</a></li>
-                <li role="presentation" class="active"><a href="">USAF</a></li>
-                <li role="presentation" class="active"><a href="">USAR</a></li>
-                <li role="presentation" class="active"><a href="">USNA</a></li>
-                <li role="presentation" class="active"><a href="">WRIT</a></li>
+                <li role="presentation" class="active"><a href="?">All Links</a></li>
+                <li role="presentation" class="active"><a href="?prefix=ARCH">ARCH</a></li>
+                <li role="presentation" class="active"><a href="?prefix=ARTS">ARTS</a></li>
+                <li role="presentation" class="active"><a href="?prefix=ASTR">ASTR</a></li>
+                <li role="presentation" class="active"><a href="?prefix=BCBP">BCBP</a></li>
+                <li role="presentation" class="active"><a href="?prefix=BIOL">BIOL</a></li>
+                <li role="presentation" class="active"><a href="?prefix=BMED">BMED</a></li>
+                <li role="presentation" class="active"><a href="?prefix=CHEM">CHEM</a></li>
+                <li role="presentation" class="active"><a href="?prefix=CISH">CISH</a></li>
+                <li role="presentation" class="active"><a href="?prefix=CSCI">CSCI</a></li>
+                <li role="presentation" class="active"><a href="?prefix=DSES">DSES</a></li>
+                <li role="presentation" class="active"><a href="?prefix=ECON">ECON</a></li>
+                <li role="presentation" class="active"><a href="?prefix=ECSE">ECSE</a></li>
+                <li role="presentation" class="active"><a href="?prefix=ENGR">ENGR</a></li>
+                <li role="presentation" class="active"><a href="?prefix=ENVE">ENVE</a></li>
+                <li role="presentation" class="active"><a href="?prefix=ERTH">ERTH</a></li>
+                <li role="presentation" class="active"><a href="?prefix=ESCE">ESCE</a></li>
+                <li role="presentation" class="active"><a href="?prefix=IENV">IENV</a></li>
+                <li role="presentation" class="active"><a href="?prefix=IHSS">IHSS</a></li>
+                <li role="presentation" class="active"><a href="?prefix=ISCI">ISCI</a></li>
+                <li role="presentation" class="active"><a href="?prefix=ITEC">ITEC</a></li>
+                <li role="presentation" class="active"><a href="?prefix=LANG">LANG</a></li>
+                <li role="presentation" class="active"><a href="?prefix=LGHT">LGHT</a></li>
+                <li role="presentation" class="active"><a href="?prefix=LITR">LITR</a></li>
+                <li role="presentation" class="active"><a href="?prefix=MANE">MANE</a></li>
+                <li role="presentation" class="active"><a href="?prefix=MATH">MATH</a></li>
+                <li role="presentation" class="active"><a href="?prefix=MATP">MATP</a></li>
+                <li role="presentation" class="active"><a href="?prefix=MGMT">MGMT</a></li>
+                <li role="presentation" class="active"><a href="?prefix=MTLE">MTLE</a></li>
+                <li role="presentation" class="active"><a href="?prefix=PHIL">PHIL</a></li>
+                <li role="presentation" class="active"><a href="?prefix=PHYS">PHYS</a></li>
+                <li role="presentation" class="active"><a href="?prefix=PSYCH">PSYC</a></li>
+                <li role="presentation" class="active"><a href="?prefix=STSH">STSH</a></li>
+                <li role="presentation" class="active"><a href="?prefix=STSS">STSS</a></li>
+                <li role="presentation" class="active"><a href="?prefix=USAF">USAF</a></li>
+                <li role="presentation" class="active"><a href="?prefix=USAR">USAR</a></li>
+                <li role="presentation" class="active"><a href="?prefix=USNA">USNA</a></li>
+                <li role="presentation" class="active"><a href="?prefix=WRIT">WRIT</a></li>
             </ul>
         </div>
     </div>
