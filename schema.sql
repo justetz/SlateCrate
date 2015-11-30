@@ -32,7 +32,7 @@ CREATE TABLE IF NOT EXISTS `slatecrate`.`categories` (
   `rcs_id` VARCHAR(20) NOT NULL COMMENT '',
   `creation_date` DATETIME NOT NULL COMMENT '',
   PRIMARY KEY (`category_id`)  COMMENT '',
-  INDEX `CATEGORIES_FK1_idx` (`user_id` ASC)  COMMENT '')
+  INDEX `CATEGORIES_FK1_idx` (`rcs_id` ASC)  COMMENT '')
 ENGINE = InnoDB;
 
 
