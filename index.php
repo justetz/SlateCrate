@@ -75,9 +75,9 @@ require 'resources/rpiCAS.php';
             </div>
         </div>
     </div>
-    <! --/container -->
+    <!--/container -->
 </div>
-<! --/service -->
+<!--/service -->
 
 <?php require 'partials/footer.partial.php'; ?>
 

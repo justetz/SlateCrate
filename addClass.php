@@ -24,7 +24,7 @@ require 'partials/pageheader.partial.php';
     <div class="row">
         <div class="col-md-6 col-md-offset-3 col-sm-12 col-sm-offset-0">
             <div class="well well-lg">
-                <form method="post" action="resources/executeClass.php" class="form-horizontal">
+                <form method="post" action="posts.php" class="form-horizontal">
                     <div class="form-group">
                         <label for="className" class="col-sm-3 control-label">
                             Class Name
@@ -85,7 +85,7 @@ require 'partials/pageheader.partial.php';
                     </div>
                     <div class="form-group">
                         <div class="col-xs-12">
-                            <button type="submit" class="btn btn-primary pull-right">
+                            <button type="submit" class="btn btn-primary pull-right" name="user" value=<?php echo "'" . phpCAS::getUser() . "'"; ?> >
                                 Submit
                             </button>
                         </div>
