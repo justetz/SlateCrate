@@ -85,7 +85,7 @@ require 'partials/pageheader.partial.php';
                     </div>
                     <div class="form-group">
                         <div class="col-xs-12">
-                            <button type="submit" class="btn btn-primary pull-right">
+                            <button type="submit" class="btn btn-primary pull-right" name="user" value=<?php echo "'" . phpCAS::getUser() . "'"; ?> >
                                 Submit
                             </button>
                         </div>

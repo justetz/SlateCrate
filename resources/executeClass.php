@@ -1,12 +1,15 @@
 <?php
 	require 'rpiCAS.php';
-	require '../../config.php';
+	require 'config.php';
 
+	try{
     $conn = new PDO('mysql:host=localhost;dbname=slatecrate', $config['DB_USERNAME'], $config['DB_PASSWORD']);
 
-    $string = $_POST["className"] . ", " . $_POST["inputCategory"] . ", " . phpCAS::getUser() + ", ";
+    $string = "'" . $_POST["className"] . "', '" . $_POST["inputCategory"] . "', '" . $_POST["user"] . "', " . "CURDATE()";
 
     $conn->query("INSERT INTO `categories` (`title`, `prefix`, `user_id`, `creation_date`)
-    	VALUES (" . $string . "CURDATE());");
-
+    	VALUES (" . $string . ");");
+	}catch(PDOException $e){
+        echo $e;
+    }
 ?>
