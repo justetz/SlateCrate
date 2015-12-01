@@ -19,6 +19,20 @@ require 'partials/navigation.partial.php';
 
 $pageHeader = "Links";
 
+/**
+ * Checks the provided prefix and returns the needed HTML code to mark the list
+ * item as active, only if there is a prefix passed to the page and it matches
+ * the parameter
+ * @param  string $prefix the prefix to check
+ * @return boolean        whether or not it matches
+ */
+function determineIfActive($prefix) {
+	if(isset($_GET["prefix"]) && $_GET["prefix"] == $prefix) {
+		return "class='active'";
+	}
+	return "";
+}
+
 require 'partials/pageheader.partial.php';
 
 //add class if we need to
@@ -95,10 +109,7 @@ if(isset($_POST["delete"])){
 
                     if($count == 0){
                         echo "No classes. You should add one.";
-                    }else{
-                        echo "Found $count classes";
                     }
-                    echo "<a href='addClass.php'>Add a class</a>";
                 }catch(PDOException $e){ echo $e; }
             ?>
                 <div class="col-xs-12 centered">
@@ -114,45 +125,35 @@ if(isset($_POST["delete"])){
             </div>
         </div>
         <div class="col-md-3">
-            <ul class="nav nav-pills nav-stacked">
-                <li role="presentation" class="active"><a href="?">All Classes</a></li>
-                <li role="presentation" class="active"><a href="?prefix=ARCH">ARCH</a></li>
-                <li role="presentation" class="active"><a href="?prefix=ARTS">ARTS</a></li>
-                <li role="presentation" class="active"><a href="?prefix=ASTR">ASTR</a></li>
-                <li role="presentation" class="active"><a href="?prefix=BCBP">BCBP</a></li>
-                <li role="presentation" class="active"><a href="?prefix=BIOL">BIOL</a></li>
-                <li role="presentation" class="active"><a href="?prefix=BMED">BMED</a></li>
-                <li role="presentation" class="active"><a href="?prefix=CHEM">CHEM</a></li>
-                <li role="presentation" class="active"><a href="?prefix=CISH">CISH</a></li>
-                <li role="presentation" class="active"><a href="?prefix=CSCI">CSCI</a></li>
-                <li role="presentation" class="active"><a href="?prefix=DSES">DSES</a></li>
-                <li role="presentation" class="active"><a href="?prefix=ECON">ECON</a></li>
-                <li role="presentation" class="active"><a href="?prefix=ECSE">ECSE</a></li>
-                <li role="presentation" class="active"><a href="?prefix=ENGR">ENGR</a></li>
-                <li role="presentation" class="active"><a href="?prefix=ENVE">ENVE</a></li>
-                <li role="presentation" class="active"><a href="?prefix=ERTH">ERTH</a></li>
-                <li role="presentation" class="active"><a href="?prefix=ESCE">ESCE</a></li>
-                <li role="presentation" class="active"><a href="?prefix=IENV">IENV</a></li>
-                <li role="presentation" class="active"><a href="?prefix=IHSS">IHSS</a></li>
-                <li role="presentation" class="active"><a href="?prefix=ISCI">ISCI</a></li>
-                <li role="presentation" class="active"><a href="?prefix=ITEC">ITEC</a></li>
-                <li role="presentation" class="active"><a href="?prefix=LANG">LANG</a></li>
-                <li role="presentation" class="active"><a href="?prefix=LGHT">LGHT</a></li>
-                <li role="presentation" class="active"><a href="?prefix=LITR">LITR</a></li>
-                <li role="presentation" class="active"><a href="?prefix=MANE">MANE</a></li>
-                <li role="presentation" class="active"><a href="?prefix=MATH">MATH</a></li>
-                <li role="presentation" class="active"><a href="?prefix=MATP">MATP</a></li>
-                <li role="presentation" class="active"><a href="?prefix=MGMT">MGMT</a></li>
-                <li role="presentation" class="active"><a href="?prefix=MTLE">MTLE</a></li>
-                <li role="presentation" class="active"><a href="?prefix=PHIL">PHIL</a></li>
-                <li role="presentation" class="active"><a href="?prefix=PHYS">PHYS</a></li>
-                <li role="presentation" class="active"><a href="?prefix=PSYCH">PSYC</a></li>
-                <li role="presentation" class="active"><a href="?prefix=STSH">STSH</a></li>
-                <li role="presentation" class="active"><a href="?prefix=STSS">STSS</a></li>
-                <li role="presentation" class="active"><a href="?prefix=USAF">USAF</a></li>
-                <li role="presentation" class="active"><a href="?prefix=USAR">USAR</a></li>
-                <li role="presentation" class="active"><a href="?prefix=USNA">USNA</a></li>
-                <li role="presentation" class="active"><a href="?prefix=WRIT">WRIT</a></li>
+			<div class="btn-group btn-group-justified">
+				<a class='btn btn-primary' href='addClass.php'>Add a class</a>
+			</div>
+			<br/>
+			<ul class="nav nav-pills nav-stacked">
+                <li role="presentation"><a href="?">All Prefixes</a></li>
+				<?php
+					/**
+					 * This array contains all valid prefixes at RPI. These
+					 * values will be used to populate the sidebar of the page.
+					 * @var array
+					 */
+					$prefixes = [
+						"ARCH", "ARTS", "ASTR", "BCBP", "BIOL", "BMED", "CHEM",
+						"CISH", "CSCI", "DSES", "ECON", "ECSE", "ENGR", "ENVE",
+						"ERTH", "ESCE", "IENV", "IHSS", "ISCI", "ITEC", "LANG",
+						"LGHT", "LITR", "MANE", "MATH", "MATP", "MGMT", "MTLE",
+						"PHIL", "PHYS", "PSYC", "STSH", "STSS", "USAF", "USAR",
+						"USNA", "WRIT"
+					];
+
+					foreach ($prefixes as $p) {
+						// Add another item to the list, calling the function
+						// 'determineIfActive' to determine if the active class
+						// should be included in the item
+						echo "<li role='presentation' " . determineIfActive($p)
+								. "><a href='?prefix=" . $p . "'>" . $p . "</a></li>";
+					}
+				?>
             </ul>
         </div>
     </div>
