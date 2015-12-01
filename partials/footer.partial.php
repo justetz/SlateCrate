@@ -9,15 +9,11 @@
                     Students and teachers can create accounts and follow certain classes to learn what others are using and share sites that have helped them in the past.</p>
             </div>
             <div class="col-lg-4">
-                <h4>Social Links</h4>
+                <h4>Objective</h4>
 
                 <div class="hline-w"></div>
-                <p>
-                    <a href="#"><i class="fa fa-dribbble"></i></a>
-                    <a href="#"><i class="fa fa-facebook"></i></a>
-                    <a href="#"><i class="fa fa-twitter"></i></a>
-                    <a href="#"><i class="fa fa-instagram"></i></a>
-                    <a href="#"><i class="fa fa-tumblr"></i></a>
+                <p> This is a term project for Web Systems Development, Fall 2015. We set out to create a useful website for students and professors to converse and promote discussion between courses. 
+                
                 </p>
             </div>
             <div class="col-lg-4">
