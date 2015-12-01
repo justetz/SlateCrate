@@ -24,7 +24,7 @@ require 'partials/pageheader.partial.php';
     <div class="row">
         <div class="col-md-6 col-md-offset-3 col-sm-12 col-sm-offset-0">
             <div class="well well-lg">
-                <form method="post" action="posts.php" class="form-horizontal">
+                <form method="post" action="classes.php" class="form-horizontal">
                     <div class="form-group">
                         <label for="className" class="col-sm-3 control-label">
                             Class Name
@@ -62,6 +62,7 @@ require 'partials/pageheader.partial.php';
                                 <option value='IHSS'>IHSS</option>
                                 <option value='ISCI'>ISCI</option>
                                 <option value='ITEC'>ITEC</option>
+                                <option value='ITWS'>ITWS</option>
                                 <option value='LANG'>LANG</option>
                                 <option value='LGHT'>LGHT</option>
                                 <option value='LITR'>LITR</option>

@@ -27,7 +27,7 @@ function activeClassIfRequestMatches($requestUri) {
         <div class="navbar-collapse collapse navbar-right">
             <ul class="nav navbar-nav">
                 <li <?=activeClassIfRequestMatches("index")?>><a href="index.php">HOME</a></li>
-                <li <?=activeClassIfRequestMatches("posts")?>><a href="posts.php">CLASSES</a></li>
+                <li <?=activeClassIfRequestMatches("posts")?>><a href="classes.php">CLASSES</a></li>
 
                 <?php
                 if (phpCAS::isAuthenticated()) {

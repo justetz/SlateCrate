@@ -90,7 +90,7 @@ if(isset($_POST["delete"])){
                         echo "<a href='addLink.php?class=$c'>Add a link</a>";
                     }
                     else{
-                        echo "Error, no class selected. Select a class at <a href='posts.php'>Posts</a>.";
+                        echo "Error, no class selected. Select a class at <a href='classes.php'>Posts</a>.";
                     }
                 }catch(PDOException $e){ echo $e; }
             ?>
