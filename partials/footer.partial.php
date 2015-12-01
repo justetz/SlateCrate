@@ -5,8 +5,8 @@
                 <h4>About SlateCrate</h4>
 
                 <div class="hline-w"></div>
-                <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the
-                    industry's standard dummy text ever since the 1500s.</p>
+                <p>SlateCrate is designed for students and teachers to share and rate helpful links for various subject areas.
+                    Students and teachers can create accounts and follow certain classes to learn what others are using and share sites that have helped them in the past.</p>
             </div>
             <div class="col-lg-4">
                 <h4>Social Links</h4>
@@ -25,18 +25,18 @@
 
                 <div class="hline-w"></div>
                 <p>
-                    Some Ave, 987,<br/>
-                    23890, New York,<br/>
+                    110 8th St,<br/>
+                    Troy, New York, 12180<br/>
                     United States.<br/>
                 </p>
             </div>
 
         </div>
-        <! --/row -->
+        <!--/row -->
     </div>
-    <! --/container -->
+    <!--/container -->
 </footer>
-<! --/footerwrap -->
+<!--/footerwrap -->
 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
 <script src="assets/js/bootstrap.min.js"></script>

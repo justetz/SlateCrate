@@ -41,32 +41,37 @@ if(isset($_POST["linkName"])){
         <div class="col-md-9">
             <?php
                 try{
-                    $c = $_GET["class"];
-                    $var = $conn->prepare("SELECT * FROM `links` WHERE `category_id` = $c");
-                    $var->execute();
+                    if(isset($_GET["class"])){
+                        $c = $_GET["class"];
+                        $var = $conn->prepare("SELECT * FROM `links` WHERE `category_id` = $c");
+                        $var->execute();
 
-                    $count = 0;
+                        $count = 0;
 
-                    echo "<div class='row'>";
-                    while($result = $var->fetch(PDO::FETCH_ASSOC)){
-                        echo "<a href='";
-                        echo $result["link"];
-                        echo "'><div class='col-md-4'><div class='well well-sm well-hover'><h6 class='text-muted'>Link</h6><h4>";
-                        echo $result["title"];
-                        echo "</h4><p class='text-muted small'><span class='pull-left'>submitted by ";
-                        echo $result["rcs_id"];
-                        echo "</span><span class='pull-right'>";
-                        echo $result["creation_date"];
-                        echo "</span><span class='clearfix'></span></p></div></div></a>";
-                        $count++;
+                        echo "<div class='row'>";
+                        while($result = $var->fetch(PDO::FETCH_ASSOC)){
+                            echo "<a href='";
+                            echo $result["link"];
+                            echo "' target=\"_blank\"><div class='col-md-4'><div class='well well-sm well-hover'><h6 class='text-muted'>Link</h6><h4>";
+                            echo $result["title"];
+                            echo "</h4><p class='text-muted small'><span class='pull-left'>submitted by ";
+                            echo $result["rcs_id"];
+                            echo "</span><span class='pull-right'>";
+                            echo $result["creation_date"];
+                            echo "</span><span class='clearfix'></span></p></div></div></a>";
+                            $count++;
+                        }
+
+                        if($count == 0){
+                            echo "No links. You should add one.";
+                        }else{
+                            echo "Found $count links";
+                        }
+                        echo "<a href='addLink.php?class=$c'>Add a link</a>";
                     }
-
-                    if($count == 0){
-                        echo "No links. You should add one.";
-                    }else{
-                        echo "Found $count links";
+                    else{
+                        echo "Error, no class selected. Select a class at <a href='posts.php'>Posts</a>.";
                     }
-                    echo "<a href='addLink.php?class=$c'>Add a link</a>";
                 }catch(PDOException $e){ echo $e; }
             ?>
                 <div class="col-xs-12 centered">
