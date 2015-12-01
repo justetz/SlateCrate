@@ -42,44 +42,28 @@ require 'partials/pageheader.partial.php';
 
                         <div class="col-sm-9">
                             <select id="inputCategory" class="form-control" name="inputCategory">
-                                <option value='ARCH'>ARCH</option>
-                                <option value='ARTS'>ARTS</option>
-                                <option value='ASTR'>ASTR</option>
-                                <option value='BCBP'>BCBP</option>
-                                <option value='BIOL'>BIOL</option>
-                                <option value='BMED'>BMED</option>
-                                <option value='CHEM'>CHEM</option>
-                                <option value='CISH'>CISH</option>
-                                <option value='CSCI'>CSCI</option>
-                                <option value='DSES'>DSES</option>
-                                <option value='ECON'>ECON</option>
-                                <option value='ECSE'>ECSE</option>
-                                <option value='ENGR'>ENGR</option>
-                                <option value='ENVE'>ENVE</option>
-                                <option value='ERTH'>ERTH</option>
-                                <option value='ESCE'>ESCE</option>
-                                <option value='IENV'>IENV</option>
-                                <option value='IHSS'>IHSS</option>
-                                <option value='ISCI'>ISCI</option>
-                                <option value='ITEC'>ITEC</option>
-                                <option value='ITWS'>ITWS</option>
-                                <option value='LANG'>LANG</option>
-                                <option value='LGHT'>LGHT</option>
-                                <option value='LITR'>LITR</option>
-                                <option value='MANE'>MANE</option>
-                                <option value='MATH'>MATH</option>
-                                <option value='MATP'>MATP</option>
-                                <option value='MGMT'>MGMT</option>
-                                <option value='MTLE'>MTLE</option>
-                                <option value='PHIL'>PHIL</option>
-                                <option value='PHYS'>PHYS</option>
-                                <option value='PSYC'>PSYC</option>
-                                <option value='STSH'>STSH</option>
-                                <option value='STSS'>STSS</option>
-                                <option value='USAF'>USAF</option>
-                                <option value='USAR'>USAR</option>
-                                <option value='USNA'>USNA</option>
-                                <option value='WRIT'>WRIT</option>
+								<?php
+									/**
+									 * This array contains all valid prefixes at RPI. These
+									 * values will be used to populate the sidebar of the page.
+									 * @var array
+									 */
+									$prefixes = [
+										"ARCH", "ARTS", "ASTR", "BCBP", "BIOL", "BMED", "CHEM",
+										"CISH", "CSCI", "DSES", "ECON", "ECSE", "ENGR", "ENVE",
+										"ERTH", "ESCE", "IENV", "IHSS", "ISCI", "ITEC", "LANG",
+										"LGHT", "LITR", "MANE", "MATH", "MATP", "MGMT", "MTLE",
+										"PHIL", "PHYS", "PSYC", "STSH", "STSS", "USAF", "USAR",
+										"USNA", "WRIT"
+									];
+
+									foreach ($prefixes as $p) {
+										// Add another item to the list, calling the function
+										// 'determineIfActive' to determine if the active class
+										// should be included in the item
+										echo "<option value='" . $p . "'>" . $p . "</option>";
+									}
+								?>
                             </select>
                             <p class="help-block">Note: Spam links will be deleted.</p>
                         </div>
