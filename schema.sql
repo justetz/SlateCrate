@@ -20,6 +20,21 @@ USE `slatecrate` ;
 
 
 -- -----------------------------------------------------
+-- Table `slatecrate`.`users`
+-- -----------------------------------------------------
+DROP TABLE IF EXISTS `slatecrate`.`users` ;
+
+CREATE TABLE IF NOT EXISTS `slatecrate`.`users` (
+  `user_id` INT NOT NULL AUTO_INCREMENT COMMENT '',
+  `rcs_id` VARCHAR(50) NOT NULL UNIQUE COMMENT '',
+  `isadmin` INT(1) NOT NULL DEFAULT 0 COMMENT '',
+  PRIMARY KEY (`user_id`)  COMMENT '')
+ENGINE = InnoDB;
+INSERT INTO `users` (`rcs_id`, `isadmin`) VALUES ('VILLAT2', 1);
+
+
+
+-- -----------------------------------------------------
 -- Table `slatecrate`.`categories`
 -- -----------------------------------------------------
 DROP TABLE IF EXISTS `slatecrate`.`categories` ;
@@ -34,7 +49,6 @@ CREATE TABLE IF NOT EXISTS `slatecrate`.`categories` (
   PRIMARY KEY (`category_id`)  COMMENT '',
   INDEX `CATEGORIES_FK1_idx` (`rcs_id` ASC)  COMMENT '')
 ENGINE = InnoDB;
-ALTER TABLE `categories` ADD UNIQUE `unique_index`(`title`);
 
 
 -- -----------------------------------------------------

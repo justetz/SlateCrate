@@ -34,6 +34,9 @@ if(isset($_POST["linkName"])){
         echo $e;
     }
 }
+if(isset($_POST["delete"])){
+    $conn->query("DELETE FROM `links` WHERE `link_id` = " . $_POST["delete"]);
+}
 ?>
 
 
@@ -51,6 +54,13 @@ if(isset($_POST["linkName"])){
                         $var = $conn->prepare("SELECT * FROM `links` WHERE `category_id` = $c");
                         $var->execute();
 
+                        $admin = $conn->prepare("SELECT `isadmin` FROM `users` WHERE `rcs_id` = '" . phpCAS::getUser() . "'");
+                        $admin->execute();
+                        $isadmin = false;
+                        while($result = $admin->fetch(PDO::FETCH_ASSOC)){
+                            if($result["isadmin"] == 1){ $isadmin = true; }
+                        }
+
                         $count = 0;
 
                         echo "<div class='row'>";
@@ -63,7 +73,12 @@ if(isset($_POST["linkName"])){
                             echo $result["rcs_id"];
                             echo "</span><span class='pull-right'>";
                             echo $result["creation_date"];
-                            echo "</span><span class='clearfix'></span></p></div></div></a>";
+                            echo "</span>";
+                            if($isadmin){
+                                echo "<form method=\"post\" action='links.php?class=" . $_GET["class"] . "' class=\"form-horizontal\">";
+                                echo "<button type=\"submit\" class=\"btn btn-primary pull-right\" name=\"delete\" value=" . $result["link_id"] . ">Delete</button></form>";
+                            }
+                            echo "<span class='clearfix'></span></p></div></div></a>";
                             $count++;
                         }
 
