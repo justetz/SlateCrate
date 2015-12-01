@@ -86,7 +86,7 @@ if(isset($_POST["delete"])){
                         echo $result["creation_date"];
                         echo "</span>";
                         if($isadmin){
-                            echo "<form method=\"post\" action='posts.php' class=\"form-horizontal\">";
+                            echo "<form method=\"post\" action='classes.php' class=\"form-horizontal\">";
                             echo "<button type=\"submit\" class=\"btn btn-primary pull-right\" name=\"delete\" value=" . $result["category_id"] . ">Delete</button></form>";
                         }
                         echo "<span class='clearfix'></span></p></div></div></a>";
