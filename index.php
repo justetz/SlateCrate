@@ -22,7 +22,7 @@ require 'resources/rpiCAS.php';
         <div class="row">
             <div class="col-lg-8 col-lg-offset-2">
                 <h1>Find useful, online resources</h1>
-                <h3>A link database created by RPI students, for RPI students</h3>
+                <h3>A link database created for RPI students, by RPI students</h3>
                 <?php
                 if (phpCAS::isAuthenticated()) {
                     echo "<p><a class='btn btn-outline btn-lg' href='posts.php'>View posts</a></p>";
@@ -61,17 +61,20 @@ require 'resources/rpiCAS.php';
                 <i class="fa fa-graduation-cap text-rpi"></i>
                 <h4>RPI in mind</h4>
 
-                <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the
-                    industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type
-                    and scrambled it to make a type specimen book.</p>
+                <p>Made for RPI Students by RPI Students. 
+                We wanted a tool that could help us in our classes,
+                 so we shared it with you: the student body! 
+                </p>
+
+                
             </div>
             <div class="col-md-4">
                 <i class="fa fa-check-circle"></i>
                 <h4>Quality assured</h4>
 
-                <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the
-                    industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type
-                    and scrambled it to make a type specimen book.</p>
+                <p>Access requires an RPI login so that the community can stay close knit and relevant. Information for your classes will be provided by people
+                 currently enrolled in, interested in, or graduated from your course.
+                </p>
             </div>
         </div>
     </div>
