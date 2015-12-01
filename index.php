@@ -25,7 +25,7 @@ require 'resources/rpiCAS.php';
                 <h3>A link database created for RPI students, by RPI students</h3>
                 <?php
                 if (phpCAS::isAuthenticated()) {
-                    echo "<p><a class='btn btn-outline btn-lg' href='posts.php'>View posts</a></p>";
+                    echo "<p><a class='btn btn-outline btn-lg' href='classes.php'>View classes</a></p>";
                 } else {
                     echo "<p><a class='btn btn-outline btn-lg' href='login.php'>Sign in with RCS</a></p>";
                 }
