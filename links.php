@@ -17,14 +17,14 @@ $pageHeader = "Links";
 require 'partials/pageheader.partial.php';
 
 //add class if we need to
-if(isset($_POST["className"])){
+if(isset($_POST["linkName"])){
     try{
-        $string = "'" . $_POST["URL"] . "', '" . $_POST["user"] . ", " . "CURDATE(), '" . $_POST["linkName"] . "'";
+        $string = "'" . $_POST["URL"] . "', " . $_POST["user"] . ", " . "CURDATE(), '" . $_POST["linkName"] . "'";
 
         $conn->query("INSERT INTO `links` (`link`, `rcs_id`, `category_id`, `creation_date`, `title`)
             VALUES (" . $string . ");");
 
-        echo "<p>Class added!</p>";
+        echo "<p>Link added!</p>";
     }catch(PDOException $e){
         echo $e;
     }

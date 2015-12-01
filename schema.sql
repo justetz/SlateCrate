@@ -26,7 +26,7 @@ DROP TABLE IF EXISTS `slatecrate`.`categories` ;
 
 CREATE TABLE IF NOT EXISTS `slatecrate`.`categories` (
   `category_id` INT NOT NULL AUTO_INCREMENT COMMENT '',
-  `title` VARCHAR(50) NOT NULL COMMENT '',
+  `title` VARCHAR(50) NOT NULL UNIQUE COMMENT '',
   `links` INT(3) NOT NULL DEFAULT 0 COMMENT '',
   `prefix` VARCHAR(4) NOT NULL COMMENT '',
   `rcs_id` VARCHAR(20) NOT NULL COMMENT '',
@@ -34,6 +34,7 @@ CREATE TABLE IF NOT EXISTS `slatecrate`.`categories` (
   PRIMARY KEY (`category_id`)  COMMENT '',
   INDEX `CATEGORIES_FK1_idx` (`rcs_id` ASC)  COMMENT '')
 ENGINE = InnoDB;
+ALTER TABLE `categories` ADD UNIQUE `unique_index`(`title`);
 
 
 -- -----------------------------------------------------
