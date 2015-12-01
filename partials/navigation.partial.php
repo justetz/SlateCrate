@@ -27,14 +27,14 @@ function activeClassIfRequestMatches($requestUri) {
         <div class="navbar-collapse collapse navbar-right">
             <ul class="nav navbar-nav">
                 <li <?=activeClassIfRequestMatches("index")?>><a href="index.php">HOME</a></li>
-                <li <?=activeClassIfRequestMatches("posts")?>><a href="posts.php">POSTS</a></li>
+                <li <?=activeClassIfRequestMatches("posts")?>><a href="posts.php">CLASSES</a></li>
 
                 <?php
                 if (phpCAS::isAuthenticated()) {
-                    echo "<li ".activeClassIfRequestMatches("newpost")."><a href='newpost.php'>ADD POST</a></li>";
+                    echo "<li ".activeClassIfRequestMatches("addClass")."><a href='addClass.php'>ADD CLASS</a></li>";
                     echo "<li class='dropdown'><a href='#' class='dropdown-toggle' data-toggle='dropdown'>".phpCAS::getUser()."<b class='caret'></b></a>
                             <ul class='dropdown-menu'>
-                                <li><a href='single-project.php'>ADD A LINK</a></li>
+                                <li><a href='addClass.php'>ADD A CLASS</a></li>
                                 <li><a href='logout.php'>SIGN OUT</a></li>
                             </ul>
                           </li>";

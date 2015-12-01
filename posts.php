@@ -115,7 +115,7 @@ if(isset($_POST["delete"])){
         </div>
         <div class="col-md-3">
             <ul class="nav nav-pills nav-stacked">
-                <li role="presentation" class="active"><a href="?">All Links</a></li>
+                <li role="presentation" class="active"><a href="?">All Classes</a></li>
                 <li role="presentation" class="active"><a href="?prefix=ARCH">ARCH</a></li>
                 <li role="presentation" class="active"><a href="?prefix=ARTS">ARTS</a></li>
                 <li role="presentation" class="active"><a href="?prefix=ASTR">ASTR</a></li>
