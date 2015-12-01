@@ -3,6 +3,11 @@ require 'resources/functions.php';
 require 'resources/config.php';
 require 'resources/rpiCAS.php';
 
+if (!phpCAS::isAuthenticated()) {
+// If they're not currently logged in, take them to the RPI CAS page
+    phpCAS::forceAuthentication();
+}
+
 $conn = new PDO('mysql:host=localhost;dbname=slatecrate', $config['DB_USERNAME'], $config['DB_PASSWORD']);
 ?>
 <!DOCTYPE html>
@@ -17,17 +22,20 @@ $pageHeader = "Links";
 require 'partials/pageheader.partial.php';
 
 //add class if we need to
-if(isset($_POST["className"])){
+if(isset($_POST["linkName"])){
     try{
-        $string = "'" . $_POST["URL"] . "', '" . $_POST["user"] . ", " . "CURDATE(), '" . $_POST["linkName"] . "'";
+        $string = "'" . $_POST["URL"] . "', " . $_POST["user"] . ", " . "CURDATE(), '" . $_POST["linkName"] . "'";
 
         $conn->query("INSERT INTO `links` (`link`, `rcs_id`, `category_id`, `creation_date`, `title`)
             VALUES (" . $string . ");");
 
-        echo "<p>Class added!</p>";
+        echo "<p>Link added!</p>";
     }catch(PDOException $e){
         echo $e;
     }
+}
+if(isset($_POST["delete"])){
+    $conn->query("DELETE FROM `links` WHERE `link_id` = " . $_POST["delete"]);
 }
 ?>
 
@@ -41,32 +49,49 @@ if(isset($_POST["className"])){
         <div class="col-md-9">
             <?php
                 try{
-                    $c = $_GET["class"];
-                    $var = $conn->prepare("SELECT * FROM `links` WHERE `category_id` = $c");
-                    $var->execute();
+                    if(isset($_GET["class"])){
+                        $c = $_GET["class"];
+                        $var = $conn->prepare("SELECT * FROM `links` WHERE `category_id` = $c");
+                        $var->execute();
 
-                    $count = 0;
+                        $admin = $conn->prepare("SELECT `isadmin` FROM `users` WHERE `rcs_id` = '" . phpCAS::getUser() . "'");
+                        $admin->execute();
+                        $isadmin = false;
+                        while($result = $admin->fetch(PDO::FETCH_ASSOC)){
+                            if($result["isadmin"] == 1){ $isadmin = true; }
+                        }
 
-                    echo "<div class='row'>";
-                    while($result = $var->fetch(PDO::FETCH_ASSOC)){
-                        echo "<a href='";
-                        echo $result["link"];
-                        echo "'><div class='col-md-4'><div class='well well-sm well-hover'><h6 class='text-muted'>Link</h6><h4>";
-                        echo $result["title"];
-                        echo "</h4><p class='text-muted small'><span class='pull-left'>submitted by ";
-                        echo $result["rcs_id"];
-                        echo "</span><span class='pull-right'>";
-                        echo $result["creation_date"];
-                        echo "</span><span class='clearfix'></span></p></div></div></a>";
-                        $count++;
+                        $count = 0;
+
+                        echo "<div class='row'>";
+                        while($result = $var->fetch(PDO::FETCH_ASSOC)){
+                            echo "<a href='";
+                            echo $result["link"];
+                            echo "' target=\"_blank\"><div class='col-md-4'><div class='well well-sm well-hover'><h6 class='text-muted'>Link</h6><h4>";
+                            echo $result["title"];
+                            echo "</h4><p class='text-muted small'><span class='pull-left'>submitted by ";
+                            echo $result["rcs_id"];
+                            echo "</span><span class='pull-right'>";
+                            echo $result["creation_date"];
+                            echo "</span>";
+                            if($isadmin){
+                                echo "<form method=\"post\" action='links.php?class=" . $_GET["class"] . "' class=\"form-horizontal\">";
+                                echo "<button type=\"submit\" class=\"btn btn-primary pull-right\" name=\"delete\" value=" . $result["link_id"] . ">Delete</button></form>";
+                            }
+                            echo "<span class='clearfix'></span></p></div></div></a>";
+                            $count++;
+                        }
+
+                        if($count == 0){
+                            echo "No links. You should add one.";
+                        }else{
+                            echo "Found $count links";
+                        }
+                        echo "<a href='addLink.php?class=$c'>Add a link</a>";
                     }
-
-                    if($count == 0){
-                        echo "No links. You should add one.";
-                    }else{
-                        echo "Found $count links";
+                    else{
+                        echo "Error, no class selected. Select a class at <a href='posts.php'>Posts</a>.";
                     }
-                    echo "<a href='addLink.php?class=$c'>Add a link</a>";
                 }catch(PDOException $e){ echo $e; }
             ?>
                 <div class="col-xs-12 centered">

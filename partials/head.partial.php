@@ -1,6 +1,7 @@
 <?php
     function echoPageTitle() {
-        switch(basename($_SERVER['REQUEST_URI'], ".php")) {
+        $url=strtok($_SERVER["REQUEST_URI"],'?');
+        switch(basename($url, ".php")) {
             case "index":
                 echo "Home";
                 break;
@@ -11,7 +12,7 @@
                 echo "New Post";
                 break;
             default:
-                echo ucfirst(basename($_SERVER['REQUEST_URI'], ".php"));
+                echo ucfirst(basename($url, ".php"));
                 break;
         }
     }

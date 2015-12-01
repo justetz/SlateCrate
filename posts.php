@@ -3,6 +3,11 @@ require 'resources/functions.php';
 require 'resources/config.php';
 require 'resources/rpiCAS.php';
 
+if (!phpCAS::isAuthenticated()) {
+// If they're not currently logged in, take them to the RPI CAS page
+    phpCAS::forceAuthentication();
+}
+
 $conn = new PDO('mysql:host=localhost;dbname=slatecrate', $config['DB_USERNAME'], $config['DB_PASSWORD']);
 ?>
 <!DOCTYPE html>
