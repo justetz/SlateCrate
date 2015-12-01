@@ -34,6 +34,14 @@ if(isset($_POST["className"])){
         echo $e;
     }
 }
+if(isset($_POST["delete"])){
+    $del = $conn->prepare("SELECT `link_id` FROM `links` WHERE `category_id` = " . $_POST["delete"]);
+    $del->execute();
+    while($result = $del->fetch(PDO::FETCH_ASSOC)){
+        $conn->query("DELETE FROM `links` WHERE `link_id` = " . $result["link_id"]);
+    }
+    $conn->query("DELETE FROM `categories` WHERE `category_id` = " . $_POST["delete"]);
+}
 ?>
 
 
@@ -52,6 +60,14 @@ if(isset($_POST["className"])){
                     }else{ $var = $conn->prepare("SELECT * FROM `categories` ORDER BY `title`"); }
                     $var->execute();
 
+                    //Check if current user is an admin
+                    $admin = $conn->prepare("SELECT `isadmin` FROM `users` WHERE `rcs_id` = '" . phpCAS::getUser() . "'");
+                    $admin->execute();
+                    $isadmin = false;
+                    while($result = $admin->fetch(PDO::FETCH_ASSOC)){
+                        if($result["isadmin"] == 1){ $isadmin = true; }
+                    }
+
                     $count = 0;
 
                     echo "<div class='row'>";
@@ -68,7 +84,12 @@ if(isset($_POST["className"])){
                         echo $result["rcs_id"];
                         echo "</span><span class='pull-right'>";
                         echo $result["creation_date"];
-                        echo "</span><span class='clearfix'></span></p></div></div></a>";
+                        echo "</span>";
+                        if($isadmin){
+                            echo "<form method=\"post\" action='posts.php' class=\"form-horizontal\">";
+                            echo "<button type=\"submit\" class=\"btn btn-primary pull-right\" name=\"delete\" value=" . $result["category_id"] . ">Delete</button></form>";
+                        }
+                        echo "<span class='clearfix'></span></p></div></div></a>";
                         $count++;
                     }
 

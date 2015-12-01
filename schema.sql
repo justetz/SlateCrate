@@ -31,6 +31,8 @@ CREATE TABLE IF NOT EXISTS `slatecrate`.`users` (
   PRIMARY KEY (`user_id`)  COMMENT '')
 ENGINE = InnoDB;
 INSERT INTO `users` (`rcs_id`, `isadmin`) VALUES ('VILLAT2', 1);
+INSERT INTO `users` (`rcs_id`, `isadmin`) VALUES ('ETZINJ', 1);
+INSERT INTO `users` (`rcs_id`, `isadmin`) VALUES ('LIMAA', 1);
 
 
 
