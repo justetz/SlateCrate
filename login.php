@@ -8,7 +8,7 @@ if (!phpCAS::isAuthenticated()) {
     phpCAS::forceAuthentication();
 } else{
     // Otherwise, they don't need to be logged in, go to posts
-    header('location: ./posts.php');
+    header('location: ./index.php');
 }
 
 ?>
