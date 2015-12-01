@@ -30,7 +30,7 @@ CREATE TABLE IF NOT EXISTS `slatecrate`.`categories` (
   `links` INT(3) NOT NULL DEFAULT 0 COMMENT '',
   `prefix` VARCHAR(4) NOT NULL COMMENT '',
   `rcs_id` VARCHAR(20) NOT NULL COMMENT '',
-  `creation_date` DATETIME NOT NULL COMMENT '',
+  `creation_date` DATE NOT NULL COMMENT '',
   PRIMARY KEY (`category_id`)  COMMENT '',
   INDEX `CATEGORIES_FK1_idx` (`rcs_id` ASC)  COMMENT '')
 ENGINE = InnoDB;
@@ -47,7 +47,7 @@ CREATE TABLE IF NOT EXISTS `slatecrate`.`links` (
   `link` VARCHAR(2000) NOT NULL COMMENT '',
   `rcs_id` VARCHAR(20) NOT NULL COMMENT '',
   `category_id` INT NOT NULL COMMENT '',
-  `creation_date` DATETIME NOT NULL COMMENT '',
+  `creation_date` DATE NOT NULL COMMENT '',
   `title` VARCHAR(200) NOT NULL COMMENT '',
   PRIMARY KEY (`link_id`)  COMMENT '',
   INDEX `LINKS_FK2_idx` (`category_id` ASC)  COMMENT '',
