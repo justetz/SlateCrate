@@ -94,11 +94,11 @@ if(isset($_POST["delete"])){
                     }
 
                     if($count == 0){
-                        echo "No classes. You should add one.";
+                        echo "No classes.";
                     }else{
                         echo "Found $count classes";
                     }
-                    echo "<a href='addClass.php'>Add a class</a>";
+                    echo "<a href='addClass.php'> You should add one.</a>";
                 }catch(PDOException $e){ echo $e; }
             ?>
                 <div class="col-xs-12 centered">
