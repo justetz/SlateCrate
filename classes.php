@@ -17,21 +17,50 @@ $conn = new PDO('mysql:host=localhost;dbname=slatecrate', $config['DB_USERNAME']
 <?php
 require 'partials/navigation.partial.php';
 
-$pageHeader = "Links";
+// Set the page heading appropriately, depending on if the url specifies a prefix
+if(isset($_GET["prefix"])) {
+	$pageHeader = "Classes for " . $_GET["prefix"];
+} else {
+	$pageHeader = "All Classes";
+}
+/**
+ * Checks the provided prefix and returns the needed HTML code to mark the list
+ * item as active, only if there is a prefix passed to the page and it matches
+ * the parameter
+ * @param  string $prefix the prefix to check
+ * @return boolean        whether or not it matches
+ */
+function determineIfActive($prefix) {
+	if(isset($_GET["prefix"]) && $_GET["prefix"] == $prefix) {
+		return "class='active'";
+	}
+	return "";
+}
 
 require 'partials/pageheader.partial.php';
-
+?>
+<div class="container mtb">
+<?php
 //add class if we need to
 if(isset($_POST["className"])){
     try{
         $string = "'" . $_POST["className"] . "', '" . $_POST["inputCategory"] . "', '" . $_POST["user"] . "', " . "CURDATE()";
 
-        $conn->query("INSERT INTO `categories` (`title`, `prefix`, `rcs_id`, `creation_date`)
+		$conn->query("INSERT INTO `categories` (`title`, `prefix`, `rcs_id`, `creation_date`)
             VALUES (" . $string . ");");
 
-        echo "<p>Class added!</p>";
+        echo "<div class='row'><div class='col-xs-12'>
+			 <div class='alert alert-success alert-dismissible' role='alert'>
+				<button type='button' class='close' data-dismiss='alert' aria-label='Close><span aria-hidden='true'>&times;</span></button>
+				<strong>Success!</strong> Your new class, entitled " . $_POST["className"] . ", was successfully added!
+			 </div></div></div>";
+
     }catch(PDOException $e){
-        echo $e;
+        echo "<div class='row'><div class='col-xs-12'>
+			 <div class='alert alert-danger alert-dismissible' role='alert'>
+				<button type='button' class='close' data-dismiss='alert' aria-label='Close><span aria-hidden='true'>&times;</span></button>
+				<strong>Error!</strong> " . $e . "
+			 </div></div></div>";
     }
 }
 if(isset($_POST["delete"])){
@@ -43,13 +72,6 @@ if(isset($_POST["delete"])){
     $conn->query("DELETE FROM `categories` WHERE `category_id` = " . $_POST["delete"]);
 }
 ?>
-
-
-<!-- *****************************************************************************************************************
- AGENCY ABOUT
- ***************************************************************************************************************** -->
-
-<div class="container mtb">
     <div class="row">
         <div class="col-md-9">
             <?php
@@ -76,34 +98,27 @@ if(isset($_POST["delete"])){
                     echo "<div class='row'>";
                     while($result = $var->fetch(PDO::FETCH_ASSOC)){
                         if($count >= ($p - 1) * 24 && $count < $p * 24){
-                            echo "<a href='links.php?class=";
-                            echo $result["category_id"];
-                            echo "''><div class='col-md-4'><div class='well well-sm well-hover'><h6 class='text-muted'>";
-                            echo $result["prefix"];
-                            echo "</h6><h4>";
-                            echo $result["title"];
-                            echo "</h4><p>Contains ";
-                            echo $result["links"];
-                            echo " links.</p><p class='text-muted small'><span class='pull-left'>submitted by ";
-                            echo $result["rcs_id"];
-                            echo "</span><span class='pull-right'>";
-                            echo $result["creation_date"];
-                            echo "</span>";
-                            if($isadmin){
-                                echo "<form method=\"post\" action='classes.php' class=\"form-horizontal\">";
-                                echo "<button type=\"submit\" class=\"btn btn-primary pull-right\" name=\"delete\" value=" . $result["category_id"] . ">Delete</button></form>";
-                            }
-                            echo "<span class='clearfix'></span></p></div></div></a>";
+                        echo "<a href='links.php?class=".$result["category_id"]."''>
+							<div class='col-md-6'><div class='well well-sm well-hover'>
+								<h6 class='text-muted'>".$result["prefix"]."</h6>
+								<h4>".$result["title"]."</h4>
+								<p>Contains ".$result["links"]." links.</p>
+								<p class='text-muted small info-text'>
+									<span class='pull-left'>submitted by ".$result["rcs_id"]."</span>
+									<span class='pull-right'>".$result["creation_date"]."</span>";
+                        if($isadmin){
+                            echo "<form method=\"post\" action='classes.php' class=\"form-horizontal\">";
+                            echo "<button type=\"submit\" class=\"btn btn-primary pull-right\" name=\"delete\" value=" . $result["category_id"] . ">Delete</button></form>";
                         }
                         $count++;
                     }
 
                     if($count == 0){
-                        echo "No classes.";
-                    }else{
-                        echo "Found $count classes";
+                        echo "<div class='col-xs-12'>
+							 <div class='alert alert-info' role='alert'>
+								No classes. You should add one!
+							 </div></div>";
                     }
-                    echo "<a href='addClass.php'> You should add one.</a>";
                 }catch(PDOException $e){ echo $e; }
                 echo "<div class=\"col-xs-12 centered\"><div class=\"btn-group\">";
                 for ($button=1; $button < ($count / 24) + 1; $button++) {
@@ -117,46 +132,35 @@ if(isset($_POST["delete"])){
             </div>
         </div>
         <div class="col-md-3">
-            <ul class="nav nav-pills nav-stacked">
-                <li role="presentation" class="active"><a href="?">All Classes</a></li>
-                <li role="presentation" class="active"><a href="?prefix=ARCH">ARCH</a></li>
-                <li role="presentation" class="active"><a href="?prefix=ARTS">ARTS</a></li>
-                <li role="presentation" class="active"><a href="?prefix=ASTR">ASTR</a></li>
-                <li role="presentation" class="active"><a href="?prefix=BCBP">BCBP</a></li>
-                <li role="presentation" class="active"><a href="?prefix=BIOL">BIOL</a></li>
-                <li role="presentation" class="active"><a href="?prefix=BMED">BMED</a></li>
-                <li role="presentation" class="active"><a href="?prefix=CHEM">CHEM</a></li>
-                <li role="presentation" class="active"><a href="?prefix=CISH">CISH</a></li>
-                <li role="presentation" class="active"><a href="?prefix=CSCI">CSCI</a></li>
-                <li role="presentation" class="active"><a href="?prefix=DSES">DSES</a></li>
-                <li role="presentation" class="active"><a href="?prefix=ECON">ECON</a></li>
-                <li role="presentation" class="active"><a href="?prefix=ECSE">ECSE</a></li>
-                <li role="presentation" class="active"><a href="?prefix=ENGR">ENGR</a></li>
-                <li role="presentation" class="active"><a href="?prefix=ENVE">ENVE</a></li>
-                <li role="presentation" class="active"><a href="?prefix=ERTH">ERTH</a></li>
-                <li role="presentation" class="active"><a href="?prefix=ESCE">ESCE</a></li>
-                <li role="presentation" class="active"><a href="?prefix=IENV">IENV</a></li>
-                <li role="presentation" class="active"><a href="?prefix=IHSS">IHSS</a></li>
-                <li role="presentation" class="active"><a href="?prefix=ISCI">ISCI</a></li>
-                <li role="presentation" class="active"><a href="?prefix=ITEC">ITEC</a></li>
-                <li role="presentation" class="active"><a href="?prefix=ITWS">ITWS</a></li>
-                <li role="presentation" class="active"><a href="?prefix=LANG">LANG</a></li>
-                <li role="presentation" class="active"><a href="?prefix=LGHT">LGHT</a></li>
-                <li role="presentation" class="active"><a href="?prefix=LITR">LITR</a></li>
-                <li role="presentation" class="active"><a href="?prefix=MANE">MANE</a></li>
-                <li role="presentation" class="active"><a href="?prefix=MATH">MATH</a></li>
-                <li role="presentation" class="active"><a href="?prefix=MATP">MATP</a></li>
-                <li role="presentation" class="active"><a href="?prefix=MGMT">MGMT</a></li>
-                <li role="presentation" class="active"><a href="?prefix=MTLE">MTLE</a></li>
-                <li role="presentation" class="active"><a href="?prefix=PHIL">PHIL</a></li>
-                <li role="presentation" class="active"><a href="?prefix=PHYS">PHYS</a></li>
-                <li role="presentation" class="active"><a href="?prefix=PSYCH">PSYC</a></li>
-                <li role="presentation" class="active"><a href="?prefix=STSH">STSH</a></li>
-                <li role="presentation" class="active"><a href="?prefix=STSS">STSS</a></li>
-                <li role="presentation" class="active"><a href="?prefix=USAF">USAF</a></li>
-                <li role="presentation" class="active"><a href="?prefix=USAR">USAR</a></li>
-                <li role="presentation" class="active"><a href="?prefix=USNA">USNA</a></li>
-                <li role="presentation" class="active"><a href="?prefix=WRIT">WRIT</a></li>
+			<div class="btn-group btn-group-justified">
+				<a class='btn btn-primary' href='addClass.php'>Add a class</a>
+			</div>
+			<br/>
+			<ul class="nav nav-pills nav-stacked">
+                <li role="presentation"><a href="?">All Prefixes</a></li>
+				<?php
+					/**
+					 * This array contains all valid prefixes at RPI. These
+					 * values will be used to populate the sidebar of the page.
+					 * @var array
+					 */
+					$prefixes = [
+						"ARCH", "ARTS", "ASTR", "BCBP", "BIOL", "BMED", "CHEM",
+						"CISH", "CSCI", "DSES", "ECON", "ECSE", "ENGR", "ENVE",
+						"ERTH", "ESCE", "IENV", "IHSS", "ISCI", "ITEC", "LANG",
+						"LGHT", "LITR", "MANE", "MATH", "MATP", "MGMT", "MTLE",
+						"PHIL", "PHYS", "PSYC", "STSH", "STSS", "USAF", "USAR",
+						"USNA", "WRIT"
+					];
+
+					foreach ($prefixes as $p) {
+						// Add another item to the list, calling the function
+						// 'determineIfActive' to determine if the active class
+						// should be included in the item
+						echo "<li role='presentation' " . determineIfActive($p)
+								. "><a href='?prefix=" . $p . "'>" . $p . "</a></li>";
+					}
+				?>
             </ul>
         </div>
     </div>
