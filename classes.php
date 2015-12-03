@@ -69,27 +69,32 @@ if(isset($_POST["delete"])){
                     }
 
                     $count = 0;
+                    if(isset($_GET["page"])){
+                        $p = $_GET["page"];
+                    }else{ $p = 1; }
 
                     echo "<div class='row'>";
                     while($result = $var->fetch(PDO::FETCH_ASSOC)){
-                        echo "<a href='links.php?class=";
-                        echo $result["category_id"];
-                        echo "''><div class='col-md-4'><div class='well well-sm well-hover'><h6 class='text-muted'>";
-                        echo $result["prefix"];
-                        echo "</h6><h4>";
-                        echo $result["title"];
-                        echo "</h4><p>Contains ";
-                        echo $result["links"];
-                        echo " links.</p><p class='text-muted small'><span class='pull-left'>submitted by ";
-                        echo $result["rcs_id"];
-                        echo "</span><span class='pull-right'>";
-                        echo $result["creation_date"];
-                        echo "</span>";
-                        if($isadmin){
-                            echo "<form method=\"post\" action='classes.php' class=\"form-horizontal\">";
-                            echo "<button type=\"submit\" class=\"btn btn-primary pull-right\" name=\"delete\" value=" . $result["category_id"] . ">Delete</button></form>";
+                        if($count >= ($p - 1) * 24 && $count < $p * 24){
+                            echo "<a href='links.php?class=";
+                            echo $result["category_id"];
+                            echo "''><div class='col-md-4'><div class='well well-sm well-hover'><h6 class='text-muted'>";
+                            echo $result["prefix"];
+                            echo "</h6><h4>";
+                            echo $result["title"];
+                            echo "</h4><p>Contains ";
+                            echo $result["links"];
+                            echo " links.</p><p class='text-muted small'><span class='pull-left'>submitted by ";
+                            echo $result["rcs_id"];
+                            echo "</span><span class='pull-right'>";
+                            echo $result["creation_date"];
+                            echo "</span>";
+                            if($isadmin){
+                                echo "<form method=\"post\" action='classes.php' class=\"form-horizontal\">";
+                                echo "<button type=\"submit\" class=\"btn btn-primary pull-right\" name=\"delete\" value=" . $result["category_id"] . ">Delete</button></form>";
+                            }
+                            echo "<span class='clearfix'></span></p></div></div></a>";
                         }
-                        echo "<span class='clearfix'></span></p></div></div></a>";
                         $count++;
                     }
 
@@ -100,17 +105,15 @@ if(isset($_POST["delete"])){
                     }
                     echo "<a href='addClass.php'> You should add one.</a>";
                 }catch(PDOException $e){ echo $e; }
+                echo "<div class=\"col-xs-12 centered\"><div class=\"btn-group\">";
+                for ($button=1; $button < ($count / 24) + 1; $button++) {
+                    $link = "?";
+                    if(isset($_GET["prefix"])){ $link = $link . "prefix=". $_GET["prefix"] ."&"; }
+                    $link .= "page=$button";
+                    echo "<a href=\"$link\" class=\"btn btn-primary\">$button</a>";
+                }
+                echo "</div></div>";
             ?>
-                <div class="col-xs-12 centered">
-                    <div class="btn-group">
-                        <a href="" class="btn btn-primary">1</a>
-                        <a href="" class="btn btn-primary">2</a>
-                        <a href="" class="btn btn-primary">3</a>
-                        <a href="" class="btn btn-primary">4</a>
-                        <a href="" class="btn btn-primary">5</a>
-                        <a href="" class="btn btn-primary">6</a>
-                    </div>
-                </div>
             </div>
         </div>
         <div class="col-md-3">
