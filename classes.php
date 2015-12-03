@@ -17,8 +17,12 @@ $conn = new PDO('mysql:host=localhost;dbname=slatecrate', $config['DB_USERNAME']
 <?php
 require 'partials/navigation.partial.php';
 
-$pageHeader = "Links";
-
+// Set the page heading appropriately, depending on if the url specifies a prefix
+if(isset($_GET["prefix"])) {
+	$pageHeader = "Classes for " . $_GET["prefix"];
+} else {
+	$pageHeader = "All Classes";
+}
 /**
  * Checks the provided prefix and returns the needed HTML code to mark the list
  * item as active, only if there is a prefix passed to the page and it matches
@@ -52,7 +56,11 @@ if(isset($_POST["className"])){
 			 </div></div></div>";
 
     }catch(PDOException $e){
-        echo $e;
+        echo "<div class='row'><div class='col-xs-12'>
+			 <div class='alert alert-danger alert-dismissible' role='alert'>
+				<button type='button' class='close' data-dismiss='alert' aria-label='Close><span aria-hidden='true'>&times;</span></button>
+				<strong>Error!</strong> " . $e . "
+			 </div></div></div>";
     }
 }
 if(isset($_POST["delete"])){
@@ -103,7 +111,10 @@ if(isset($_POST["delete"])){
                     }
 
                     if($count == 0){
-                        echo "No classes. You should add one.";
+                        echo "<div class='col-xs-12'>
+							 <div class='alert alert-info' role='alert'>
+								No classes. You should add one!
+							 </div></div>";
                     }
                 }catch(PDOException $e){ echo $e; }
             ?>
