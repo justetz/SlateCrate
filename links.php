@@ -79,16 +79,30 @@ if(isset($_POST["delete"])){
                         $count = 0;
 
                         echo "<div class='row'>";
-                        while($result = $var->fetch(PDO::FETCH_ASSOC)){
-                            echo "<a href='";
-                            echo $result["link"];
-                            echo "' target=\"_blank\"><div class='col-md-3'><div class='well well-sm well-hover'><h6 class='text-muted'>Link</h6><h4>";
-                            echo $result["title"];
-                            echo "</h4><p class='text-muted small'><span class='pull-left'>submitted by ";
-                            echo $result["rcs_id"];
-                            echo "</span><span class='pull-right'>";
-                            echo $result["creation_date"];
-                            echo "</span>";
+						$data = $var->fetchAll(PDO::FETCH_ASSOC);
+
+						foreach($data as $result) {
+							$categoryHTML = "<h6 class='text-muted'>";
+							if(!isset($_GET["class"])) {
+								$var = $conn->prepare("SELECT `title`,`prefix` FROM `categories` WHERE `category_id` = " . $result["category_id"]);
+								$var->execute();
+								$r2 = $var->fetch(PDO::FETCH_ASSOC);
+								$categoryHTML .= $r2['title'] . "(" . $r2['prefix'] . ")";
+							} else {
+								$categoryHTML .= "Link";
+							}
+							$categoryHTML.= "</h6>";
+
+					    	echo "<a href='".$result["link"]."' target=\"_blank\">
+									<div class='col-md-3'>
+										<div class='well well-sm well-hover'>"
+										. $categoryHTML
+										. "<h4>".$result["title"]."</h4>"
+										. "<p class='text-muted small'>
+											<span class='pull-left'>
+												submitted by " . $result["rcs_id"] .
+											"</span>
+											<span class='pull-right'>" . $result["creation_date"] . "</span>";
                             if($isadmin){
                                 echo "<form method=\"post\" action='links.php?class=" . $_GET["class"] . "' class=\"form-horizontal\">";
                                 echo "<button type=\"submit\" class=\"btn btn-primary pull-right\" name=\"delete\" value=" . $result["link_id"] . ">Delete</button></form>";
@@ -99,9 +113,8 @@ if(isset($_POST["delete"])){
 
                         if($count == 0){
                             echo "No links. You should add one.";
-                        }else{
-                            echo "Found $count links";
                         }
+
 						if(isset($_GET["class"])){
                         	echo "<a href='addLink.php?class=$c'>Add a link</a>";
 						}

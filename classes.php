@@ -30,7 +30,9 @@ if(isset($_GET["prefix"])) {
  * @param  string $prefix the prefix to check
  * @return boolean        whether or not it matches
  */
+
 function determineIfActive($prefix) {
+
 	if(isset($_GET["prefix"]) && $_GET["prefix"] == $prefix) {
 		return "class='active'";
 	}
@@ -136,8 +138,14 @@ if(isset($_POST["delete"])){
 			</div>
 			<br/>
 			<ul class="nav nav-pills nav-stacked">
-                <li role="presentation"><a href="?">All Prefixes</a></li>
+
 				<?php
+					if(!isset($_GET["prefix"])) {
+						echo "<li role='presentation' class='active'><a href='classes.php'>All Prefixes</a></li>";
+					} else {
+						echo "<li role='presentation'><a href='classes.php'>All Prefixes</a></li>";
+					}
+
 					/**
 					 * This array contains all valid prefixes at RPI. These
 					 * values will be used to populate the sidebar of the page.
