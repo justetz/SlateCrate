@@ -3,20 +3,9 @@ require 'resources/functions.php';
 require 'resources/config.php';
 require 'resources/rpiCAS.php';
 
-//$conn = connect($config['DB_HOST'], $config['DB_USERNAME'],
-  //              $config['DB_PASSWORD'], 'slatecratedb');
-
-//$results = query('SELECT * FROM customers', $conn);
-
+require 'partials/head.partial.php';
+require 'partials/navigation.partial.php';
 ?>
-<!DOCTYPE html>
-<html lang="en">
-<?php require 'partials/head.partial.php'; ?>
-<body>
-<?php require 'partials/navigation.partial.php'; ?>
-<!-- *****************************************************************************************************************
- HEADERWRAP
- ***************************************************************************************************************** -->
 <div id="headerwrap">
     <div class="container">
         <div class="row">
@@ -61,12 +50,12 @@ require 'resources/rpiCAS.php';
                 <i class="fa fa-graduation-cap text-rpi"></i>
                 <h4>RPI in mind</h4>
 
-                <p>Made for RPI Students by RPI Students. 
+                <p>Made for RPI Students by RPI Students.
                 We wanted a tool that could help us in our classes,
-                 so we shared it with you: the student body! 
+                 so we shared it with you: the student body!
                 </p>
 
-                
+
             </div>
             <div class="col-md-4">
                 <i class="fa fa-check-circle"></i>
