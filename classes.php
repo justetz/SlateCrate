@@ -96,19 +96,26 @@ if(isset($_POST["delete"])){
                     echo "<div class='row'>";
                     while($result = $var->fetch(PDO::FETCH_ASSOC)){
                         if($count >= ($p - 1) * 24 && $count < $p * 24){
-                            echo "<a href='links.php?class=".$result["category_id"]."''>
-    							<div class='col-md-6'><div class='well well-sm well-hover'>
+                            echo "<div class='col-md-6'>
+								<a href='links.php?class=".$result["category_id"]."''>
+									<div class='well well-sm well-hover'>
     								<h6 class='text-muted'>".$result["prefix"]."</h6>
     								<h4>".$result["title"]."</h4>
     								<p>Contains ".$result["links"]." links.</p>
     								<p class='text-muted small info-text'>
     									<span class='pull-left'>submitted by ".$result["rcs_id"]."</span>
     									<span class='pull-right'>".$result["creation_date"]."</span>";
-                            if($isadmin){
-                                echo "<form method=\"post\" action='classes.php' class=\"form-horizontal\">";
+                            echo "<span class='clearfix'></span></p></div></a>";
+
+							if($isadmin){
+                                echo "<form method=\"post\" action='classes.php";
+								if(isset($_GET["prefix"])){
+									echo "?prefix=".$_GET["prefix"];
+								}
+								echo "' class=\"admin-panel form-horizontal\">";
                                 echo "<button type=\"submit\" class=\"btn btn-primary pull-right\" name=\"delete\" value=" . $result["category_id"] . ">Delete</button></form>";
                             }
-                            echo "<span class='clearfix'></span></p></div></div></a>";
+							echo "</div>";
                         }
                         $count++;
                     }
@@ -120,7 +127,7 @@ if(isset($_POST["delete"])){
 							 </div></div>";
                     }
                 }catch(PDOException $e){ echo $e; }
-                echo "<div class=\"col-xs-12 centered\"><div class=\"btn-group\">";
+                echo "<div class=\"col-xs-12 centered\"><hr/><div class=\"btn-group\">";
                 for ($button=1; $button < ($count / 24) + 1; $button++) {
                     $link = "?";
                     if(isset($_GET["prefix"])){ $link = $link . "prefix=". $_GET["prefix"] ."&"; }

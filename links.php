@@ -146,7 +146,7 @@ try {
 									   </div>
 								   	 </a>";
 								 if($isadmin){
-										echo "<form method=\"post\" action='links.php";
+										echo "<form class='admin-panel' method=\"post\" action='links.php";
 										if(isset($_GET["class"])) {
 				                     		echo "?class=" . $_GET["class"];
 										}
@@ -170,7 +170,9 @@ try {
                     // }
                 }catch(PDOException $e){ echo $e; }
             ?>
-                <div class="col-xs-12 centered">
+				<div class="clearfix"></div>
+			    <div class="col-xs-12 centered">
+					<hr />
                     <div class="btn-group">
                         <a href="" class="btn btn-primary">1</a>
                         <a href="" class="btn btn-primary">2</a>
