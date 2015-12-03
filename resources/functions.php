@@ -40,3 +40,22 @@ function query($query, $conn) {
 	return false;
 }
 
+function alert($lead, $message, $css, $isDismissable) {
+	$alertHTML = "<div class='alert $css";
+	if($isDismissable) {
+		$alertHTML .= " alert-dismissible' role='alert'>
+		   <button type='button' class='close' data-dismiss='alert' aria-label='Close><span aria-hidden='true'>&times;</span></button>";
+	} else {
+		$alertHTML .= "' role='alert'>";
+	}
+	$alertHTML .= "<strong>$lead</strong> $message </div>";
+	return $alertHTML;
+}
+
+function successAlert($message) {
+	return alert("Success!", $message, "alert-success", true);
+}
+
+function errorAlert($message) {
+	return alert("Error!", $message, "alert-danger", true);
+}

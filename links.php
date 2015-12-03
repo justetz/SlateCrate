@@ -22,12 +22,6 @@ try {
 		$var->execute();
 		$result = $var->fetch(PDO::FETCH_ASSOC);
 		$categoryTitle = $result["title"];
-
-		$var = $conn->prepare("SELECT * FROM `links` WHERE `category_id` = $c");
-		$var->execute();
-	} else {
-		$var = $conn->prepare("SELECT * FROM `links`");
-		$var->execute();
 	}
 	$admin = $conn->prepare("SELECT `isadmin` FROM `users` WHERE `rcs_id` = '" . phpCAS::getUser() . "'");
 	$admin->execute();
@@ -57,17 +51,36 @@ if(isset($_POST["linkName"])){
         $conn->query("INSERT INTO `links` (`link`, `rcs_id`, `category_id`, `creation_date`, `title`)
             VALUES (" . $string . ");");
 
-			echo "<div class='row'><div class='col-xs-12'>
-				 <div class='alert alert-success alert-dismissible' role='alert'>
-					<button type='button' class='close' data-dismiss='alert' aria-label='Close><span aria-hidden='true'>&times;</span></button>
-					<strong>Success!</strong> Your new link, entitled " . $_POST["linkName"] . ", was successfully added!
-				 </div></div></div>";
+			echo "<div class='row'><div class='col-xs-12'>" .
+					successAlert("Your new link, entitled " . $_POST["linkName"] . ", was successfully added!") .
+				"</div></div>";
     }catch(PDOException $e){
-        echo $e;
     }
 }
 if(isset($_POST["delete"])){
-    $conn->query("DELETE FROM `links` WHERE `link_id` = " . $_POST["delete"]);
+	try {
+    	$conn->query("DELETE FROM `links` WHERE `link_id` = " . $_POST["delete"]);
+
+		echo "<div class='row'><div class='col-xs-12'>" .
+				successAlert("The link was successfully deleted!") .
+			"</div></div>";
+	} catch(PDOException $e) {
+		echo "<div class='row'><div class='col-xs-12'>" .
+				errorAlert($e) .
+			 "</div></div>";
+    }
+}
+
+try {
+	if(isset($_GET["class"])) {
+		$var = $conn->prepare("SELECT * FROM `links` WHERE `category_id` = $c");
+		$var->execute();
+	} else {
+		$var = $conn->prepare("SELECT * FROM `links`");
+		$var->execute();
+	}
+} catch(PDOException $e) {
+	echo $e;
 }
 ?>
 
@@ -118,8 +131,8 @@ if(isset($_POST["delete"])){
 							}
 							$categoryHTML.= "</h6>";
 
-					    	echo "<a href='".$result["link"]."' target=\"_blank\">
-									<div class='col-md-3'>
+					    	echo "<div class='col-md-3'>
+									<a href='".$result["link"]."' target=\"_blank\">
 										<div class='well well-sm well-hover'>"
 										. $categoryHTML
 										. "<h4>".$result["title"]."</h4>"
@@ -127,12 +140,22 @@ if(isset($_POST["delete"])){
 											<span class='pull-left'>
 												submitted by " . $result["rcs_id"] .
 											"</span>
-											<span class='pull-right'>" . $result["creation_date"] . "</span>";
-                            if($isadmin){
-                                echo "<form method=\"post\" action='links.php?class=" . $_GET["class"] . "' class=\"form-horizontal\">";
-                                echo "<button type=\"submit\" class=\"btn btn-primary pull-right\" name=\"delete\" value=" . $result["link_id"] . ">Delete</button></form>";
-                            }
-                            echo "<span class='clearfix'></span></p></div></div></a>";
+											<span class='pull-right'>" . $result["creation_date"] . "</span>
+											<span class='clearfix'></span>
+										   </p>
+									   </div>
+								   	 </a>";
+								 if($isadmin){
+										echo "<form method=\"post\" action='links.php";
+										if(isset($_GET["class"])) {
+				                     		echo "?class=" . $_GET["class"];
+										}
+										echo "' class=\"form-horizontal\">";
+
+				                     echo "<button type=\"submit\" class=\"btn btn-primary pull-right\" name=\"delete\" value=" . $result["link_id"] . ">Delete</button></form>";
+				                 }
+								echo "</div>";
+
                             $count++;
                         }
 

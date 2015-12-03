@@ -9,12 +9,8 @@ if (!phpCAS::isAuthenticated()) {
 }
 
 $conn = new PDO('mysql:host=localhost;dbname=slatecrate', $config['DB_USERNAME'], $config['DB_PASSWORD']);
-?>
-<!DOCTYPE html>
-<html lang="en">
-<?php require 'partials/head.partial.php'; ?>
-<body>
-<?php
+
+require 'partials/head.partial.php';
 require 'partials/navigation.partial.php';
 
 // Set the page heading appropriately, depending on if the url specifies a prefix
