@@ -72,6 +72,31 @@ if(isset($_POST["delete"])){
 ?>
 
     <div class="row">
+		<div class="col-md-4 col-sm-3">
+			<a href="classes.php" class="btn btn-primary">
+				<span class="fa fa-chevron-left"></span> Back to Classes
+			</a>
+		</div>
+		<div class="col-md-4 col-sm-6">
+			<div class="form-group form-group-sm">
+				<input class="form-control" placeholder="Search Links" />
+			</div>
+		</div>
+		<div class="col-md-4">
+			<?php
+				echo "<a href='addLink.php";
+				if(isset($_GET["class"])) {
+					echo "?class=$c";
+				}
+				echo "' class='btn btn-primary pull-right'>
+					<span class='fa fa-plus'></spab>
+					Add a link
+				</a>";
+			?>
+		</div>
+	</div>
+	<br/>
+	<div class="row">
         <div class="col-md-12">
             <?php
                 try{
@@ -87,7 +112,7 @@ if(isset($_POST["delete"])){
 								$var = $conn->prepare("SELECT `title`,`prefix` FROM `categories` WHERE `category_id` = " . $result["category_id"]);
 								$var->execute();
 								$r2 = $var->fetch(PDO::FETCH_ASSOC);
-								$categoryHTML .= $r2['title'] . "(" . $r2['prefix'] . ")";
+								$categoryHTML .= $r2['title'] . " (" . $r2['prefix'] . ")";
 							} else {
 								$categoryHTML .= "Link";
 							}
@@ -115,9 +140,7 @@ if(isset($_POST["delete"])){
                             echo "No links. You should add one.";
                         }
 
-						if(isset($_GET["class"])){
-                        	echo "<a href='addLink.php?class=$c'>Add a link</a>";
-						}
+
                     // }
                     // else{
                     //     echo "Error, no class selected. Select a class at <a href='classes.php'>Posts</a>.";
