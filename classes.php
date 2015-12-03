@@ -34,16 +34,23 @@ function determineIfActive($prefix) {
 }
 
 require 'partials/pageheader.partial.php';
-
+?>
+<div class="container mtb">
+<?php
 //add class if we need to
 if(isset($_POST["className"])){
     try{
         $string = "'" . $_POST["className"] . "', '" . $_POST["inputCategory"] . "', '" . $_POST["user"] . "', " . "CURDATE()";
 
-        $conn->query("INSERT INTO `categories` (`title`, `prefix`, `rcs_id`, `creation_date`)
+		$conn->query("INSERT INTO `categories` (`title`, `prefix`, `rcs_id`, `creation_date`)
             VALUES (" . $string . ");");
 
-        echo "<p>Class added!</p>";
+        echo "<div class='row'><div class='col-xs-12'>
+			 <div class='alert alert-success alert-dismissible' role='alert'>
+				<button type='button' class='close' data-dismiss='alert' aria-label='Close><span aria-hidden='true'>&times;</span></button>
+				<strong>Success!</strong> Your new class, entitled " . $_POST["className"] . ", was successfully added!
+			 </div></div></div>";
+
     }catch(PDOException $e){
         echo $e;
     }
@@ -57,13 +64,6 @@ if(isset($_POST["delete"])){
     $conn->query("DELETE FROM `categories` WHERE `category_id` = " . $_POST["delete"]);
 }
 ?>
-
-
-<!-- *****************************************************************************************************************
- AGENCY ABOUT
- ***************************************************************************************************************** -->
-
-<div class="container mtb">
     <div class="row">
         <div class="col-md-9">
             <?php
@@ -86,19 +86,14 @@ if(isset($_POST["delete"])){
 
                     echo "<div class='row'>";
                     while($result = $var->fetch(PDO::FETCH_ASSOC)){
-                        echo "<a href='links.php?class=";
-                        echo $result["category_id"];
-                        echo "''><div class='col-md-4'><div class='well well-sm well-hover'><h6 class='text-muted'>";
-                        echo $result["prefix"];
-                        echo "</h6><h4>";
-                        echo $result["title"];
-                        echo "</h4><p>Contains ";
-                        echo $result["links"];
-                        echo " links.</p><p class='text-muted small'><span class='pull-left'>submitted by ";
-                        echo $result["rcs_id"];
-                        echo "</span><span class='pull-right'>";
-                        echo $result["creation_date"];
-                        echo "</span>";
+                        echo "<a href='links.php?class=".$result["category_id"]."''>
+							<div class='col-md-6'><div class='well well-sm well-hover'>
+								<h6 class='text-muted'>".$result["prefix"]."</h6>
+								<h4>".$result["title"]."</h4>
+								<p>Contains ".$result["links"]." links.</p>
+								<p class='text-muted small info-text'>
+									<span class='pull-left'>submitted by ".$result["rcs_id"]."</span>
+									<span class='pull-right'>".$result["creation_date"]."</span>";
                         if($isadmin){
                             echo "<form method=\"post\" action='classes.php' class=\"form-horizontal\">";
                             echo "<button type=\"submit\" class=\"btn btn-primary pull-right\" name=\"delete\" value=" . $result["category_id"] . ">Delete</button></form>";
