@@ -7,12 +7,7 @@ if (!phpCAS::isAuthenticated()) {
 // If they're not currently logged in, take them to the RPI CAS page
     phpCAS::forceAuthentication();
 }
-?>
-<!DOCTYPE html>
-<html lang="en">
-<?php require 'partials/head.partial.php'; ?>
-<body>
-<?php
+require 'partials/head.partial.php';
 require 'partials/navigation.partial.php';
 
 $pageHeader = "Add a new link";

@@ -9,12 +9,8 @@ if (!phpCAS::isAuthenticated()) {
 }
 
 $conn = new PDO('mysql:host=localhost;dbname=slatecrate', $config['DB_USERNAME'], $config['DB_PASSWORD']);
-?>
-<!DOCTYPE html>
-<html lang="en">
-<?php require 'partials/head.partial.php'; ?>
-<body>
-<?php
+
+require 'partials/head.partial.php';
 require 'partials/navigation.partial.php';
 
 // Set the page heading appropriately, depending on if the url specifies a prefix
@@ -30,7 +26,9 @@ if(isset($_GET["prefix"])) {
  * @param  string $prefix the prefix to check
  * @return boolean        whether or not it matches
  */
+
 function determineIfActive($prefix) {
+
 	if(isset($_GET["prefix"]) && $_GET["prefix"] == $prefix) {
 		return "class='active'";
 	}
@@ -98,19 +96,26 @@ if(isset($_POST["delete"])){
                     echo "<div class='row'>";
                     while($result = $var->fetch(PDO::FETCH_ASSOC)){
                         if($count >= ($p - 1) * 24 && $count < $p * 24){
-                            echo "<a href='links.php?class=".$result["category_id"]."''>
-    							<div class='col-md-6'><div class='well well-sm well-hover'>
+                            echo "<div class='col-md-6'>
+								<a href='links.php?class=".$result["category_id"]."''>
+									<div class='well well-sm well-hover'>
     								<h6 class='text-muted'>".$result["prefix"]."</h6>
     								<h4>".$result["title"]."</h4>
     								<p>Contains ".$result["links"]." links.</p>
     								<p class='text-muted small info-text'>
     									<span class='pull-left'>submitted by ".$result["rcs_id"]."</span>
     									<span class='pull-right'>".$result["creation_date"]."</span>";
-                            if($isadmin){
-                                echo "<form method=\"post\" action='classes.php' class=\"form-horizontal\">";
+                            echo "<span class='clearfix'></span></p></div></a>";
+
+							if($isadmin){
+                                echo "<form method=\"post\" action='classes.php";
+								if(isset($_GET["prefix"])){
+									echo "?prefix=".$_GET["prefix"];
+								}
+								echo "' class=\"admin-panel form-horizontal\">";
                                 echo "<button type=\"submit\" class=\"btn btn-primary pull-right\" name=\"delete\" value=" . $result["category_id"] . ">Delete</button></form>";
                             }
-                            echo "<span class='clearfix'></span></p></div></div></a>";
+							echo "</div>";
                         }
                         $count++;
                     }
@@ -122,7 +127,7 @@ if(isset($_POST["delete"])){
 							 </div></div>";
                     }
                 }catch(PDOException $e){ echo $e; }
-                echo "<div class=\"col-xs-12 centered\"><div class=\"btn-group\">";
+                echo "<div class=\"col-xs-12 centered\"><hr/><div class=\"btn-group\">";
                 for ($button=1; $button < ($count / 24) + 1; $button++) {
                     $link = "?";
                     if(isset($_GET["prefix"])){ $link = $link . "prefix=". $_GET["prefix"] ."&"; }
@@ -139,8 +144,14 @@ if(isset($_POST["delete"])){
 			</div>
 			<br/>
 			<ul class="nav nav-pills nav-stacked">
-                <li role="presentation"><a href="?">All Prefixes</a></li>
+
 				<?php
+					if(!isset($_GET["prefix"])) {
+						echo "<li role='presentation' class='active'><a href='classes.php'>All Prefixes</a></li>";
+					} else {
+						echo "<li role='presentation'><a href='classes.php'>All Prefixes</a></li>";
+					}
+
 					/**
 					 * This array contains all valid prefixes at RPI. These
 					 * values will be used to populate the sidebar of the page.

@@ -170,6 +170,13 @@ a:focus {
   border-color: #00b3fe;
 }
 
+.admin-panel {
+	margin-top: -10px;
+}
+.admin-panel > button {
+	margin-bottom: 15px;
+}
+
 .btn-outline {
 	background-color: transparent;
 	color: #fff;
@@ -222,6 +229,7 @@ a:focus {
 .mtb {
 	margin-top: 80px;
 	margin-bottom: 80px;
+	min-height: 400px;
 }
 
 .mb {
