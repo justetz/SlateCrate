@@ -73,7 +73,7 @@ if(isset($_POST["user"])){
             VALUES (" . $string . ");");
 
 			echo "<div class='row'><div class='col-xs-12'>" .
-					successAlert("Your new link, entitled " . $_POST["linkName"] . ", was successfully added!" . $_POST["classForAdd"]) .
+					successAlert("Your new link, entitled " . $_POST["linkName"] . ", was successfully added!") .
 				"</div></div>";
     }catch(PDOException $e){
 		echo "<div class='row'><div class='col-xs-12'>" .
@@ -134,9 +134,9 @@ try {
 			<?php
 				echo "<a href='addLink.php?";
 				if(isset($_GET["class"])) {
-					echo "class=$c&";
+					echo "class=" . $_GET["class"];
 				}
-				echo "class='btn btn-primary pull-right'>
+				echo "' class='btn btn-primary pull-right'>
 					<span class='fa fa-plus'></span>
 					Add a link
 				</a>";
