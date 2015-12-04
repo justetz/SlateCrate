@@ -65,6 +65,7 @@ CREATE TABLE IF NOT EXISTS `slatecrate`.`links` (
   `category_id` INT NOT NULL COMMENT '',
   `creation_date` DATE NOT NULL COMMENT '',
   `title` VARCHAR(200) NOT NULL COMMENT '',
+  `score` INT(5) NOT NULL DEFAULT 0 COMMENT '',
   PRIMARY KEY (`link_id`)  COMMENT '',
   INDEX `LINKS_FK2_idx` (`category_id` ASC)  COMMENT '',
   CONSTRAINT `LINKS_FK1`

@@ -47,6 +47,23 @@ require 'partials/pageheader.partial.php';
 ?>
 <div class="container mtb">
 <?php
+//up or downvote
+if(isset($_POST["upvote"])){
+    $id = $_POST["upvote"];
+    $vote = $conn->prepare("SELECT `score` FROM `links` WHERE `link_id` = " . $id);
+    $vote->execute();
+    $score = ($vote->fetch(PDO::FETCH_ASSOC));
+    $score = $score["score"] + 1;
+    $conn->query("UPDATE `links` SET `score` = " . $score . " WHERE `link_id` = " . $id);
+}else if(isset($_POST["downvote"])){
+    $id = $_POST["downvote"];
+    $vote = $conn->prepare("SELECT `score` FROM `links` WHERE `link_id` = " . $id);
+    $vote->execute();
+    $score = ($vote->fetch(PDO::FETCH_ASSOC));
+    $score = $score["score"] - 1;
+    $conn->query("UPDATE `links` SET `score` = " . $score . " WHERE `link_id` = " . $id);
+}
+
 //add class if we need to
 if(isset($_POST["user"])){
     try{
@@ -80,10 +97,10 @@ if(isset($_POST["delete"])){
 
 try {
 	if(isset($_GET["class"])) {
-		$var = $conn->prepare("SELECT * FROM `links` WHERE `category_id` = $c");
+		$var = $conn->prepare("SELECT * FROM `links` WHERE `category_id` = $c ORDER BY `score`");
 		$var->execute();
 	} else {
-		$var = $conn->prepare("SELECT * FROM `links`");
+		$var = $conn->prepare("SELECT * FROM `links` ORDER BY `score`");
 		$var->execute();
 	}
 } catch(PDOException $e) {
@@ -154,6 +171,7 @@ try {
     										<div class='well well-sm well-hover'>"
     										. $categoryHTML
     										. "<h4>".$result["title"]."</h4>"
+                                            . "<p>Score: ".$result["score"]."</p>"
     										. "<p class='text-muted small'>
     											<span class='pull-left'>
     												submitted by " . $result["rcs_id"] .
@@ -163,22 +181,36 @@ try {
     										   </p>
     									   </div>
     								   	 </a>";
-    								if($isadmin){
-                                        echo "<form class='admin-panel' method=\"post\" action='links.php";
-                                        $class = "";
-                                        if(isset($_GET["class"])) {
-                                            $class .= "?class=" . $_GET["class"];
-                                            echo $class;
-                                        }
-                                        echo "' class=\"form-horizontal\">";
 
+                                    //for getting back to the same page you started on
+                                    $class = "?";
+                                    $page = "";
+                                    if(isset($_GET["class"])) {
+                                        $class .= "class=" . $_GET["class"];
+                                    }
+                                    if(isset($_GET["page"])){
+                                        if($class == "?"){ $page = "?page=" . $_GET["page"]; }
+                                        else{ $page = $class . "&page=" . $_GET["page"]; }
+                                    }
+
+                                    //if the user is an administrator, they can delete and edit
+    								if($isadmin){
+                                        //delete button
+                                        echo "<form class='admin-panel' method=\"post\" action='links.php$class' class=\"form-horizontal\">";
                                         echo "<button type=\"submit\" class=\"btn btn-primary pull-right\" name=\"delete\" value=" . $result["link_id"] . ">Delete</button></form>";
 
-
-                                        echo "<form class='admin-panel' method=\"post\" action='editLink.php" . $class . "' class=\"form-horizontal\">";
+                                        //edit button
+                                        echo "<form class='admin-panel' method=\"post\" action='editLink.php" . $page . "' class=\"form-horizontal\">";
                                         echo "<button type=\"submit\" class=\"btn btn-primary pull-right\" name=\"edit\" value=" . $result["link_id"] . ">Edit</button></form>";
     				                }
-    								echo "</div>";
+
+                                    //for upvote and downvote
+                                    echo "<form class='admin-panel' method=\"post\" action='links.php$page" . $page . "' class=\"form-horizontal\">";
+                                    echo "<button type=\"submit\" class=\"btn btn-primary pull-right\" name=\"upvote\" value=" . $result["link_id"] . ">Upvote</button></form>";
+                                    echo "<form class='admin-panel' method=\"post\" action='links.php$page" . $page . "' class=\"form-horizontal\">";
+                                    echo "<button type=\"submit\" class=\"btn btn-primary pull-right\" name=\"downvote\" value=" . $result["link_id"] . ">Downvote</button></form>";
+    								
+                                    echo "</div>";
                                 }
 
                             $count++;
