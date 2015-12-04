@@ -146,7 +146,7 @@ if(isset($_POST["delete"])){
 
                 if(($c / 16) + 1 >= 2) {
                     echo "<div class=\"col-xs-12 centered\"><hr/><div class=\"btn-group\">";
-                    for ($button = 1; $button < ($c / 16) + 1; $button++) {
+                    for ($button = 1; $button < ($count / 16) + 1; $button++) {
                         $link = "?";
                         if (isset($_GET["prefix"])) {
                             $link .= "prefix=" . $_GET["prefix"] . "&";

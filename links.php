@@ -16,6 +16,10 @@ require 'partials/head.partial.php';
 require 'partials/navigation.partial.php';
 
 try {
+    if(isset($_POST["edit"])){
+        $conn->query("UPDATE `links` SET `title` = '" . $_POST["linkName"] . "', `link` = '" . $_POST["URL"] . "' WHERE `link_id` = " . $_POST["edit"]);
+    }
+
 	if(isset($_GET["class"])) {
 		$c = $_GET["class"];
 		$var = $conn->prepare("SELECT `title` FROM `categories` WHERE `category_id` = $c");
@@ -44,7 +48,7 @@ require 'partials/pageheader.partial.php';
 <div class="container mtb">
 <?php
 //add class if we need to
-if(isset($_POST["linkName"])){
+if(isset($_POST["user"])){
     try{
         $string = "'" . $_POST["URL"] . "', '" . phpCAS::getUser() . "', " . $_POST["classForAdd"] . ", " . "CURDATE(), '" . $_POST["linkName"] . "'";
 
@@ -159,15 +163,21 @@ try {
     										   </p>
     									   </div>
     								   	 </a>";
-    								 if($isadmin){
-    										echo "<form class='admin-panel' method=\"post\" action='links.php";
-    										if(isset($_GET["class"])) {
-    				                     		echo "?class=" . $_GET["class"];
-    										}
-    										echo "' class=\"form-horizontal\">";
+    								if($isadmin){
+                                        echo "<form class='admin-panel' method=\"post\" action='links.php";
+                                        $class = "";
+                                        if(isset($_GET["class"])) {
+                                            $class .= "?class=" . $_GET["class"];
+                                            echo $class;
+                                        }
+                                        echo "' class=\"form-horizontal\">";
 
-    				                     echo "<button type=\"submit\" class=\"btn btn-primary pull-right\" name=\"delete\" value=" . $result["link_id"] . ">Delete</button></form>";
-    				                 }
+                                        echo "<button type=\"submit\" class=\"btn btn-primary pull-right\" name=\"delete\" value=" . $result["link_id"] . ">Delete</button></form>";
+
+
+                                        echo "<form class='admin-panel' method=\"post\" action='editLink.php" . $class . "' class=\"form-horizontal\">";
+                                        echo "<button type=\"submit\" class=\"btn btn-primary pull-right\" name=\"edit\" value=" . $result["link_id"] . ">Edit</button></form>";
+    				                }
     								echo "</div>";
                                 }
 
