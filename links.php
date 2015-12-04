@@ -90,7 +90,14 @@ try {
     <div class="row">
 		<div class="col-md-4 col-sm-3">
 			<a href="classes.php" class="btn btn-primary">
-				<span class="fa fa-chevron-left"></span> Back to Classes
+				<?php
+				if(isset($_GET["class"])) {
+					echo "<span class=\"fa fa-chevron-left\"></span> Back to Classes";
+				} else {
+					echo "View Classes";
+				}
+				?>
+
 			</a>
 		</div>
 		<div class="col-md-4 col-sm-6">

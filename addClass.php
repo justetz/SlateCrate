@@ -38,6 +38,7 @@ require 'partials/pageheader.partial.php';
 
                         <div class="col-sm-9">
                             <select id="inputCategory" class="form-control" name="inputCategory">
+                                <option value="" disabled selected>Select a prefix (type to search)</option>
 								<?php
 									/**
 									 * This array contains all valid prefixes at RPI. These
