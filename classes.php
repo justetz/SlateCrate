@@ -144,7 +144,7 @@ if(isset($_POST["delete"])){
                     }
                 }catch(PDOException $e){ echo $e; }
 
-                if(($c / 16) + 1 >= 2) {
+                if(($count / 16) + 1 >= 2) {
                     echo "<div class=\"col-xs-12 centered\"><hr/><div class=\"btn-group\">";
                     for ($button = 1; $button < ($count / 16) + 1; $button++) {
                         $link = "?";
