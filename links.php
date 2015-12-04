@@ -96,11 +96,13 @@ if(isset($_POST["delete"])){
 }
 
 try {
+    $search = "";
+    if(isset($_POST["srch"])){ $search = $_POST["srch"]; }
 	if(isset($_GET["class"])) {
-		$var = $conn->prepare("SELECT * FROM `links` WHERE `category_id` = $c ORDER BY `score`");
+		$var = $conn->prepare("SELECT * FROM `links` WHERE `category_id` = $c AND `title` LIKE '%$search%' ORDER BY `score`");
 		$var->execute();
 	} else {
-		$var = $conn->prepare("SELECT * FROM `links` ORDER BY `score`");
+		$var = $conn->prepare("SELECT * FROM `links` ORDER BY `score` WHERE `title` LIKE '%$search%' ORDER BY `score`");
 		$var->execute();
 	}
 } catch(PDOException $e) {
@@ -123,16 +125,18 @@ try {
 		</div>
 		<div class="col-md-4 col-sm-6">
 			<div class="form-group form-group-sm">
-				<input class="form-control" placeholder="Search Links" />
+                <form method="post">
+				    <input name="srch" value="" class="form-control" placeholder="Search Links" />
+                </form>
 			</div>
 		</div>
 		<div class="col-md-4">
 			<?php
-				echo "<a href='addLink.php";
+				echo "<a href='addLink.php?";
 				if(isset($_GET["class"])) {
-					echo "?class=$c";
+					echo "class=$c&";
 				}
-				echo "' class='btn btn-primary pull-right'>
+				echo "class='btn btn-primary pull-right'>
 					<span class='fa fa-plus'></span>
 					Add a link
 				</a>";
