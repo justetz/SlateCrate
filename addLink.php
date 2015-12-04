@@ -15,7 +15,7 @@ $conn = new PDO('mysql:host=localhost;dbname=slatecrate', $config['DB_USERNAME']
 
 function echoPostURL() {
     if(isset($_GET["class"])) {
-        echo "links.php?class=" . $_GET["class"] . "'";
+        echo "links.php?class=" . $_GET["class"];
     } else {
         echo "links.php";
     }
