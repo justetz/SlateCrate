@@ -39,8 +39,15 @@ require 'partials/pageheader.partial.php';
 ?>
 <div class="container mtb">
 <?php
+//edit if we need to
+if(isset($_POST["edit"])){
+    try{
+        $conn->query("UPDATE `categories` SET `title` = '" . $_POST["className"] . "', `prefix` = '" . $_POST["inputCategory"] . "' WHERE `category_id` = " . $_POST["edit"]);
+    }catch(PDOException $e){}
+}
+
 //add class if we need to
-if(isset($_POST["className"])){
+if(isset($_POST["user"])){
     try{
         $string = "'" . $_POST["className"] . "', '" . $_POST["inputCategory"] . "', '" . $_POST["user"] . "', " . "CURDATE()";
 
@@ -101,7 +108,7 @@ if(isset($_POST["delete"])){
                     echo "<div class='row'>";
                     while($result = $var->fetch(PDO::FETCH_ASSOC)){
                         if($c >= ($p - 1) * 16 && $c < $p * 16){
-                            $l = $conn->query("SELECT * FROM `links` WHERE `category_id` = " . $result["category_id"])->fetchColumn();
+                            $l = $conn->query("SELECT * FROM `links` WHERE `category_id` = '" . $result["category_id"] . "'")->fetchColumn();
                             if($l == NULL){ $l = 0; }
                             echo "<div class='col-md-6'>
 								<a href='links.php?class=".$result["category_id"]."''>
@@ -115,6 +122,9 @@ if(isset($_POST["delete"])){
                             echo "<span class='clearfix'></span></p></div></a>";
 
 							if($isadmin){
+                                echo "<form method=\"post\" action='editClass.php' class=\"admin-panel form-horizontal\">";
+                                echo "<button type=\"submit\" class=\"btn btn-primary pull-right\" name=\"edit\" value=" . $result["category_id"] . ">Edit</button></form>";
+
                                 echo "<form method=\"post\" action='classes.php";
 								if(isset($_GET["prefix"])){
 									echo "?prefix=".$_GET["prefix"];
