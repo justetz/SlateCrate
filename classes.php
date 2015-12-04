@@ -122,15 +122,14 @@ if(isset($_POST["delete"])){
                             echo "<span class='clearfix'></span></p></div></a>";
 
 							if($isadmin){
-                                echo "<form method=\"post\" action='editClass.php' class=\"admin-panel form-horizontal\">";
-                                echo "<button type=\"submit\" class=\"btn btn-primary pull-right\" name=\"edit\" value=" . $result["category_id"] . ">Edit</button></form>";
-
                                 echo "<form method=\"post\" action='classes.php";
 								if(isset($_GET["prefix"])){
 									echo "?prefix=".$_GET["prefix"];
 								}
-								echo "' class=\"admin-panel form-horizontal\">";
-                                echo "<button type=\"submit\" class=\"btn btn-primary pull-right\" name=\"delete\" value=" . $result["category_id"] . ">Delete</button></form>";
+								echo "' class=\"admin-panel\">";
+                                echo "<button type=\"submit\" class=\"btn btn-default pull-right\" name=\"delete\" value=" . $result["category_id"] . ">Delete</button></form>";
+                                echo "<form method=\"post\" action='editClass.php' class=\"admin-panel\">";
+                                echo "<button type=\"submit\" class=\"btn btn-default\" name=\"edit\" value=" . $result["category_id"] . ">Edit</button></form>";
                             }
 							echo "</div>";
                         }else if($c >= $p * 16){ break; }
