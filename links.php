@@ -115,46 +115,51 @@ try {
                 try{
                     //if(isset($_GET["class"])){
                         $count = 0;
+                        if(isset($_GET["page"])){
+                            $p = $_GET["page"];
+                        }else{ $p = 1; }
 
                         echo "<div class='row'>";
 						$data = $var->fetchAll(PDO::FETCH_ASSOC);
 
 						foreach($data as $result) {
-							$categoryHTML = "<h6 class='text-muted'>";
-							if(!isset($_GET["class"])) {
-								$var = $conn->prepare("SELECT `title`,`prefix` FROM `categories` WHERE `category_id` = " . $result["category_id"]);
-								$var->execute();
-								$r2 = $var->fetch(PDO::FETCH_ASSOC);
-								$categoryHTML .= $r2['title'] . " (" . $r2['prefix'] . ")";
-							} else {
-								$categoryHTML .= "Link";
-							}
-							$categoryHTML.= "</h6>";
+                            if($count >= ($p - 1) * 16 && $count < $p * 16){
+    							$categoryHTML = "<h6 class='text-muted'>";
+    							if(!isset($_GET["class"])) {
+    								$var = $conn->prepare("SELECT `title`,`prefix` FROM `categories` WHERE `category_id` = " . $result["category_id"]);
+    								$var->execute();
+    								$r2 = $var->fetch(PDO::FETCH_ASSOC);
+    								$categoryHTML .= $r2['title'] . " (" . $r2['prefix'] . ")";
+    							} else {
+    								$categoryHTML .= "Link";
+    							}
+    							$categoryHTML.= "</h6>";
 
-					    	echo "<div class='col-md-3'>
-									<a href='".$result["link"]."' target=\"_blank\">
-										<div class='well well-sm well-hover'>"
-										. $categoryHTML
-										. "<h4>".$result["title"]."</h4>"
-										. "<p class='text-muted small'>
-											<span class='pull-left'>
-												submitted by " . $result["rcs_id"] .
-											"</span>
-											<span class='pull-right'>" . $result["creation_date"] . "</span>
-											<span class='clearfix'></span>
-										   </p>
-									   </div>
-								   	 </a>";
-								 if($isadmin){
-										echo "<form class='admin-panel' method=\"post\" action='links.php";
-										if(isset($_GET["class"])) {
-				                     		echo "?class=" . $_GET["class"];
-										}
-										echo "' class=\"form-horizontal\">";
+    					    	echo "<div class='col-md-3'>
+    									<a href='".$result["link"]."' target=\"_blank\">
+    										<div class='well well-sm well-hover'>"
+    										. $categoryHTML
+    										. "<h4>".$result["title"]."</h4>"
+    										. "<p class='text-muted small'>
+    											<span class='pull-left'>
+    												submitted by " . $result["rcs_id"] .
+    											"</span>
+    											<span class='pull-right'>" . $result["creation_date"] . "</span>
+    											<span class='clearfix'></span>
+    										   </p>
+    									   </div>
+    								   	 </a>";
+    								 if($isadmin){
+    										echo "<form class='admin-panel' method=\"post\" action='links.php";
+    										if(isset($_GET["class"])) {
+    				                     		echo "?class=" . $_GET["class"];
+    										}
+    										echo "' class=\"form-horizontal\">";
 
-				                     echo "<button type=\"submit\" class=\"btn btn-primary pull-right\" name=\"delete\" value=" . $result["link_id"] . ">Delete</button></form>";
-				                 }
-								echo "</div>";
+    				                     echo "<button type=\"submit\" class=\"btn btn-primary pull-right\" name=\"delete\" value=" . $result["link_id"] . ">Delete</button></form>";
+    				                 }
+    								echo "</div>";
+                                }
 
                             $count++;
                         }
@@ -169,19 +174,16 @@ try {
                     //     echo "Error, no class selected. Select a class at <a href='classes.php'>Posts</a>.";
                     // }
                 }catch(PDOException $e){ echo $e; }
+
+                echo "<div class=\"clearfix\"></div><div class=\"col-xs-12 centered\"><hr/><div class=\"btn-group\">";
+                for ($button=1; $button < ($count / 16) + 1; $button++) {
+                    $link = "?";
+                    if(isset($_GET["class"])){ $link = $link . "class=". $_GET["class"] ."&"; }
+                    $link .= "page=$button";
+                    echo "<a href=\"$link\" class=\"btn btn-primary\">$button</a>";
+                }
+                echo "</div></div>";
             ?>
-				<div class="clearfix"></div>
-			    <div class="col-xs-12 centered">
-					<hr />
-                    <div class="btn-group">
-                        <a href="" class="btn btn-primary">1</a>
-                        <a href="" class="btn btn-primary">2</a>
-                        <a href="" class="btn btn-primary">3</a>
-                        <a href="" class="btn btn-primary">4</a>
-                        <a href="" class="btn btn-primary">5</a>
-                        <a href="" class="btn btn-primary">6</a>
-                    </div>
-                </div>
             </div>
         </div>
     </div>
