@@ -77,7 +77,12 @@ if(isset($_POST["delete"])){
                     if(isset($_GET["prefix"])){
                         $p = "'" . $_GET["prefix"] . "'";
                         $var = $conn->prepare("SELECT * FROM `categories` WHERE `prefix` = $p ORDER BY `title`");
-                    }else{ $var = $conn->prepare("SELECT * FROM `categories` ORDER BY `title`"); }
+                        $count = $conn->query("SELECT `title` FROM `categories` WHERE `prefix` = $p")->fetchColumn();
+                    }else{
+                        $var = $conn->prepare("SELECT * FROM `categories` ORDER BY `title`");
+                        $count = $conn->query("SELECT `title` FROM `categories`")->fetchColumn();
+                    }
+                    if($count == NULL){ $count = 0; }
                     $var->execute();
 
                     //Check if current user is an admin
@@ -88,14 +93,14 @@ if(isset($_POST["delete"])){
                         if($result["isadmin"] == 1){ $isadmin = true; }
                     }
 
-                    $count = 0;
+                    $c = 0;
                     if(isset($_GET["page"])){
                         $p = $_GET["page"];
                     }else{ $p = 1; }
 
                     echo "<div class='row'>";
                     while($result = $var->fetch(PDO::FETCH_ASSOC)){
-                        if($count >= ($p - 1) * 16 && $count < $p * 16){
+                        if($c >= ($p - 1) * 16 && $c < $p * 16){
                             $l = $conn->query("SELECT * FROM `links` WHERE `category_id` = " . $result["category_id"])->fetchColumn();
                             if($l == NULL){ $l = 0; }
                             echo "<div class='col-md-6'>
@@ -118,8 +123,8 @@ if(isset($_POST["delete"])){
                                 echo "<button type=\"submit\" class=\"btn btn-primary pull-right\" name=\"delete\" value=" . $result["category_id"] . ">Delete</button></form>";
                             }
 							echo "</div>";
-                        }
-                        $count++;
+                        }else if($c >= $p * 16){ break; }
+                        ++$c;
                     }
 
                     if($count == 0){
@@ -130,7 +135,7 @@ if(isset($_POST["delete"])){
                     }
                 }catch(PDOException $e){ echo $e; }
                 echo "<div class=\"col-xs-12 centered\"><hr/><div class=\"btn-group\">";
-                for ($button=1; $button < ($count / 24) + 1; $button++) {
+                for ($button=1; $button < ($count / 16) + 1; $button++) {
                     $link = "?";
                     if(isset($_GET["prefix"])){ $link = $link . "prefix=". $_GET["prefix"] ."&"; }
                     $link .= "page=$button";
