@@ -137,21 +137,26 @@ if(isset($_POST["delete"])){
                         ++$c;
                     }
 
-                    if($count == 0){
+                    if($c == 0){
                         echo "<div class='col-xs-12'>
 							 <div class='alert alert-info' role='alert'>
 								No classes. You should add one!
 							 </div></div>";
                     }
                 }catch(PDOException $e){ echo $e; }
-                echo "<div class=\"col-xs-12 centered\"><hr/><div class=\"btn-group\">";
-                for ($button=1; $button < ($count / 16) + 1; $button++) {
-                    $link = "?";
-                    if(isset($_GET["prefix"])){ $link = $link . "prefix=". $_GET["prefix"] ."&"; }
-                    $link .= "page=$button";
-                    echo "<a href=\"$link\" class=\"btn btn-primary\">$button</a>";
+
+                if(($c / 16) + 1 >= 2) {
+                    echo "<div class=\"col-xs-12 centered\"><hr/><div class=\"btn-group\">";
+                    for ($button = 1; $button < ($c / 16) + 1; $button++) {
+                        $link = "?";
+                        if (isset($_GET["prefix"])) {
+                            $link .= "prefix=" . $_GET["prefix"] . "&";
+                        }
+                        $link .= "page=$button";
+                        echo "<a href=\"$link\" class=\"btn btn-primary\">$button</a>";
+                    }
+                    echo "</div></div>";
                 }
-                echo "</div></div>";
             ?>
             </div>
         </div>
