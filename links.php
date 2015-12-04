@@ -194,7 +194,7 @@ try {
                                     }
 
                                     //if the user is an administrator, they can delete and edit
-    								if($isadmin){
+    								if($isadmin || $result["rcs_id"] == phpCAS::getUser()){
                                         //delete button
                                         echo "<form class='admin-panel' method=\"post\" action='links.php$class' class=\"form-horizontal\">";
                                         echo "<button type=\"submit\" class=\"btn btn-primary pull-right\" name=\"delete\" value=" . $result["link_id"] . ">Delete</button></form>";
