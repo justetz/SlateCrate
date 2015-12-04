@@ -95,13 +95,15 @@ if(isset($_POST["delete"])){
 
                     echo "<div class='row'>";
                     while($result = $var->fetch(PDO::FETCH_ASSOC)){
-                        if($count >= ($p - 1) * 24 && $count < $p * 24){
+                        if($count >= ($p - 1) * 16 && $count < $p * 16){
+                            $l = $conn->query("SELECT * FROM `links` WHERE `category_id` = " . $result["category_id"])->fetchColumn();
+                            if($l == NULL){ $l = 0; }
                             echo "<div class='col-md-6'>
 								<a href='links.php?class=".$result["category_id"]."''>
 									<div class='well well-sm well-hover'>
     								<h6 class='text-muted'>".$result["prefix"]."</h6>
     								<h4>".$result["title"]."</h4>
-    								<p>Contains ".$result["links"]." links.</p>
+    								<p>Contains ".$l." links.</p>
     								<p class='text-muted small info-text'>
     									<span class='pull-left'>submitted by ".$result["rcs_id"]."</span>
     									<span class='pull-right'>".$result["creation_date"]."</span>";
