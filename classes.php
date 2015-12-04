@@ -108,8 +108,12 @@ if(isset($_POST["delete"])){
                     echo "<div class='row'>";
                     while($result = $var->fetch(PDO::FETCH_ASSOC)){
                         if($c >= ($p - 1) * 16 && $c < $p * 16){
-                            $l = $conn->query("SELECT * FROM `links` WHERE `category_id` = '" . $result["category_id"] . "'")->fetchColumn();
+
+                            //to get the number of links
+                            $l = $conn->query("SELECT COUNT(link_id) FROM `links` WHERE `category_id` = '" . $result["category_id"] . "'")->fetchColumn();
                             if($l == NULL){ $l = 0; }
+
+                            //print out the boxes
                             echo "<div class='col-md-6'>
 								<a href='links.php?class=".$result["category_id"]."''>
 									<div class='well well-sm well-hover'>
