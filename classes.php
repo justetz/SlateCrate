@@ -115,13 +115,13 @@ if(isset($_POST["delete"])){
 									<div class='well well-sm well-hover'>
     								<h6 class='text-muted'>".$result["prefix"]."</h6>
     								<h4>".$result["title"]."</h4>
-    								<p>Contains ".$l.($l > 1 ? "links" : "link").".</p>
+    								<p>Contains ".$l.($l > 1 ? " links" : " link").".</p>
     								<p class='text-muted small info-text'>
     									<span class='pull-left'>submitted by ".$result["rcs_id"]."</span>
     									<span class='pull-right'>".$result["creation_date"]."</span>";
                             echo "<span class='clearfix'></span></p></div></a>";
 
-							if($isadmin){
+							if($isadmin || $result["rcs_id"] == phpCAS::getUser()) {
                                 echo "<form method=\"post\" action='classes.php";
 								if(isset($_GET["prefix"])){
 									echo "?prefix=".$_GET["prefix"];
