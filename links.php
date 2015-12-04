@@ -46,15 +46,18 @@ require 'partials/pageheader.partial.php';
 //add class if we need to
 if(isset($_POST["linkName"])){
     try{
-        $string = "'" . $_POST["URL"] . "', " . $_POST["user"] . ", " . "CURDATE(), '" . $_POST["linkName"] . "'";
+        $string = "'" . $_POST["URL"] . "', '" . phpCAS::getUser() . "', " . $_POST["classForAdd"] . ", " . "CURDATE(), '" . $_POST["linkName"] . "'";
 
         $conn->query("INSERT INTO `links` (`link`, `rcs_id`, `category_id`, `creation_date`, `title`)
             VALUES (" . $string . ");");
 
 			echo "<div class='row'><div class='col-xs-12'>" .
-					successAlert("Your new link, entitled " . $_POST["linkName"] . ", was successfully added!") .
+					successAlert("Your new link, entitled " . $_POST["linkName"] . ", was successfully added!" . $_POST["classForAdd"]) .
 				"</div></div>";
     }catch(PDOException $e){
+		echo "<div class='row'><div class='col-xs-12'>" .
+				errorAlert($e) .
+				"</div></div>";
     }
 }
 if(isset($_POST["delete"])){
