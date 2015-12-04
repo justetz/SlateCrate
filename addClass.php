@@ -78,5 +78,10 @@ require 'partials/pageheader.partial.php';
 </div>
 
 <?php require 'partials/footer.partial.php'; ?>
+<script type="text/javascript">
+    $('#inputCategory').selectize({
+        sortField: 'text'
+    });
+</script>
 </body>
 </html>
