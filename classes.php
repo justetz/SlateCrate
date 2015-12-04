@@ -76,18 +76,33 @@ if(isset($_POST["delete"])){
     }
     $conn->query("DELETE FROM `categories` WHERE `category_id` = " . $_POST["delete"]);
 }
+
+
+$search = "";
+if(isset($_POST["srch"])){
+    $search = $_POST["srch"];
+}
 ?>
+    
+    <div class="col-md-4 col-sm-6">
+        <div class="form-group form-group-sm">
+            <form method="post">
+                <input name="srch" value="" class="form-control" placeholder="Search Classes" />
+            </form>
+        </div>
+    </div>
+
     <div class="row">
         <div class="col-md-9">
             <?php
                 try{
                     if(isset($_GET["prefix"])){
                         $p = "'" . $_GET["prefix"] . "'";
-                        $var = $conn->prepare("SELECT * FROM `categories` WHERE `prefix` = $p ORDER BY `title`");
-                        $count = $conn->query("SELECT `title` FROM `categories` WHERE `prefix` = $p")->fetchColumn();
+                        $var = $conn->prepare("SELECT * FROM `categories` WHERE `prefix` = $p AND `title` LIKE '%$search%' ORDER BY `title`");
+                        $count = $conn->query("SELECT `title` FROM `categories` WHERE `prefix` = $p `links` AND `title` LIKE '%$search%' WHERE `prefix` = $p")->fetchColumn();
                     }else{
-                        $var = $conn->prepare("SELECT * FROM `categories` ORDER BY `title`");
-                        $count = $conn->query("SELECT `title` FROM `categories`")->fetchColumn();
+                        $var = $conn->prepare("SELECT * FROM `categories` WHERE `title` LIKE '%$search%' ORDER BY `title`");
+                        $count = $conn->query("SELECT `title` FROM `categories` WHERE `title` LIKE '%$search%'")->fetchColumn();
                     }
                     if($count == NULL){ $count = 0; }
                     $var->execute();
