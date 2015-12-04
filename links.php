@@ -102,7 +102,7 @@ try {
 					echo "?class=$c";
 				}
 				echo "' class='btn btn-primary pull-right'>
-					<span class='fa fa-plus'></spab>
+					<span class='fa fa-plus'></span>
 					Add a link
 				</a>";
 			?>
