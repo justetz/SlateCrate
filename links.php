@@ -185,14 +185,19 @@ try {
                     // }
                 }catch(PDOException $e){ echo $e; }
 
-                echo "<div class=\"clearfix\"></div><div class=\"col-xs-12 centered\"><hr/><div class=\"btn-group\">";
-                for ($button=1; $button < ($count / 16) + 1; $button++) {
-                    $link = "?";
-                    if(isset($_GET["class"])){ $link = $link . "class=". $_GET["class"] ."&"; }
-                    $link .= "page=$button";
-                    echo "<a href=\"$link\" class=\"btn btn-primary\">$button</a>";
-                }
-                echo "</div></div>";
+				if(($count / 16) + 1 >= 2) {
+					echo "<div class=\"clearfix\"></div><div class=\"col-xs-12 centered\"><hr/><div class=\"btn-group\">";
+
+					for ($button = 1; $button < ($count / 16) + 1; $button++) {
+						$link = "?";
+						if (isset($_GET["class"])) {
+							$link = $link . "class=" . $_GET["class"] . "&";
+						}
+						$link .= "page=$button";
+						echo "<a href=\"$link\" class=\"btn btn-primary\">$button</a>";
+					}
+					echo "</div></div>";
+				}
             ?>
             </div>
         </div>
