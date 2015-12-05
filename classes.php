@@ -19,6 +19,7 @@ if(isset($_GET["prefix"])) {
 } else {
 	$pageHeader = "All Classes";
 }
+
 /**
  * Checks the provided prefix and returns the needed HTML code to mark the list
  * item as active, only if there is a prefix passed to the page and it matches
@@ -87,22 +88,35 @@ if(isset($_POST["sort"])){
     $sort = $_POST["sort"];
 }
 ?>
-    
-    <div class="col-md-4 col-sm-6">
-        <div class="form-group form-group-sm">
-            <form method="post">
-                <input name="srch" value="" class="form-control" placeholder="Search Classes" />
-            </form>
-        </div>
-    </div>
-    <form method="post">
-        <button type="submit" class="btn btn-default" name="sort" value="`title`">Sort by name</button>
-        <button type="submit" class="btn btn-default" name="sort" value="`prefix`">Sort by prefix</button>
-        <button type="submit" class="btn btn-default" name="sort" value="`creation_date`">Sort by date</button>
-    </form>
 
     <div class="row">
-        <div class="col-md-9">
+        <div class="col-md-4 col-sm-6">
+            <form method="post">
+                <div class="btn-group" role="group">
+                    <button type="submit" class="btn btn-default" name="sort" value="`title`">Sort by name</button>
+                    <button type="submit" class="btn btn-default" name="sort" value="`prefix`">Sort by prefix</button>
+                    <button type="submit" class="btn btn-default" name="sort" value="`creation_date`">Sort by date</button>
+                </div>
+            </form>
+        </div>
+        <div class="col-md-4 col-sm-4">
+            <div class="form-group form-group-sm">
+                <form method="post">
+                    <input name="srch" value="<?php echo $search; ?>" class="form-control" id="classSearch"
+                           placeholder="Search Classes" />
+                </form>
+            </div>
+        </div>
+        <div class="col-md-4 col-sm-2">
+            <div class="btn-group pull-right">
+                <a class='btn btn-primary' href='addClass.php'>Add a class</a>
+            </div>
+        </div>
+        <br>
+    </div>
+
+    <div class="row">
+        <div class="col-md-9 col-sm-10">
             <?php
                 try{
                     if(isset($_GET["prefix"])){
@@ -154,7 +168,7 @@ if(isset($_POST["sort"])){
 								if(isset($_GET["prefix"])){
 									echo "?prefix=".$_GET["prefix"];
 								}
-								echo "' class=\"admin-panel\">";
+								echo "' class=\"admin-panel delete-form\">";
                                 echo "<button type=\"submit\" class=\"btn btn-default pull-right\" name=\"delete\" value=" . $result["category_id"] . ">Delete</button></form>";
                                 echo "<form method=\"post\" action='editClass.php' class=\"admin-panel\">";
                                 echo "<button type=\"submit\" class=\"btn btn-default\" name=\"edit\" value=" . $result["category_id"] . ">Edit</button></form>";
@@ -187,11 +201,7 @@ if(isset($_POST["sort"])){
             ?>
             </div>
         </div>
-        <div class="col-md-3">
-			<div class="btn-group btn-group-justified">
-				<a class='btn btn-primary' href='addClass.php'>Add a class</a>
-			</div>
-			<br/>
+        <div class="col-md-3 col-sm-2">
 			<ul class="nav nav-pills nav-stacked">
 
 				<?php
@@ -231,9 +241,13 @@ if(isset($_POST["sort"])){
 <!--/container -->
 
 <?php require 'partials/footer.partial.php'; ?>
+<script type="text/javascript">
+    $('#classSearch').tooltip({'trigger':'focus', 'title': 'Hit ENTER to search'});
 
-
-
+    $(".delete-form").submit(function() {
+        return confirm('Are you sure you want to delete this item?');
+    });
+</script>
 
 </body>
 </html>
