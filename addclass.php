@@ -19,8 +19,9 @@ require 'partials/pageheader.partial.php';
 <div class="container mtb">
     <div class="row">
         <div class="col-md-6 col-md-offset-3 col-sm-12 col-sm-offset-0">
+            <div id="alertLocation"></div>
             <div class="well well-lg">
-                <form method="post" action="classes.php" class="form-horizontal">
+                <form method="post" action="classes.php" class="form-horizontal" id="addClass">
                     <div class="form-group">
                         <label for="className" class="col-sm-3 control-label">
                             Class Name
@@ -62,7 +63,7 @@ require 'partials/pageheader.partial.php';
 									}
 								?>
                             </select>
-                            <p class="help-block">Note: Spam links will be deleted.</p>
+                            <p class="help-block">Note: Spam classes will be deleted.</p>
                         </div>
                     </div>
                     <div class="form-group">
@@ -84,10 +85,7 @@ require 'partials/pageheader.partial.php';
 </div>
 
 <?php require 'partials/footer.partial.php'; ?>
-<script type="text/javascript">
-    $('#inputCategory').selectize({
-        sortField: 'text'
-    });
-</script>
+<script src="assets/js/addclass.js"></script>
+
 </body>
 </html>

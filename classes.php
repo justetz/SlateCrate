@@ -114,13 +114,7 @@ require 'partials/pageheader.partial.php';
 <!--/container -->
 
 <?php require 'partials/footer.partial.php'; ?>
-<script type="text/javascript">
-    $('#classSearch').tooltip({'trigger':'focus', 'title': 'Hit ENTER to search'});
-
-    $(".delete-form").submit(function() {
-        return confirm('Are you sure you want to delete this item?');
-    });
-</script>
+<script src="assets/js/classes.js"></script>
 
 </body>
 </html>
