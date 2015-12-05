@@ -95,14 +95,20 @@ if(isset($_POST["delete"])){
     }
 }
 
+//sort
+$sort = "`score`";
+if(isset($_POST["sort"])){
+    $sort = $_POST["sort"];
+}
+
 try {
     $search = "";
     if(isset($_POST["srch"])){ $search = $_POST["srch"]; }
 	if(isset($_GET["class"])) {
-		$var = $conn->prepare("SELECT * FROM `links` WHERE `category_id` = $c AND `title` LIKE '%$search%' ORDER BY `score`");
+		$var = $conn->prepare("SELECT * FROM `links` WHERE `category_id` = $c AND `title` LIKE '%$search%' ORDER BY $sort");
 		$var->execute();
 	} else {
-		$var = $conn->prepare("SELECT * FROM `links` ORDER BY `score` WHERE `title` LIKE '%$search%' ORDER BY `score`");
+		$var = $conn->prepare("SELECT * FROM `links` ORDER BY `score` WHERE `title` LIKE '%$search%' ORDER BY $sort");
 		$var->execute();
 	}
 } catch(PDOException $e) {
@@ -130,6 +136,14 @@ try {
                 </form>
 			</div>
 		</div>
+
+        <!--sort by-->
+        <form method="post">
+            <button type="submit" class="btn btn-default" name="sort" value="`title`">Sort by name</button>
+            <button type="submit" class="btn btn-default" name="sort" value="`score` DESC">Sort by likes</button>
+            <button type="submit" class="btn btn-default" name="sort" value="`creation_date`">Sort by date</button>
+        </form>
+
 		<div class="col-md-4">
 			<?php
 				echo "<a href='addLink.php?";
