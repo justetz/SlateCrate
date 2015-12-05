@@ -46,10 +46,10 @@ require 'partials/pageheader.partial.php';
                     if(isset($_GET["prefix"])){
                         $p = "'" . $_GET["prefix"] . "'";
                         $var = $conn->prepare("SELECT * FROM `categories` WHERE `prefix` = $p AND `title` LIKE '%$search%' ORDER BY $sort");
-                        $count = $conn->query("SELECT `title` FROM `categories` WHERE `prefix` = $p `links` AND `title` LIKE '%$search%' WHERE `prefix` = $p")->fetchColumn();
+                        $count = $conn->query("SELECT COUNT(`title`) FROM `categories` WHERE `prefix` = $p `links` AND `title` LIKE '%$search%' WHERE `prefix` = $p")->fetchColumn();
                     }else{
                         $var = $conn->prepare("SELECT * FROM `categories` WHERE `title` LIKE '%$search%' ORDER BY $sort");
-                        $count = $conn->query("SELECT `title` FROM `categories` WHERE `title` LIKE '%$search%'")->fetchColumn();
+                        $count = $conn->query("SELECT COUNT(`title`) FROM `categories` WHERE `title` LIKE '%$search%'")->fetchColumn();
                     }
                     if($count == NULL){ $count = 0; }
                     $var->execute();
