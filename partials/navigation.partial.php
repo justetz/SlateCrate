@@ -34,6 +34,7 @@ function activeClassIfRequestMatches($requestUri) {
                 if (phpCAS::isAuthenticated()) {
                     echo "<li class='dropdown'><a href='#' class='dropdown-toggle' data-toggle='dropdown'>".phpCAS::getUser()."<b class='caret'></b></a>
                             <ul class='dropdown-menu'>
+                                <li><a href='addClass.php'>ADD A CLASS</a></li>
                                 <li><a href='logout.php'>SIGN OUT</a></li>
                             </ul>
                           </li>";

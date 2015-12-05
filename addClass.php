@@ -11,7 +11,7 @@ if (!phpCAS::isAuthenticated()) {
 require 'partials/head.partial.php';
 require 'partials/navigation.partial.php';
 
-$pageHeader = "Add a new link";
+$pageHeader = "Add a new class";
 
 require 'partials/pageheader.partial.php';
 ?>
