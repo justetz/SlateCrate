@@ -117,7 +117,7 @@ try {
 ?>
 
     <div class="row">
-		<div class="col-md-4 col-sm-3">
+		<div class="col-md-2 col-sm-6">
 			<a href="classes.php" class="btn btn-primary">
 				<?php
 				if(isset($_GET["class"])) {
@@ -129,7 +129,7 @@ try {
 
 			</a>
 		</div>
-		<div class="col-md-4 col-sm-6">
+		<div class="col-md-5 col-sm-6">
 			<div class="form-group form-group-sm">
                 <form method="post">
 				    <input name="srch" value="" class="form-control" placeholder="Search Links" />
@@ -138,13 +138,17 @@ try {
 		</div>
 
         <!--sort by-->
-        <form method="post">
-            <button type="submit" class="btn btn-default" name="sort" value="`title`">Sort by name</button>
-            <button type="submit" class="btn btn-default" name="sort" value="`score` DESC">Sort by likes</button>
-            <button type="submit" class="btn btn-default" name="sort" value="`creation_date`">Sort by date</button>
-        </form>
+        <div class="col-md-4 col-sm-6">
+            <form method="post">
+                <div class="btn-group" role="group">
+                    <button type="submit" class="btn btn-default" name="sort" value="`title`">Sort by name</button>
+                    <button type="submit" class="btn btn-default" name="sort" value="`score` DESC">Sort by likes</button>
+                    <button type="submit" class="btn btn-default" name="sort" value="`creation_date`">Sort by date</button>
+                </div>
+            </form>
+        </div>
 
-		<div class="col-md-4">
+		<div class="col-md-1 col-sm-6">
 			<?php
 				echo "<a href='addlink.php?";
 				if(isset($_GET["class"])) {
@@ -235,7 +239,7 @@ try {
                         }
 
                         if($count == 0){
-                            echo "No links. You should add one.";
+                            echo "<div class='row'><div class='col-xs-12'>" . infoAlert("No links. You should add one.") . "</div></div>";
                         }
 
 

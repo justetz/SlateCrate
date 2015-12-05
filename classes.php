@@ -1,6 +1,7 @@
 <?php
-require 'resources/functions.php';
 require 'resources/config.php';
+require 'resources/functions.php';
+require 'resources/classfunctions.php';
 require 'resources/rpiCAS.php';
 
 if (!phpCAS::isAuthenticated()) {
@@ -8,87 +9,43 @@ if (!phpCAS::isAuthenticated()) {
     phpCAS::forceAuthentication();
 }
 
+// Connect to the database
 $conn = new PDO('mysql:host=localhost;dbname=slatecrate', $config['DB_USERNAME'], $config['DB_PASSWORD']);
+
+$isAdmin = determineAdminStatus($conn, phpCAS::getUser());
+
+if(isset($_POST["edit"])){
+    // Update an edited class with new details
+    $alertArray = executeEdit($conn, $_POST["className"], $_POST["inputCategory"], $_POST["edit"]);
+} else if(isset($_POST["user"])){
+    // Create a newly added class with the new details
+    $alertArray = executeAdd($conn, $_POST["className"], $_POST["inputCategory"], $_POST["user"]);
+} else if(isset($_POST["delete"])){
+    // Complete the deletion of a class
+    $alertArray = executeDelete($conn, $_POST["delete"]);
+}
+
+if(isset($alertArray)) {
+    $alertType = $alertArray[0];
+    $alertMessage = $alertArray[1];
+} else {
+    $alertMessage = "";
+    $alertType = "";
+}
+
+$search = isset($_POST["srch"]) ? $_POST["srch"] : "";
+$sort = isset($_POST["sort"]) ? $_POST["sort"] : "`title`";
+
+// Set the page heading appropriately, depending on if the url specifies a prefix
+$pageHeader = isset($_GET["prefix"]) ? "Classes for " . $_GET["prefix"] : "All Classes";
 
 require 'partials/head.partial.php';
 require 'partials/navigation.partial.php';
-
-// Set the page heading appropriately, depending on if the url specifies a prefix
-if(isset($_GET["prefix"])) {
-	$pageHeader = "Classes for " . $_GET["prefix"];
-} else {
-	$pageHeader = "All Classes";
-}
-
-/**
- * Checks the provided prefix and returns the needed HTML code to mark the list
- * item as active, only if there is a prefix passed to the page and it matches
- * the parameter
- * @param  string $prefix the prefix to check
- * @return boolean        whether or not it matches
- */
-
-function determineIfActive($prefix) {
-
-	if(isset($_GET["prefix"]) && $_GET["prefix"] == $prefix) {
-		return "class='active'";
-	}
-	return "";
-}
-
 require 'partials/pageheader.partial.php';
 ?>
+
 <div class="container mtb">
-<?php
-//edit if we need to
-if(isset($_POST["edit"])){
-    try{
-        $conn->query("UPDATE `categories` SET `title` = '" . $_POST["className"] . "', `prefix` = '" . $_POST["inputCategory"] . "' WHERE `category_id` = " . $_POST["edit"]);
-    }catch(PDOException $e){}
-}
-
-//add class if we need to
-if(isset($_POST["user"])){
-    try{
-        $string = "'" . $_POST["className"] . "', '" . $_POST["inputCategory"] . "', '" . $_POST["user"] . "', " . "CURDATE()";
-
-		$conn->query("INSERT INTO `categories` (`title`, `prefix`, `rcs_id`, `creation_date`)
-            VALUES (" . $string . ");");
-
-        echo "<div class='row'><div class='col-xs-12'>
-			 <div class='alert alert-success alert-dismissible' role='alert'>
-				<button type='button' class='close' data-dismiss='alert' aria-label='Close><span aria-hidden='true'>&times;</span></button>
-				<strong>Success!</strong> Your new class, entitled " . $_POST["className"] . ", was successfully added!
-			 </div></div></div>";
-
-    }catch(PDOException $e){
-        echo "<div class='row'><div class='col-xs-12'>
-			 <div class='alert alert-danger alert-dismissible' role='alert'>
-				<button type='button' class='close' data-dismiss='alert' aria-label='Close><span aria-hidden='true'>&times;</span></button>
-				<strong>Error!</strong> " . $e . "
-			 </div></div></div>";
-    }
-}
-if(isset($_POST["delete"])){
-    $del = $conn->prepare("SELECT `link_id` FROM `links` WHERE `category_id` = " . $_POST["delete"]);
-    $del->execute();
-    while($result = $del->fetch(PDO::FETCH_ASSOC)){
-        $conn->query("DELETE FROM `links` WHERE `link_id` = " . $result["link_id"]);
-    }
-    $conn->query("DELETE FROM `categories` WHERE `category_id` = " . $_POST["delete"]);
-}
-
-
-$search = "";
-if(isset($_POST["srch"])){
-    $search = $_POST["srch"];
-}
-$sort = "`title`";
-if(isset($_POST["sort"])){
-    $sort = $_POST["sort"];
-}
-?>
-
+    <?php populateAlertRow($alertType, $alertMessage); ?>
     <div class="row">
         <div class="col-md-4 col-sm-6">
             <form method="post">
@@ -122,21 +79,14 @@ if(isset($_POST["sort"])){
                     if(isset($_GET["prefix"])){
                         $p = "'" . $_GET["prefix"] . "'";
                         $var = $conn->prepare("SELECT * FROM `categories` WHERE `prefix` = $p AND `title` LIKE '%$search%' ORDER BY $sort");
-                        $count = $conn->query("SELECT `title` FROM `categories` WHERE `prefix` = $p `links` AND `title` LIKE '%$search%' WHERE `prefix` = $p")->fetchColumn();
+                        $conn->query("SELECT `title` FROM `categories` WHERE `prefix` = $p `links` AND `title` LIKE '%$search%' WHERE `prefix` = $p");
+                        $count = $var->fetchColumn();
                     }else{
                         $var = $conn->prepare("SELECT * FROM `categories` WHERE `title` LIKE '%$search%' ORDER BY $sort");
                         $count = $conn->query("SELECT `title` FROM `categories` WHERE `title` LIKE '%$search%'")->fetchColumn();
                     }
                     if($count == NULL){ $count = 0; }
                     $var->execute();
-
-                    //Check if current user is an admin
-                    $admin = $conn->prepare("SELECT `isadmin` FROM `users` WHERE `rcs_id` = '" . phpCAS::getUser() . "'");
-                    $admin->execute();
-                    $isadmin = false;
-                    while($result = $admin->fetch(PDO::FETCH_ASSOC)){
-                        if($result["isadmin"] == 1){ $isadmin = true; }
-                    }
 
                     $c = 0;
                     if(isset($_GET["page"])){
@@ -163,7 +113,7 @@ if(isset($_POST["sort"])){
     									<span class='pull-right'>".$result["creation_date"]."</span>";
                             echo "<span class='clearfix'></span></p></div></a>";
 
-							if($isadmin || $result["rcs_id"] == phpCAS::getUser()) {
+							if($isAdmin || $result["rcs_id"] == phpCAS::getUser()) {
                                 echo "<form method=\"post\" action='classes.php";
 								if(isset($_GET["prefix"])){
 									echo "?prefix=".$_GET["prefix"];
@@ -179,10 +129,7 @@ if(isset($_POST["sort"])){
                     }
 
                     if($c == 0){
-                        echo "<div class='col-xs-12'>
-							 <div class='alert alert-info' role='alert'>
-								No classes. You should add one!
-							 </div></div>";
+                        echo "<div class='col-xs-12'>" . infoAlert("No classes. You should add one!") . "</div>";
                     }
                 }catch(PDOException $e){ echo $e; }
 
@@ -203,36 +150,7 @@ if(isset($_POST["sort"])){
         </div>
         <div class="col-md-3 col-sm-2">
 			<ul class="nav nav-pills nav-stacked">
-
-				<?php
-					if(!isset($_GET["prefix"])) {
-						echo "<li role='presentation' class='active'><a href='classes.php'>All Prefixes</a></li>";
-					} else {
-						echo "<li role='presentation'><a href='classes.php'>All Prefixes</a></li>";
-					}
-
-					/**
-					 * This array contains all valid prefixes at RPI. These
-					 * values will be used to populate the sidebar of the page.
-					 * @var array
-					 */
-					$prefixes = [
-						"ARCH", "ARTS", "ASTR", "BCBP", "BIOL", "BMED", "CHEM",
-						"CISH", "CSCI", "DSES", "ECON", "ECSE", "ENGR", "ENVE",
-						"ERTH", "ESCE", "IENV", "IHSS", "ISCI", "ITEC", "LANG",
-						"LGHT", "LITR", "MANE", "MATH", "MATP", "MGMT", "MTLE",
-						"PHIL", "PHYS", "PSYC", "STSH", "STSS", "USAF", "USAR",
-						"USNA", "WRIT"
-					];
-
-					foreach ($prefixes as $p) {
-						// Add another item to the list, calling the function
-						// 'determineIfActive' to determine if the active class
-						// should be included in the item
-						echo "<li role='presentation' " . determineIfActive($p)
-								. "><a href='?prefix=" . $p . "'>" . $p . "</a></li>";
-					}
-				?>
+				<?php populateSidebar(isset($_GET["prefix"]) ? $_GET["prefix"] : ""); ?>
             </ul>
         </div>
     </div>

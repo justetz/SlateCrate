@@ -1,5 +1,7 @@
 <?php
 
+require 'config.php';
+
 /**
  * Connects to a MySQL database using the given parameters.
  * @param string $host
@@ -48,7 +50,12 @@ function alert($lead, $message, $css, $isDismissable) {
 	} else {
 		$alertHTML .= "' role='alert'>";
 	}
-	$alertHTML .= "<strong>$lead</strong> $message </div>";
+
+	if($lead != "") {
+		$alertHTML .= "<strong>$lead</strong> ";
+	}
+	$alertHTML .= $message;
+	$alertHTML .= "</div>";
 	return $alertHTML;
 }
 
@@ -58,4 +65,31 @@ function successAlert($message) {
 
 function errorAlert($message) {
 	return alert("Error!", $message, "alert-danger", true);
+}
+
+function infoAlert($message) {
+	return alert("", $message, "alert-info", false);
+}
+
+function populateAlertRow($alertType, $alertMessage) {
+	if($alertType != "") {
+		echo "<div class='row'><div class='col-xs-12'>";
+		if ($alertType == "success") {
+			echo successAlert($alertMessage);
+		} else if ($alertType == "error") {
+			echo errorAlert($alertMessage);
+		}
+		echo "</div></div>";
+	}
+}
+
+function determineAdminStatus($conn, $userId) {
+	//Check if current user is an admin
+	$admin = $conn->prepare("SELECT `isadmin` FROM `users` WHERE `rcs_id` = '" . $userId . "'");
+	$admin->execute();
+	$isadmin = false;
+	while($result = $admin->fetch(PDO::FETCH_ASSOC)){
+		if($result["isadmin"] == 1){ $isadmin = true; }
+	}
+	return $isadmin;
 }
