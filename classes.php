@@ -109,7 +109,7 @@ if(isset($_POST["sort"])){
         </div>
         <div class="col-md-4 col-sm-2">
             <div class="btn-group pull-right">
-                <a class='btn btn-primary' href='addClass.php'>Add a class</a>
+                <a class='btn btn-primary' href='addclass.php'>Add a class</a>
             </div>
         </div>
         <br>

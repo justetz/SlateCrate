@@ -146,7 +146,7 @@ try {
 
 		<div class="col-md-4">
 			<?php
-				echo "<a href='addLink.php?";
+				echo "<a href='addlink.php?";
 				if(isset($_GET["class"])) {
 					echo "class=" . $_GET["class"];
 				}
