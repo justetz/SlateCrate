@@ -66,7 +66,12 @@ require 'partials/pageheader.partial.php';
                         </div>
                     </div>
                     <div class="form-group">
-                        <div class="col-xs-12">
+                        <div class="col-sm-2 col-sm-offset-8 col-xs-6">
+                            <a href="classes.php" class="btn btn-default pull-right">
+                                Cancel
+                            </a>
+                        </div>
+                        <div class="col-sm-2 col-xs-6">
                             <button type="submit" class="btn btn-primary pull-right" name="user" value=<?php echo "'" . phpCAS::getUser() . "'"; ?> >
                                 Submit
                             </button>
