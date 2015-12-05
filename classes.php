@@ -82,6 +82,10 @@ $search = "";
 if(isset($_POST["srch"])){
     $search = $_POST["srch"];
 }
+$sort = "`title`";
+if(isset($_POST["sort"])){
+    $sort = $_POST["sort"];
+}
 ?>
     
     <div class="col-md-4 col-sm-6">
@@ -91,6 +95,11 @@ if(isset($_POST["srch"])){
             </form>
         </div>
     </div>
+    <form method="post">
+        <button type="submit" class="btn btn-default" name="sort" value="`title`">Sort by name</button>
+        <button type="submit" class="btn btn-default" name="sort" value="`prefix`">Sort by prefix</button>
+        <button type="submit" class="btn btn-default" name="sort" value="`creation_date`">Sort by date</button>
+    </form>
 
     <div class="row">
         <div class="col-md-9">
@@ -98,10 +107,10 @@ if(isset($_POST["srch"])){
                 try{
                     if(isset($_GET["prefix"])){
                         $p = "'" . $_GET["prefix"] . "'";
-                        $var = $conn->prepare("SELECT * FROM `categories` WHERE `prefix` = $p AND `title` LIKE '%$search%' ORDER BY `title`");
+                        $var = $conn->prepare("SELECT * FROM `categories` WHERE `prefix` = $p AND `title` LIKE '%$search%' ORDER BY $sort");
                         $count = $conn->query("SELECT `title` FROM `categories` WHERE `prefix` = $p `links` AND `title` LIKE '%$search%' WHERE `prefix` = $p")->fetchColumn();
                     }else{
-                        $var = $conn->prepare("SELECT * FROM `categories` WHERE `title` LIKE '%$search%' ORDER BY `title`");
+                        $var = $conn->prepare("SELECT * FROM `categories` WHERE `title` LIKE '%$search%' ORDER BY $sort");
                         $count = $conn->query("SELECT `title` FROM `categories` WHERE `title` LIKE '%$search%'")->fetchColumn();
                     }
                     if($count == NULL){ $count = 0; }
