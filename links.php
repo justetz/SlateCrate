@@ -218,7 +218,7 @@ try {
                                         echo "<button type=\"submit\" class=\"btn btn-primary pull-right\" name=\"delete\" value=" . $result["link_id"] . ">Delete</button></form>";
 
                                         //edit button
-                                        echo "<form class='admin-panel' method=\"post\" action='editLink.php" . $page . "' class=\"form-horizontal\">";
+                                        echo "<form class='admin-panel' method=\"post\" action='editlink.php" . $page . "' class=\"form-horizontal\">";
                                         echo "<button type=\"submit\" class=\"btn btn-primary pull-right\" name=\"edit\" value=" . $result["link_id"] . ">Edit</button></form>";
     				                }
 

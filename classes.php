@@ -170,7 +170,7 @@ if(isset($_POST["sort"])){
 								}
 								echo "' class=\"admin-panel delete-form\">";
                                 echo "<button type=\"submit\" class=\"btn btn-default pull-right\" name=\"delete\" value=" . $result["category_id"] . ">Delete</button></form>";
-                                echo "<form method=\"post\" action='editClass.php' class=\"admin-panel\">";
+                                echo ">";
                                 echo "<button type=\"submit\" class=\"btn btn-default\" name=\"edit\" value=" . $result["category_id"] . ">Edit</button></form>";
                             }
 							echo "</div>";
