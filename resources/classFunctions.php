@@ -56,7 +56,6 @@ function populateSidebar($prefix) {
 
 function populatePagination($count, $prefix, $currentPage) {
     if(($count / 19) + 1 >= 2) {
-        echo ($count / 18) + 1;
         echo "<div class=\"col-xs-12 centered\"><hr/><div class=\"btn-group\">";
 
         $link = "?";
