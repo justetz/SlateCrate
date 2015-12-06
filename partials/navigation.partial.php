@@ -36,6 +36,7 @@ function activeClassIfRequestMatches($requestUri) {
                     echo "<a href='#' class='dropdown-toggle' data-toggle='dropdown'>".phpCAS::getUser()."<b class='caret'></b></a>";
                     echo "<ul class='dropdown-menu'>";
                     echo "<li><a href='addclass.php'>ADD A CLASS</a></li>";
+                    echo "<li><a href='addlink.php'>ADD A LINK</a></li>";
                     echo "<li><a href='logout.php'>SIGN OUT</a></li>";
                     echo "</ul>";
                     echo "</li>";
