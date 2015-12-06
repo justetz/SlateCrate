@@ -69,6 +69,67 @@ function populatePagination($count, $prefix) {
     }
 }
 
+function populateData($conn, $prefix, $search, $sort, $page, $isAdmin) {
+    try{
+        if($prefix != ""){
+            $p = "'" . $prefix . "'";
+            $var = $conn->prepare("SELECT * FROM `categories` WHERE `prefix` = $p AND `title` LIKE '%$search%' ORDER BY $sort");
+            $count = $conn->query("SELECT COUNT(`title`) FROM `categories` WHERE `prefix` = $p AND `title` LIKE '%$search%'")->fetchColumn();
+        }else{
+            $var = $conn->prepare("SELECT * FROM `categories` WHERE `title` LIKE '%$search%' ORDER BY $sort");
+            $count = $conn->query("SELECT COUNT(`title`) FROM `categories` WHERE `title` LIKE '%$search%'")->fetchColumn();
+        }
+        if($count == NULL){ $count = 0; }
+        $var->execute();
+
+        $c = 0;
+        if($page != ""){
+            $p = $page;
+        }else{ $p = 1; }
+
+        echo "<div class='row'>";
+        while($result = $var->fetch(PDO::FETCH_ASSOC)){
+            if($c >= ($p - 1) * 16 && $c < $p * 16){
+
+                //to get the number of links
+                $l = $conn->query("SELECT COUNT(link_id) FROM `links` WHERE `category_id` = '" . $result["category_id"] . "'")->fetchColumn();
+                if($l == NULL){ $l = 0; }
+
+                //print out the boxes
+                echo "<div class='col-md-6'>
+								<a href='links.php?class=".$result["category_id"]."''>
+									<div class='well well-sm well-hover'>
+    								<h6 class='text-muted'>".$result["prefix"]."</h6>
+    								<h4>".$result["title"]."</h4>
+    								<p>Contains ".$l.($l > 1 ? " links" : " link").".</p>
+    								<p class='text-muted small info-text'>
+    									<span class='pull-left'>submitted by ".$result["rcs_id"]."</span>
+    									<span class='pull-right'>".$result["creation_date"]."</span>";
+                echo "<span class='clearfix'></span></p></div></a>";
+
+                if($isAdmin || $result["rcs_id"] == phpCAS::getUser()) {
+                    echo "<form method=\"post\" action='classes.php";
+                    if($prefix != ""){
+                        echo "?prefix=".$prefix;
+                    }
+                    echo "' class=\"admin-panel delete-form\">";
+                    echo "<button type=\"submit\" class=\"btn btn-default pull-right\" name=\"delete\" value=" . $result["category_id"] . ">Delete</button></form>";
+                    echo "<form method=\"post\" action='editclass.php' class=\"admin-panel\">";
+                    echo "<button type=\"submit\" class=\"btn btn-default\" name=\"edit\" value=" . $result["category_id"] . ">Edit</button></form>";
+                }
+                echo "</div>";
+            }else if($c >= $p * 16){ break; }
+            ++$c;
+        }
+
+        if($c == 0){
+            echo "<div class='col-xs-12'>" . infoAlert("No classes. You should add one!") . "</div>";
+        }
+    }catch(PDOException $e){ echo $e; }
+
+    populatePagination($count, $prefix);
+}
+
 if (!phpCAS::isAuthenticated()) {
 // If they're not currently logged in, take them to the RPI CAS page
     phpCAS::forceAuthentication();

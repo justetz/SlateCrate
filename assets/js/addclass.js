@@ -59,7 +59,7 @@ $(document).ready(function () {
             className.parent().parent().removeClass('has-error');
         }
 
-        // Check if the user didn't select a prefix for the class 
+        // Check if the user didn't select a prefix for the class
         if((!inputCategory.val() || inputCategory.val() == "") || prefixes.indexOf(inputCategory.val()) == -1) {
             // Add the has-error class to the input's parent form-group div
             inputCategory.parent().parent().addClass('form-group has-error');
