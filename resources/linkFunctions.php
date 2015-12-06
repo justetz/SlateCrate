@@ -50,12 +50,16 @@ function determineClassFilter($conn, $class) {
         if($class != "") {
             $var = $conn->prepare("SELECT `title` FROM `categories` WHERE `category_id` = $class");
             $var->execute();
+
+            if($var->rowCount() == 0) {
+                // Category ID not valid
+                header('location: ./links.php');
+            }
+
             $result = $var->fetch(PDO::FETCH_ASSOC);
             return $result["title"];
         }
-    } catch(PDOException $e) {
-        return "";
-    }
+    } catch(PDOException $e) { echo $e; }
 }
 
 function populateAddButton($id) {
@@ -210,6 +214,7 @@ try {
     $search = "";
     if(isset($_POST["srch"])){ $search = $_POST["srch"]; }
     if(isset($_GET["class"])) {
+        $c = $_GET["class"];
         $var = $conn->prepare("SELECT * FROM `links` WHERE `category_id` = $c AND `title` LIKE '%$search%' ORDER BY $sort");
         $var->execute();
     } else {
