@@ -21,7 +21,7 @@ require 'partials/pageheader.partial.php';
 		<div class="col-md-5 col-sm-6">
 			<div class="form-group form-group-sm">
                 <form method="post">
-				    <input name="srch" value="" class="form-control" placeholder="Search Links" />
+				    <input name="srch" value="" class="form-control" placeholder="Search Links" id="search" />
                 </form>
 			</div>
 		</div>
@@ -61,6 +61,7 @@ require 'partials/pageheader.partial.php';
 <!--/container -->
 
 <?php require 'partials/footer.partial.php'; ?>
+<script src="assets/js/listings.js"></script>
 
 </body>
 </html>

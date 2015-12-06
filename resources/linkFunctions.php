@@ -136,7 +136,7 @@ function populateData($conn, $dataReq, $isAdmin) {
                 //if the user is an administrator, they can delete and edit
                 if($isAdmin || $result["rcs_id"] == phpCAS::getUser()) {
                     //delete button
-                    echo "<form class='admin-panel' method=\"post\" action='links.php$class' class=\"form-horizontal\">";
+                    echo "<form class='admin-panel delete-form' method=\"post\" action='links.php$class' class=\"form-horizontal\">";
                     echo "<button type=\"submit\" class=\"btn btn-default pull-right\" name=\"delete\" value=" . $result["link_id"] . ">Delete</button></form>";
 
                     //edit button

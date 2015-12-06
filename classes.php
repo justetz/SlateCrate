@@ -26,7 +26,7 @@ require 'partials/pageheader.partial.php';
         <div class="col-md-4 col-sm-4">
             <div class="form-group form-group-sm">
                 <form method="post">
-                    <input name="srch" value="<?php echo $search; ?>" class="form-control" id="classSearch"
+                    <input name="srch" value="<?php echo $search; ?>" class="form-control" id="search"
                            placeholder="Search Classes" />
                 </form>
             </div>
@@ -59,7 +59,7 @@ require 'partials/pageheader.partial.php';
 </div>
 
 <?php require 'partials/footer.partial.php'; ?>
-<script src="assets/js/classes.js"></script>
+<script src="assets/js/listings.js"></script>
 
 
 </body>
