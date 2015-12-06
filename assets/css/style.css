@@ -240,6 +240,12 @@ a:focus {
 	margin-top: 60px;
 }
 
+#scroll {
+	min-height:518px;
+	overflow-y: auto;
+
+}
+
 .hline {
 	border-bottom: 2px solid #384452;
 }

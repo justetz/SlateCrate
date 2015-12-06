@@ -61,14 +61,6 @@ require 'partials/pageheader.partial.php';
 <?php require 'partials/footer.partial.php'; ?>
 <script src="assets/js/classes.js"></script>
 
-<style>
-#scroll {
-    height:518px;
-    overflow-y: scroll;
-
-}
-</style>
-
 
 </body>
 </html>
