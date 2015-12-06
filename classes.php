@@ -33,7 +33,10 @@ require 'partials/pageheader.partial.php';
         </div>
         <div class="col-md-4 col-sm-2">
             <div class="btn-group pull-right">
-                <a class='btn btn-primary' href='addclass.php'>Add a class</a>
+                <a class='btn btn-primary' href='addclass.php'>
+                    <span class="fa fa-plus"></span>
+                    Add a class
+                </a>
             </div>
         </div>
         <br>

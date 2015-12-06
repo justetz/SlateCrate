@@ -54,17 +54,39 @@ function populateSidebar($prefix) {
     }
 }
 
-function populatePagination($count, $prefix) {
+function populatePagination($count, $prefix, $currentPage) {
     if(($count / 16) + 1 >= 2) {
         echo "<div class=\"col-xs-12 centered\"><hr/><div class=\"btn-group\">";
-        for ($button = 1; $button < ($count / 16) + 1; $button++) {
-            $link = "?";
-            if ($prefix != "") {
-                $link .= "prefix=" . $prefix . "&";
-            }
-            $link .= "page=$button";
-            echo "<a href=\"$link\" class=\"btn btn-primary\">$button</a>";
+
+        $link = "?";
+        if ($prefix != "") {
+            $link .= "prefix=" . $prefix . "&";
         }
+
+        echo "<a ";
+        if($currentPage > 1) {
+            echo "href=\"".$link."page=".($currentPage-1)."\"";
+        } else {
+            echo "disabled";
+        }
+        echo " class=\"btn btn-primary\"><span class='fa fa-chevron-left'></span></a>";
+
+        for ($button = 1; $button < ($count / 16) + 1; $button++) {
+            echo "<a href=\"".$link."page=$button\" class=\"btn btn-primary";
+            if(intval($button) == intval($currentPage)) {
+                echo " active";
+            }
+            echo "\">$button</a>";
+        }
+
+        echo "<a ";
+        if($currentPage < ($count / 16)) {
+            echo "href=\"".$link."page=".($currentPage+1)."\"";
+        } else {
+            echo "disabled";
+        }
+        echo " class=\"btn btn-primary\"><span class='fa fa-chevron-right'></span></a>";
+
         echo "</div></div>";
     }
 }
@@ -83,9 +105,7 @@ function populateData($conn, $prefix, $search, $sort, $page, $isAdmin) {
         $var->execute();
 
         $c = 0;
-        if($page != ""){
-            $p = $page;
-        }else{ $p = 1; }
+        $p = $page != "" ? intval($page) : 1;
 
         echo "<div class='row'>";
         while($result = $var->fetch(PDO::FETCH_ASSOC)){
@@ -127,7 +147,7 @@ function populateData($conn, $prefix, $search, $sort, $page, $isAdmin) {
         }
     }catch(PDOException $e){ echo $e; }
 
-    populatePagination($count, $prefix);
+    populatePagination($count, $prefix, $p);
 }
 
 if (!phpCAS::isAuthenticated()) {
