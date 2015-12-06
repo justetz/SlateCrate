@@ -118,10 +118,10 @@ function populateData($conn, $dataReq, $isAdmin) {
 
                 //for getting back to the same page you started on
                 $class = "?";
-                $page = "";
                 if(isset($_GET["class"])) {
                     $class .= "class=" . $_GET["class"];
                 }
+                $page = $class;
                 if(isset($_GET["page"])){
                     if($class == "?"){ $page = "?page=" . $_GET["page"]; }
                     else{ $page = $class . "&page=" . $_GET["page"]; }
@@ -129,7 +129,7 @@ function populateData($conn, $dataReq, $isAdmin) {
 
                 //for upvote and downvote
                 echo "<div class='row'><div class=\"col-xs-12 text-center\">";
-                echo "<form class='admin-panel' method=\"post\" action='links.php$page" . $page . "' class=\"form-inline\">";
+                echo "<form class='admin-panel' method=\"post\" action='links.php" . $page . "' class=\"form-inline\">";
                 echo "<button type=\"submit\" class=\"btn btn-default pull-left\" name=\"downvote\" value=" . $result["link_id"] . ">
                 <span class='fa fa-thumbs-down'</span></button>";
                 echo "<button type=\"submit\" class=\"btn btn-default pull-right\" name=\"upvote\" value=" . $result["link_id"] . ">
