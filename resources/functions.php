@@ -24,6 +24,10 @@ function forceAuth()
     }
 }
 
+function echoClassForFilterButtons($currentSort, $toCompare) {
+    echo "btn btn-default" . ($currentSort == $toCompare ? " active" : "");
+}
+
 function alert($lead, $message, $css, $isDismissable)
 {
     $alertHTML = "<div class='alert $css";
