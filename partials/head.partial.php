@@ -3,6 +3,7 @@
  * Uses the current URI to determine what page is currently being displayed, and updates the page title appropriately.
  *
  */
+//Changes page text based on url
 function echoPageTitle()
 {
     $url = strtok($_SERVER["REQUEST_URI"], '?');
