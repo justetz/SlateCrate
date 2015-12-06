@@ -40,7 +40,7 @@ require 'partials/pageheader.partial.php';
             </div>
         </div>
         <br>
-    </div>
+    </div>  
 
     <div class="row">
         <div class="col-md-9 col-sm-10">
@@ -50,7 +50,7 @@ require 'partials/pageheader.partial.php';
             ?>
             </div>
         </div>
-        <div class="col-md-3 col-sm-2">
+        <div class="col-md-3 col-sm-2" id="scroll">
 			<ul class="nav nav-pills nav-stacked">
 				<?php populateSidebar(isset($_GET["prefix"]) ? $_GET["prefix"] : ""); ?>
             </ul>
@@ -60,6 +60,15 @@ require 'partials/pageheader.partial.php';
 
 <?php require 'partials/footer.partial.php'; ?>
 <script src="assets/js/classes.js"></script>
+
+<style>
+#scroll {
+    height:517px;
+    overflow-y: scroll;
+
+}
+</style>
+
 
 </body>
 </html>
