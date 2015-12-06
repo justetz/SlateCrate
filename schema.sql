@@ -60,7 +60,7 @@ DROP TABLE IF EXISTS `slatecrate`.`links` ;
 
 CREATE TABLE IF NOT EXISTS `slatecrate`.`links` (
   `link_id` INT NOT NULL AUTO_INCREMENT COMMENT '',
-  `link` VARCHAR(2000) NOT NULL UNIQUE COMMENT '',
+  `link` VARCHAR(2000) NOT NULL COMMENT '',
   `rcs_id` VARCHAR(20) NOT NULL COMMENT '',
   `category_id` INT NOT NULL COMMENT '',
   `creation_date` DATE NOT NULL COMMENT '',
