@@ -32,7 +32,7 @@ CREATE TABLE IF NOT EXISTS `slatecrate`.`users` (
 ENGINE = InnoDB;
 INSERT INTO `users` (`rcs_id`, `isadmin`) VALUES ('VILLAT2', 1);
 INSERT INTO `users` (`rcs_id`, `isadmin`) VALUES ('ETZINJ', 1);
-INSERT INTO `users` (`rcs_id`, `isadmin`) VALUES ('LIMAA', 1);
+INSERT INTO `users` (`rcs_id`, `isadmin`) VALUES ('LIMAA', 0);
 INSERT INTO `users` (`rcs_id`, `isadmin`) VALUES ('PLOTKR', 1);
 
 
