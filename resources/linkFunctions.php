@@ -66,6 +66,14 @@ function populateAddButton($id) {
     echo "' class='btn btn-primary pull-right'><span class='fa fa-plus'></span> Add a link</a>";
 }
 
+function populateBackButtonText($id) {
+    if($id != "") {
+        echo "<span class=\"fa fa-chevron-left\"></span> Back to Classes";
+    } else {
+        echo "View Classes";
+    }
+}
+
 function populateData($conn, $dataReq, $isAdmin) {
     try{
         $count = 0;

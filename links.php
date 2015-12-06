@@ -15,14 +15,7 @@ require 'partials/pageheader.partial.php';
     <div class="row">
 		<div class="col-md-2 col-sm-6">
 			<a href="classes.php" class="btn btn-primary">
-				<?php
-				if(isset($_GET["class"])) {
-					echo "<span class=\"fa fa-chevron-left\"></span> Back to Classes";
-				} else {
-					echo "View Classes";
-				}
-				?>
-
+				<?php populateBackButtonText(isset($_GET["class"]) ? $_GET["class"] : ""); ?>
 			</a>
 		</div>
 		<div class="col-md-5 col-sm-6">
