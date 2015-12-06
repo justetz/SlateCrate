@@ -19,7 +19,7 @@ require 'partials/pageheader.partial.php';
                 <div class="btn-group" role="group">
                     <button type="submit" class="btn btn-default" name="sort" value="`title`">Sort by name</button>
                     <button type="submit" class="btn btn-default" name="sort" value="`prefix`">Sort by prefix</button>
-                    <button type="submit" class="btn btn-default" name="sort" value="`creation_date`">Sort by date</button>
+                    <button type="submit" class="btn btn-default" name="sort" value="`creation_date` DESC">Sort by date</button>
                 </div>
             </form>
         </div>
