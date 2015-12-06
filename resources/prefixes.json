@@ -1,8 +1,8 @@
 [
   "ARCH", "ARTS", "ASTR", "BCBP", "BIOL", "BMED", "CHEM",
-  "CISH", "CSCI", "DSES", "ECON", "ECSE", "ENGR", "ENVE",
-  "ERTH", "ESCE", "IENV", "IHSS", "ISCI", "ITEC", "LANG",
-  "LGHT", "LITR", "MANE", "MATH", "MATP", "MGMT", "MTLE",
-  "PHIL", "PHYS", "PSYC", "STSH", "STSS", "USAF", "USAR",
-  "USNA", "WRIT"
+  "CHME", "CIVL", "COGS", "COMM", "COOP", "CSCI", "ECON",
+  "ECSE", "ENGR", "ENVE", "EPOW", "ERTH", "ESCI", "EXCH",
+  "IENV", "IHSS", "ISYE", "ITWS", "LANG", "LGHT", "LITR",
+  "MANE", "MATH", "MATP", "MGMT", "MTLE", "PHIL", "PHYS",
+  "PSYC", "STSH", "STSS", "USAF", "USAR", "USNA", "WRIT"
 ]
