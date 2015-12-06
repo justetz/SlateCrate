@@ -9,17 +9,22 @@ if (!phpCAS::isAuthenticated()) {
     phpCAS::forceAuthentication();
 }
 
-require 'partials/head.partial.php';
-require 'partials/navigation.partial.php';
-
-$pageHeader = "Add a new link";
-
-require 'partials/pageheader.partial.php';
+if(!isset($_POST["edit"])) {
+    header('location: ./addclass.php');
+}
 
 $conn = new PDO('mysql:host=localhost;dbname=slatecrate', $config['DB_USERNAME'], $config['DB_PASSWORD']);
 $edit = $conn->prepare("SELECT * FROM `categories` WHERE `category_id` = " . $_POST["edit"]);
 $edit->execute();
 $edit = $edit->fetch(PDO::FETCH_ASSOC);
+
+require 'partials/head.partial.php';
+require 'partials/navigation.partial.php';
+
+$pageHeader = "Editing <i>" . $edit["title"] . "</i>";
+
+require 'partials/pageheader.partial.php';
+
 ?>
 
 <div class="container mtb">
@@ -27,7 +32,7 @@ $edit = $edit->fetch(PDO::FETCH_ASSOC);
         <div class="col-md-6 col-md-offset-3 col-sm-12 col-sm-offset-0">
             <div id="alertLocation"></div>
             <div class="well well-lg">
-                <form method="post" action="classes.php" class="form-horizontal" id="editClass">
+                <form method="post" action="classes.php" class="form-horizontal" id="classAction">
                     <div class="form-group">
                         <label for="className" class="col-sm-3 control-label">
                             Class Name
@@ -66,8 +71,13 @@ $edit = $edit->fetch(PDO::FETCH_ASSOC);
                         </div>
                     </div>
                     <div class="form-group">
-                        <div class="col-xs-12">
-                            <button type="submit" class="btn btn-primary pull-right" name="edit" value=<?php echo "'" . $_POST["edit"] . "'"; ?> >
+                        <div class="col-sm-2 col-sm-offset-8 col-xs-6">
+                            <a href="classes.php" class="btn btn-default pull-right">
+                                Cancel
+                            </a>
+                        </div>
+                        <div class="col-sm-2 col-xs-6">
+                            <button type="submit" class="btn btn-primary pull-right" name="edit" value="<?php echo $_POST["edit"]; ?>">
                                 Submit
                             </button>
                         </div>
@@ -79,7 +89,7 @@ $edit = $edit->fetch(PDO::FETCH_ASSOC);
 </div>
 
 <?php require 'partials/footer.partial.php'; ?>
-<script src="assets/js/addclass.js"></script>
+<script src="assets/js/classaction.js"></script>
 
 </body>
 </html>

@@ -33,7 +33,7 @@ $(document).ready(function () {
     /**
      * This function call specifies what actions should be taken prior to the form executing the PHP submit script.
      */
-    $('#addClass').submit(function() {
+    $('#classAction').submit(function() {
         // Tracks if any errors were found in the subsequent checks
         var errorsFound = false;
 

@@ -21,7 +21,7 @@ require 'partials/pageheader.partial.php';
         <div class="col-md-6 col-md-offset-3 col-sm-12 col-sm-offset-0">
             <div id="alertLocation"></div>
             <div class="well well-lg">
-                <form method="post" action="classes.php" class="form-horizontal" id="addClass">
+                <form method="post" action="classes.php" class="form-horizontal" id="classAction">
                     <div class="form-group">
                         <label for="className" class="col-sm-3 control-label">
                             Class Name
@@ -78,7 +78,7 @@ require 'partials/pageheader.partial.php';
 </div>
 
 <?php require 'partials/footer.partial.php'; ?>
-<script src="assets/js/addclass.js"></script>
+<script src="assets/js/classaction.js"></script>
 
 </body>
 </html>
