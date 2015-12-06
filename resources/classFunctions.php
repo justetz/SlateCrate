@@ -1,4 +1,14 @@
 <?php
+/**
+ * This function completes the edit action that is initiated when the classes.php page is loaded by the submission of
+ * the editclass.php form.
+ * @param $conn object the opened database connection
+ * @param $newTitle string the class's new title (same as old if unchanged)
+ * @param $newPrefix string the class's new prefix (same as old if unchanged)
+ * @param $id string the class's id (primary key, cannot be changed)
+ * @return array string containing whether a success or error alert should be displayed and the message to display in
+ *               the alert
+ */
 function executeEdit($conn, $newTitle, $newPrefix, $id) {
     try {
         $conn->query("UPDATE `categories` SET `title` = '" . $newTitle . "', `prefix` = '" . $newPrefix . "' WHERE `category_id` = " . $id);
@@ -9,6 +19,16 @@ function executeEdit($conn, $newTitle, $newPrefix, $id) {
     }
 }
 
+/**
+ * This function completes the add action that is initiated when the classes.php page is loaded by the submission of
+ * the addclass.php form.
+ * @param $conn object the opened database connection
+ * @param $className string the name of the class
+ * @param $inputCategory string the new class's prefix (what department the class is in)
+ * @param $user string the creator's RCS ID
+ * @return array string containing whether a success or error alert should be displayed and the message to display in
+ *               the alert
+ */
 function executeAdd($conn, $className, $inputCategory, $user) {
     try {
         $string = "'" . $className . "', '" . $inputCategory . "', '" . $user . "', " . "CURDATE()";
@@ -21,6 +41,14 @@ function executeAdd($conn, $className, $inputCategory, $user) {
     }
 }
 
+/**
+ * This function completes the delete action that is initiated when the classes.php page is loaded by any delete button
+ * shown on the classes.php page.
+ * @param $conn object the opened database connection
+ * @param $categoryId string the unique identifier for the class being deleted
+ * @return array string containing whether a success or error alert should be displayed and the message to display in
+ *               the alert
+ */
 function executeDelete($conn, $categoryId) {
     try {
         $del = $conn->prepare("SELECT `link_id` FROM `links` WHERE `category_id` = " . $categoryId);
@@ -36,9 +64,16 @@ function executeDelete($conn, $categoryId) {
     }
 }
 
-function populateSidebar($prefix) {
+/**
+ * Using the list of prefixes defined in the resources/prefixes.json file, this function populates the HTML used by the
+ * nav-pills sidebar found on the classes.php page. This function takes into account what prefix is currently selected
+ * and appropriately adds an active class to the active item.
+ * @param $currentPrefix string the current prefix in the '?class=' portion of the URI. If a class is not selected, an
+ *                       empty string should be passed in.
+ */
+function populateSidebar($currentPrefix) {
     echo "<li role='presentation'";
-    if($prefix == "") {
+    if($currentPrefix == "") {
         echo " class='active'";
     }
     echo "><a href='classes.php'>All Prefixes</a></li>";
@@ -49,11 +84,18 @@ function populateSidebar($prefix) {
         // Add another item to the list, calling the function
         // 'determineIfActive' to determine if the active class
         // should be included in the item
-        echo "<li role='presentation' " . determineIfActivePrefix($prefix, $p)
+        echo "<li role='presentation' " . determineIfActivePrefix($currentPrefix, $p)
             . "><a href='?prefix=" . $p . "'>" . $p . "</a></li>";
     }
 }
 
+/**
+ * This function, given a total count of classes, the currently selected prefix (empty string if none), and the current
+ * page currently displayed, generates a button group that appropriately displays pagination buttons.
+ * @param $count int number of pages
+ * @param $prefix string the currently selected prefix, empty string if none.
+ * @param $currentPage int the currently visible page
+ */
 function populatePagination($count, $prefix, $currentPage) {
     if(($count / 19) + 1 >= 2) {
         echo "<div class=\"col-xs-12 centered\"><hr/><div class=\"btn-group\">";
@@ -91,6 +133,16 @@ function populatePagination($count, $prefix, $currentPage) {
     }
 }
 
+/**
+ * This function populates the main content of the classes.php: the classes. Each class is displayed as a well HTML
+ * element. Additionally, this function calls populatePagination.
+ * @param $conn object the opened database connection
+ * @param $prefix string the currently selected prefix
+ * @param $search string the search query
+ * @param $sort string the currently selected sort parameter
+ * @param $page int the page to display
+ * @param $isAdmin boolean whether or not the logged-in user is an administrator
+ */
 function populateData($conn, $prefix, $search, $sort, $page, $isAdmin) {
     try{
         if($prefix != ""){
@@ -150,13 +202,24 @@ function populateData($conn, $prefix, $search, $sort, $page, $isAdmin) {
     populatePagination($count, $prefix, $p);
 }
 
+/**
+ * Initialization code:
+ * This code is run at the load of classes.php, which is why the code is standalone, as opposed to wrapped in a funcion.
+ */
+
+// Forces the user to be authorized by CAS before displaying the page.
 forceAuth();
 
 // Connect to the database
 $conn = new PDO('mysql:host=localhost;dbname=slatecrate', $config['DB_USERNAME'], $config['DB_PASSWORD']);
 
+// Determine if the user has admin status
 $isAdmin = determineAdminStatus($conn, phpCAS::getUser());
 
+/**
+ * Submitted actions: these are called when classes.php is loaded as an action of HTML forms from classes.php,
+ * addclasses.php, and editclasses.php.
+ */
 if(isset($_POST["edit"])){
     // Update an edited class with new details
     $alertArray = executeEdit($conn, $_POST["className"], $_POST["inputCategory"], $_POST["edit"]);
@@ -168,6 +231,9 @@ if(isset($_POST["edit"])){
     $alertArray = executeDelete($conn, $_POST["delete"]);
 }
 
+/**
+ * Uses the responses of executeEdit, executeAdd, and executeDelete to generate appropriate alerts as necessary.
+ */
 if(isset($alertArray)) {
     $alertType = $alertArray[0];
     $alertMessage = $alertArray[1];
@@ -176,6 +242,7 @@ if(isset($alertArray)) {
     $alertType = "";
 }
 
+// Fulfills the search and sort variables based on what's submitted or using default values.
 $search = isset($_POST["srch"]) ? $_POST["srch"] : "";
 $sort = isset($_POST["sort"]) ? $_POST["sort"] : "`title`";
 
