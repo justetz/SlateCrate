@@ -46,14 +46,7 @@ require 'partials/pageheader.partial.php';
 									 * values will be used to populate the sidebar of the page.
 									 * @var array
 									 */
-									$prefixes = [
-										"ARCH", "ARTS", "ASTR", "BCBP", "BIOL", "BMED", "CHEM",
-										"CISH", "CSCI", "DSES", "ECON", "ECSE", "ENGR", "ENVE",
-										"ERTH", "ESCE", "IENV", "IHSS", "ISCI", "ITEC", "LANG",
-										"LGHT", "LITR", "MANE", "MATH", "MATP", "MGMT", "MTLE",
-										"PHIL", "PHYS", "PSYC", "STSH", "STSS", "USAF", "USAR",
-										"USNA", "WRIT"
-									];
+									require_once 'resources/prefixes.php';
 
 									foreach ($prefixes as $p) {
 										// Add another item to the list, calling the function

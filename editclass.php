@@ -20,14 +20,14 @@ $conn = new PDO('mysql:host=localhost;dbname=slatecrate', $config['DB_USERNAME']
 $edit = $conn->prepare("SELECT * FROM `categories` WHERE `category_id` = " . $_POST["edit"]);
 $edit->execute();
 $edit = $edit->fetch(PDO::FETCH_ASSOC);
-echo $_POST["edit"];
 ?>
 
 <div class="container mtb">
     <div class="row">
         <div class="col-md-6 col-md-offset-3 col-sm-12 col-sm-offset-0">
+            <div id="alertLocation"></div>
             <div class="well well-lg">
-                <form method="post" action="classes.php" class="form-horizontal">
+                <form method="post" action="classes.php" class="form-horizontal" id="editClass">
                     <div class="form-group">
                         <label for="className" class="col-sm-3 control-label">
                             Class Name
@@ -52,14 +52,7 @@ echo $_POST["edit"];
 									 * values will be used to populate the sidebar of the page.
 									 * @var array
 									 */
-									$prefixes = [
-										"ARCH", "ARTS", "ASTR", "BCBP", "BIOL", "BMED", "CHEM",
-										"CISH", "CSCI", "DSES", "ECON", "ECSE", "ENGR", "ENVE",
-										"ERTH", "ESCE", "IENV", "IHSS", "ISCI", "ITEC", "LANG",
-										"LGHT", "LITR", "MANE", "MATH", "MATP", "MGMT", "MTLE",
-										"PHIL", "PHYS", "PSYC", "STSH", "STSS", "USAF", "USAR",
-										"USNA", "WRIT"
-									];
+                                    require_once 'resources/prefixes.php';
 
 									foreach ($prefixes as $p) {
 										// Add another item to the list, calling the function
@@ -86,10 +79,7 @@ echo $_POST["edit"];
 </div>
 
 <?php require 'partials/footer.partial.php'; ?>
-<script type="text/javascript">
-    $('#inputCategory').selectize({
-        sortField: 'text'
-    });
-</script>
+<script src="assets/js/addclass.js"></script>
+
 </body>
 </html>
