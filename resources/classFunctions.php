@@ -55,7 +55,7 @@ function populateSidebar($prefix) {
 }
 
 function populatePagination($count, $prefix, $currentPage) {
-    if(($count / 16) + 1 >= 2) {
+    if(($count / 18) + 1 >= 2) {
         echo "<div class=\"col-xs-12 centered\"><hr/><div class=\"btn-group\">";
 
         $link = "?";
@@ -71,7 +71,7 @@ function populatePagination($count, $prefix, $currentPage) {
         }
         echo " class=\"btn btn-primary\"><span class='fa fa-chevron-left'></span></a>";
 
-        for ($button = 1; $button < ($count / 16) + 1; $button++) {
+        for ($button = 1; $button < ($count / 18) + 1; $button++) {
             echo "<a href=\"".$link."page=$button\" class=\"btn btn-primary";
             if(intval($button) == intval($currentPage)) {
                 echo " active";
@@ -80,7 +80,7 @@ function populatePagination($count, $prefix, $currentPage) {
         }
 
         echo "<a ";
-        if($currentPage < ($count / 16)) {
+        if($currentPage < ($count / 18)) {
             echo "href=\"".$link."page=".($currentPage+1)."\"";
         } else {
             echo "disabled";
@@ -109,7 +109,7 @@ function populateData($conn, $prefix, $search, $sort, $page, $isAdmin) {
 
         echo "<div class='row'>";
         while($result = $var->fetch(PDO::FETCH_ASSOC)){
-            if($c >= ($p - 1) * 16 && $c < $p * 16){
+            if($c >= ($p - 1) * 18 && $c < $p * 18){
 
                 //to get the number of links
                 $l = $conn->query("SELECT COUNT(link_id) FROM `links` WHERE `category_id` = '" . $result["category_id"] . "'")->fetchColumn();
@@ -138,7 +138,7 @@ function populateData($conn, $prefix, $search, $sort, $page, $isAdmin) {
                     echo "<button type=\"submit\" class=\"btn btn-default\" name=\"edit\" value=" . $result["category_id"] . ">Edit</button></form>";
                 }
                 echo "</div>";
-            }else if($c >= $p * 16){ break; }
+            }else if($c >= $p * 18){ break; }
             ++$c;
         }
 
