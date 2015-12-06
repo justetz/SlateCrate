@@ -26,6 +26,8 @@
     <meta name="description" content="">
     <meta name="author" content="">
 
+    <link rel="icon" type="image/png" href="http://thomasbreads.com/files/images/product/main/Thomas_product_top_PLAIN_BAGEL_THIN_OVERHEAD_3C.png">
+
 
     <title><?php echoPageTitle(); ?> | SlateCrate</title>
 
