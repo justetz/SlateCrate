@@ -17,9 +17,9 @@ require 'partials/pageheader.partial.php';
         <div class="col-md-4 col-sm-6">
             <form method="post">
                 <div class="btn-group" role="group">
-                    <button type="submit" class="btn btn-default" name="sort" value="`title`">Sort by name</button>
-                    <button type="submit" class="btn btn-default" name="sort" value="`prefix`">Sort by prefix</button>
-                    <button type="submit" class="btn btn-default" name="sort" value="`creation_date` DESC">Sort by date</button>
+                    <button type="submit" class="btn btn-default<?php echo ($sort == "`title`" ? " active" : ""); ?>" name="sort" value="`title`">Sort by name</button>
+                    <button type="submit" class="btn btn-default<?php echo ($sort == "`prefix`" ? " active" : ""); ?>" name="sort" value="`prefix`">Sort by prefix</button>
+                    <button type="submit" class="btn btn-default<?php echo ($sort == "`creation_date` DESC" ? " active" : ""); ?>" name="sort" value="`creation_date` DESC">Sort by date</button>
                 </div>
             </form>
         </div>

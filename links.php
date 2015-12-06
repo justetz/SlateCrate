@@ -100,7 +100,7 @@ if(isset($_POST["delete"])){
 }
 
 //sort
-$sort = "`score`";
+$sort = "`score` DESC";
 if(isset($_POST["sort"])){
     $sort = $_POST["sort"];
 }
@@ -145,9 +145,15 @@ try {
         <div class="col-md-4 col-sm-6">
             <form method="post">
                 <div class="btn-group" role="group">
-                    <button type="submit" class="btn btn-default" name="sort" value="`title`">Sort by name</button>
-                    <button type="submit" class="btn btn-default" name="sort" value="`score` DESC">Sort by votes</button>
-                    <button type="submit" class="btn btn-default" name="sort" value="`creation_date` DESC">Sort by date</button>
+					<button type="submit" class="btn btn-default<?php echo ($sort == "`score` DESC" ? " active" : ""); ?>" name="sort" value="`score` DESC">
+						Sort by votes
+					</button>
+					<button type="submit" class="btn btn-default<?php echo ($sort == "`title`" ? " active" : ""); ?>" name="sort" value="`title`">
+						Sort by name
+					</button>
+                    <button type="submit" class="btn btn-default<?php echo ($sort == "`creation_date` DESC" ? " active" : ""); ?>" name="sort" value="`creation_date` DESC">
+						Sort by date
+					</button>
                 </div>
             </form>
         </div>
