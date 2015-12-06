@@ -1,7 +1,11 @@
 /**
- * This document manages any javascript tasks for the addclass.php page.
+ * This document manages any JavaScript tasks for the addclass.php and editclass.php pages.
  */
 
+/**
+ * Gets the full list of prefixes, as defined in resources/prefixes.json
+ * @type {Array}
+ */
 var prefixes = [];
 $.ajax({
     url : "resources/prefixes.json",
@@ -13,6 +17,9 @@ $.ajax({
 
 });
 
+/**
+ * Functions that occur once the page has been fully loaded.
+ */
 $(document).ready(function () {
     // jQuery Selectors -- assigned to variables to prevent redundant selection
     var alertLocation = $("#alertLocation"),
