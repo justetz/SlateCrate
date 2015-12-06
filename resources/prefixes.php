@@ -15,10 +15,31 @@ $prefixes = json_decode(file_get_contents("resources/prefixes.json"));
  * @param string $prefixToCheck
  * @return string
  */
-function determineIfActivePrefix($currentPrefix, $prefixToCheck) {
-
-    if($currentPrefix == $prefixToCheck) {
+function determineIfActivePrefix($currentPrefix, $prefixToCheck)
+{
+    if ($currentPrefix == $prefixToCheck) {
         return "class='active'";
     }
     return "";
+}
+
+/**
+ * Generates <option> elements containing all valid prefixes. Can pass in an existing value to have a selected
+ * <option>, assuming the existing value is valid.
+ * @param $prefixes
+ * @param $currentPrefix
+ */
+function populatePrefixSelect($prefixes, $currentPrefix)
+{
+    foreach ($prefixes as $p) {
+        // Add another item to the list, calling the function
+        // 'determineIfActive' to determine if the active class
+        // should be included in the item
+        if ($p != $currentPrefix) {
+            echo "<option value='" . $p . "'>" . $p . "</option>";
+        } else {
+            echo "<option value='" . $p . "' selected>" . $p . "</option>";
+        }
+        echo "<option value='" . $p . "'>" . $p . "</option>";
+    }
 }

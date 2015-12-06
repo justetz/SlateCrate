@@ -4,10 +4,7 @@ require 'resources/functions.php';
 require 'resources/config.php';
 require 'resources/rpiCAS.php';
 
-if (!phpCAS::isAuthenticated()) {
-	// If they're not currently logged in, take them to the RPI CAS page
-    phpCAS::forceAuthentication();
-}
+forceAuth();
 
 // Establish a connection to the database for this page.
 $conn = new PDO('mysql:host=localhost;dbname=slatecrate', $config['DB_USERNAME'], $config['DB_PASSWORD']);
@@ -17,7 +14,8 @@ require 'partials/navigation.partial.php';
 
 try {
     if(isset($_POST["edit"])){
-        $conn->query("UPDATE `links` SET `title` = '" . $_POST["linkName"] . "', `link` = '" . $_POST["URL"] . "' WHERE `link_id` = " . $_POST["edit"]);
+        $conn->query("UPDATE `links` SET `title` = '" . $_POST["linkName"] . "', `link` = '" . $_POST["URL"] . "',
+        			  `category_id` = '" . $_POST["classForAdd"] . "' WHERE `link_id` = " . $_POST["edit"]);
     }
 
 	if(isset($_GET["class"])) {
@@ -67,7 +65,13 @@ if(isset($_POST["upvote"])){
 //add class if we need to
 if(isset($_POST["user"])){
     try{
-        $string = "'" . $_POST["URL"] . "', '" . phpCAS::getUser() . "', " . $_POST["classForAdd"] . ", " . "CURDATE(), '" . $_POST["linkName"] . "'";
+		$url = $_POST["URL"];
+		if (!preg_match("~^(?:f|ht)tps?://~i", $url)) {
+			// Obtained from http://stackoverflow.com/questions/2762061/how-to-add-http-if-its-not-exists-in-the-url
+			$url = "http://" . $url;
+		}
+
+        $string = "'" . $url . "', '" . phpCAS::getUser() . "', " . $_POST["classForAdd"] . ", " . "CURDATE(), '" . $_POST["linkName"] . "'";
 
         $conn->query("INSERT INTO `links` (`link`, `rcs_id`, `category_id`, `creation_date`, `title`)
             VALUES (" . $string . ");");
@@ -108,7 +112,7 @@ try {
 		$var = $conn->prepare("SELECT * FROM `links` WHERE `category_id` = $c AND `title` LIKE '%$search%' ORDER BY $sort");
 		$var->execute();
 	} else {
-		$var = $conn->prepare("SELECT * FROM `links` ORDER BY `score` WHERE `title` LIKE '%$search%' ORDER BY $sort");
+		$var = $conn->prepare("SELECT * FROM `links` WHERE `title` LIKE '%$search%' ORDER BY $sort");
 		$var->execute();
 	}
 } catch(PDOException $e) {
@@ -142,7 +146,7 @@ try {
             <form method="post">
                 <div class="btn-group" role="group">
                     <button type="submit" class="btn btn-default" name="sort" value="`title`">Sort by name</button>
-                    <button type="submit" class="btn btn-default" name="sort" value="`score` DESC">Sort by likes</button>
+                    <button type="submit" class="btn btn-default" name="sort" value="`score` DESC">Sort by votes</button>
                     <button type="submit" class="btn btn-default" name="sort" value="`creation_date` DESC">Sort by date</button>
                 </div>
             </form>
@@ -204,36 +208,39 @@ try {
     									   </div>
     								   	 </a>";
 
-                                    //for getting back to the same page you started on
-                                    $class = "?";
-                                    $page = "";
-                                    if(isset($_GET["class"])) {
-                                        $class .= "class=" . $_GET["class"];
-                                    }
-                                    if(isset($_GET["page"])){
-                                        if($class == "?"){ $page = "?page=" . $_GET["page"]; }
-                                        else{ $page = $class . "&page=" . $_GET["page"]; }
-                                    }
+								//for getting back to the same page you started on
+								$class = "?";
+								$page = "";
+								if(isset($_GET["class"])) {
+									$class .= "class=" . $_GET["class"];
+								}
+								if(isset($_GET["page"])){
+									if($class == "?"){ $page = "?page=" . $_GET["page"]; }
+									else{ $page = $class . "&page=" . $_GET["page"]; }
+								}
 
-                                    //if the user is an administrator, they can delete and edit
-    								if($isadmin || $result["rcs_id"] == phpCAS::getUser()){
-                                        //delete button
-                                        echo "<form class='admin-panel' method=\"post\" action='links.php$class' class=\"form-horizontal\">";
-                                        echo "<button type=\"submit\" class=\"btn btn-primary pull-right\" name=\"delete\" value=" . $result["link_id"] . ">Delete</button></form>";
+								//for upvote and downvote
+								echo "<div class='row'><div class=\"col-xs-12 text-center\">";
+								echo "<form class='admin-panel' method=\"post\" action='links.php$page" . $page . "' class=\"form-inline\">";
+								echo "<button type=\"submit\" class=\"btn btn-default pull-left\" name=\"downvote\" value=" . $result["link_id"] . ">
+								<span class='fa fa-thumbs-down'</span></button>";
+								echo "<button type=\"submit\" class=\"btn btn-default pull-right\" name=\"upvote\" value=" . $result["link_id"] . ">
+								<span class='fa fa-thumbs-up'</span></button></form>";
+								echo "<span class=\"text-center\"><a class='btn btn-default disabled'>" . $result["score"] . "</a></span>";
+								echo "</div></div>";
 
-                                        //edit button
-                                        echo "<form class='admin-panel' method=\"post\" action='editlink.php" . $page . "' class=\"form-horizontal\">";
-                                        echo "<button type=\"submit\" class=\"btn btn-primary pull-right\" name=\"edit\" value=" . $result["link_id"] . ">Edit</button></form>";
-    				                }
+								//if the user is an administrator, they can delete and edit
+								if($isadmin || $result["rcs_id"] == phpCAS::getUser()) {
+									//delete button
+									echo "<form class='admin-panel' method=\"post\" action='links.php$class' class=\"form-horizontal\">";
+									echo "<button type=\"submit\" class=\"btn btn-default pull-right\" name=\"delete\" value=" . $result["link_id"] . ">Delete</button></form>";
 
-                                    //for upvote and downvote
-                                    echo "<form class='admin-panel' method=\"post\" action='links.php$page" . $page . "' class=\"form-horizontal\">";
-                                    echo "<button type=\"submit\" class=\"btn btn-primary pull-right\" name=\"upvote\" value=" . $result["link_id"] . ">Upvote</button></form>";
-                                    echo "<form class='admin-panel' method=\"post\" action='links.php$page" . $page . "' class=\"form-horizontal\">";
-                                    echo "<button type=\"submit\" class=\"btn btn-primary pull-right\" name=\"downvote\" value=" . $result["link_id"] . ">Downvote</button></form>";
-    								
-                                    echo "</div>";
-                                }
+									//edit button
+									echo "<form class='admin-panel' method=\"post\" action='editlink.php" . $page . "' class=\"form-horizontal\">";
+									echo "<button type=\"submit\" class=\"btn btn-default pull-left\" name=\"edit\" value=" . $result["link_id"] . ">Edit</button></form>";
+								}
+								echo "</div>";
+							}
 
                             $count++;
                         }

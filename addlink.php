@@ -5,10 +5,7 @@ require 'resources/functions.php';
 require 'resources/config.php';
 require 'resources/rpiCAS.php';
 
-if (!phpCAS::isAuthenticated()) {
-// If they're not currently logged in, take them to the RPI CAS page
-    phpCAS::forceAuthentication();
-}
+forceAuth();
 
 // Establish a connection to the database for this page.
 $conn = new PDO('mysql:host=localhost;dbname=slatecrate', $config['DB_USERNAME'], $config['DB_PASSWORD']);
@@ -32,8 +29,9 @@ require 'partials/pageheader.partial.php';
 <div class="container mtb">
     <div class="row">
         <div class="col-md-6 col-md-offset-3 col-sm-12 col-sm-offset-0">
+            <div id="alertLocation"></div>
             <div class="well well-lg">
-                <form method="post" action="<?php echoPostURL() ?>" class="form-horizontal">
+                <form method="post" action="<?php echoPostURL() ?>" class="form-horizontal" id="linkAction">
                     <div class="form-group">
                         <label for="linkName" class="col-sm-3 control-label">
                             Link Name
@@ -51,7 +49,7 @@ require 'partials/pageheader.partial.php';
 
                         <div class="col-sm-9">
                             <input type="text" class="form-control" name="URL"
-                                   id="URL" placeholder="">
+                                   id="URL" placeholder="" value="http://">
                         </div>
                     </div>
                     <?php
@@ -107,12 +105,7 @@ require 'partials/pageheader.partial.php';
 </div>
 
 <?php require 'partials/footer.partial.php'; ?>
-<script type="text/javascript">
-    if($('#classForAdd').is("select")) {
-        $('#classForAdd').selectize({
-            sortField: 'text'
-        });
-    }
-</script>
+<script src="assets/js/linkaction.js"></script>
+
 </body>
 </html>

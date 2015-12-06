@@ -1,18 +1,12 @@
 <?php
-
-// Necessary phpCAS Setup files for RPI's system
 require 'resources/rpiCAS.php';
+require 'resources/functions.php';
 
-if (!phpCAS::isAuthenticated()) {
-// If they're not currently logged in, take them to the RPI CAS page
-    phpCAS::forceAuthentication();
-}
+forceAuth();
+$pageHeader = "Add a new class";
 
 require 'partials/head.partial.php';
 require 'partials/navigation.partial.php';
-
-$pageHeader = "Add a new class";
-
 require 'partials/pageheader.partial.php';
 ?>
 
@@ -41,19 +35,8 @@ require 'partials/pageheader.partial.php';
                             <select id="inputCategory" class="form-control" name="inputCategory">
                                 <option value="" disabled selected>Select a prefix (type to search)</option>
 								<?php
-									/**
-									 * This array contains all valid prefixes at RPI. These
-									 * values will be used to populate the sidebar of the page.
-									 * @var array
-									 */
 									require_once 'resources/prefixes.php';
-
-									foreach ($prefixes as $p) {
-										// Add another item to the list, calling the function
-										// 'determineIfActive' to determine if the active class
-										// should be included in the item
-										echo "<option value='" . $p . "'>" . $p . "</option>";
-									}
+									populatePrefixSelect($prefixes, "");
 								?>
                             </select>
                             <p class="help-block">Note: Spam classes will be deleted.</p>

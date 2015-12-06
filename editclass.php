@@ -1,13 +1,9 @@
 <?php
-
-// Necessary phpCAS Setup files for RPI's system
 require 'resources/rpiCAS.php';
+require 'resources/functions.php';
 require 'resources/config.php';
 
-if (!phpCAS::isAuthenticated()) {
-// If they're not currently logged in, take them to the RPI CAS page
-    phpCAS::forceAuthentication();
-}
+forceAuth();
 
 if(!isset($_POST["edit"])) {
     header('location: ./addclass.php');
@@ -18,13 +14,11 @@ $edit = $conn->prepare("SELECT * FROM `categories` WHERE `category_id` = " . $_P
 $edit->execute();
 $edit = $edit->fetch(PDO::FETCH_ASSOC);
 
-require 'partials/head.partial.php';
-require 'partials/navigation.partial.php';
-
 $pageHeader = "Editing <i>" . $edit["title"] . "</i>";
 
+require 'partials/head.partial.php';
+require 'partials/navigation.partial.php';
 require 'partials/pageheader.partial.php';
-
 ?>
 
 <div class="container mtb">
@@ -51,22 +45,10 @@ require 'partials/pageheader.partial.php';
                         <div class="col-sm-9">
                             <select id="inputCategory" class="form-control" name="inputCategory">
                                 <option value="" disabled selected>Select a prefix (type to search)</option>
-								<?php
-									/**
-									 * This array contains all valid prefixes at RPI. These
-									 * values will be used to populate the sidebar of the page.
-									 * @var array
-									 */
+                                <?php
                                     require_once 'resources/prefixes.php';
-
-									foreach ($prefixes as $p) {
-										// Add another item to the list, calling the function
-										// 'determineIfActive' to determine if the active class
-										// should be included in the item
-                                        if($p != $edit["prefix"]){ echo "<option value='" . $p . "'>" . $p . "</option>"; }
-                                        else { echo "<option value='" . $p . "' selected>" . $p . "</option>"; }
-									}
-								?>
+                                    populatePrefixSelect($prefixes, $edit["prefix"]);
+                                ?>
                             </select>
                         </div>
                     </div>

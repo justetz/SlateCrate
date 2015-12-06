@@ -150,10 +150,7 @@ function populateData($conn, $prefix, $search, $sort, $page, $isAdmin) {
     populatePagination($count, $prefix, $p);
 }
 
-if (!phpCAS::isAuthenticated()) {
-// If they're not currently logged in, take them to the RPI CAS page
-    phpCAS::forceAuthentication();
-}
+forceAuth();
 
 // Connect to the database
 $conn = new PDO('mysql:host=localhost;dbname=slatecrate', $config['DB_USERNAME'], $config['DB_PASSWORD']);
