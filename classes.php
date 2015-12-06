@@ -63,7 +63,7 @@ require 'partials/pageheader.partial.php';
 
 <style>
 #scroll {
-    height:517px;
+    height:518px;
     overflow-y: scroll;
 
 }
