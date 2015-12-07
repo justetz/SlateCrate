@@ -219,7 +219,7 @@ function populateData($conn, $prefix, $search, $sort, $page, $isAdmin)
     			echo "<h6 class='text-muted'>" . $result["prefix"] . "</h6>";
 
                 // class title
-    			echo "<h4>" . $result["title"] . "</h4>";
+    			echo "<h4 class='truncate'>" . $result["title"] . "</h4>";
 
                 // number of links
     			echo "<p>Contains " . $l . ($l != 1 ? " links" : " link") . ".</p>";

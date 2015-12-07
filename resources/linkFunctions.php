@@ -130,7 +130,7 @@ function populateData($conn, $dataReq, $isAdmin) {
 
         foreach ($data as $result) {
             if ($count >= ($p - 1) * 16 && $count < $p * 16) {
-                $categoryHTML = "<h6 class='text-muted'>";
+                $categoryHTML = "<h6 class='text-muted truncate'>";
                 if (!isset($_GET["class"])) {
                     $var = $conn->prepare("SELECT `title`,`prefix` FROM `categories` WHERE `category_id` = :id");
                     $var->bindParam(':id', $result["category_id"]);
@@ -146,7 +146,7 @@ function populateData($conn, $dataReq, $isAdmin) {
                         <a href='" . $result["link"] . "' target=\"_blank\">
                             <div class='well well-sm well-hover'>"
                     . $categoryHTML
-                    . "<h4>" . $result["title"] . "</h4>"
+                    . "<h4 class='truncate'>" . $result["title"] . "</h4>"
                     . "<p class='text-muted small'>
                                 <span class='pull-left'>
                                     submitted by " . $result["rcs_id"] .
