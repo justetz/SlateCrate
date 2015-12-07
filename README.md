@@ -106,9 +106,9 @@ Links are stored in the `users` table of the `slatecrate` database. The `users` 
 SlateCrate utilizes RPI’s Central Authentication Service for authentication into the application. This system provides ease-of-use for RPI students, who won’t be required to make an additional account, as well as added security as password details are not stored in SlateCrate. Information on how to use phpCAS, the library used to implement RPI’s CAS, can be [found here](https://wiki.jasig.org/display/CASC/phpCAS).
 
 ## Contributors
-Tristan Villamil ’18 was responsible for the development of the database-client interaction.
-Justin Etzine ’18 was responsible for the development of the user interface, the site’s visual appearance, and how the data was displayed on each page.
-Anjin Lima ’18 was responsible for site design, database design and implementation, and testing.
+* Tristan Villamil ’18 was responsible for the development of the database-client interaction.
+* Justin Etzine ’18 was responsible for the development of the user interface, the site’s visual appearance, and how the data was displayed on each page.
+* Anjin Lima ’18 was responsible for site design, database design and implementation, and testing.
 
 ## Acknowledgements
 SlateCrate’s design is modified from the [Solid Multipurpose Theme](http://blacktie.co/2014/05/solid-multipurpose-theme/). Open Source dependencies used are listed in the Dependencies section, above. SlateCrate was created as a final project for the Fall 2015 Web Systems Development course, taught by Professor Richard Plokta at Rensselaer Polytechnic Institute.
