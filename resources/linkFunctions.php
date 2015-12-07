@@ -66,7 +66,7 @@ function executeEdit($conn, $url, $classForAdd, $linkName, $id) {
 
 function executeDelete($conn, $linkId) {
     try {
-        $query = $conn->query("DELETE FROM `links` WHERE `link_id` = :linkId");
+        $query = $conn->prepare("DELETE FROM `links` WHERE `link_id` = :linkId");
         $query->bindParam(':linkId', $linkId);
         $status = $query->execute();
 
