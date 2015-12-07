@@ -1,3 +1,9 @@
+SET FOREIGN_KEY_CHECKS = 0; 
+TRUNCATE TABLE `categories`;
+TRUNCATE TABLE `users`;
+TRUNCATE TABLE `links`;
+SET FOREIGN_KEY_CHECKS = 1;
+
 --
 -- Sample data for `categories`
 --
