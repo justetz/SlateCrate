@@ -44,3 +44,13 @@ INSERT INTO `links` (`link_id`, `link`, `rcs_id`, `category_id`, `creation_date`
 (12, 'http://www.htmlgoodies.com/beyond/php/article.php/3907521', 'ETZINJ', 2, '2015-12-07', 'Tips on using PHP', 1),
 (13, 'http://rpistudygroup.org/ENGR%20-%20Core%20Engineering/ENGR%202090%20Engineering%20Dynamics/Exams/exam1s10.pdf', 'TESTSTUDENT', 18, '2015-12-07', 'Spring ''10 Exam 1 Solution', 0),
 (14, 'http://rpistudygroup.org/ENGR%20-%20Core%20Engineering/ENGR%202090%20Engineering%20Dynamics/Exams/Fall2015-Test1.pdf', 'ETZINJ', 18, '2015-12-07', 'Fall 2015 Test 1 Solutions', 0);
+
+
+--
+-- Test data for `users`
+--
+
+INSERT INTO `users` (`rcs_id`, `isadmin`) VALUES ('VILLAT2', 1);
+INSERT INTO `users` (`rcs_id`, `isadmin`) VALUES ('ETZINJ', 1);
+INSERT INTO `users` (`rcs_id`, `isadmin`) VALUES ('LIMAA', 1);
+INSERT INTO `users` (`rcs_id`, `isadmin`) VALUES ('PLOTKR2', 1);
