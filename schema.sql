@@ -30,10 +30,6 @@ CREATE TABLE IF NOT EXISTS `slatecrate`.`users` (
   `isadmin` INT(1) NOT NULL DEFAULT 0 COMMENT '',
   PRIMARY KEY (`user_id`)  COMMENT '')
 ENGINE = InnoDB;
-INSERT INTO `users` (`rcs_id`, `isadmin`) VALUES ('VILLAT2', 1);
-INSERT INTO `users` (`rcs_id`, `isadmin`) VALUES ('ETZINJ', 1);
-INSERT INTO `users` (`rcs_id`, `isadmin`) VALUES ('LIMAA', 1);
-INSERT INTO `users` (`rcs_id`, `isadmin`) VALUES ('PLOTKR2', 1);
 
 
 
