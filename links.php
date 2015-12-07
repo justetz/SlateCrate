@@ -34,8 +34,8 @@ require 'partials/pageheader.partial.php';
 							value="`score` DESC">
 						Sort by votes
 					</button>
-					<button type="submit" class="<?php echoClassForFilterButtons($sort, "`title`"); ?>" name="sort"
-							value="`title`">
+					<button type="submit" class="<?php echoClassForFilterButtons($sort, "`title` ASC"); ?>" name="sort"
+							value="`title` ASC">
 						Sort by name
 					</button>
                     <button type="submit" class="<?php echoClassForFilterButtons($sort, "`creation_date` DESC"); ?>"
@@ -53,7 +53,7 @@ require 'partials/pageheader.partial.php';
 	<br/>
 	<div class="row">
         <div class="col-md-12">
-			<?php populateData($conn, $var, $isAdmin); ?>
+			<?php populateData($conn, $query, $isAdmin); ?>
         </div>
     </div>
     <!--/row -->
