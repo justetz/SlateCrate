@@ -38,7 +38,7 @@ INSERT INTO `links` (`link_id`, `link`, `rcs_id`, `category_id`, `creation_date`
 (6, 'http://www.cs.rpi.edu/academics/courses/fall15/csci1200/tests/test_solutions3.pdf', 'ETZINJ', 3, '2015-12-07', 'Fall 2015, Test 3 Solutions', 11),
 (7, 'http://rpistudygroup.org/MATH%20-%20Mathematics/MATH%201010%20Calculus%20I/Exams/MATH_1010-_Exam_1-_Fall_2010.pdf', 'TESTSTUDENT', 5, '2015-12-07', 'Fall 2010 Exam 1 Solutions', 0),
 (8, 'http://rpistudygroup.org/MATH%20-%20Mathematics/MATH%201010%20Calculus%20I/Exams/MATH_1010-_Quiz_2-_Fall_2010.pdf', 'ETZINJ', 5, '2015-12-07', 'Fall 2010 Quiz 2 Solutions', 0),
-(9, 'http://tutorial.math.lamar.edu/getfile.aspx?file=B,42,N', 'TESTSTUDENT', 5, '2015-12-07', 'Limits Cheat Sheet (download)', 0),
+(9, 'http://tutorial.math.lamar.edu/getfile.aspx?file=B,42,N', 'TESTSTUDENT', 5, '2015-12-07', 'Limits Cheat Sheet (dl)', 0),
 (10, 'http://rpistudygroup.org/ECSE%20-%20Electrical%2C%20Computer%2C%20and%20Systems%20Engineering/ECSE%202010%20Electric%20Circuits/Misc/Exam_1_Crib_Sheet.pdf', 'TESTSTUDENT', 11, '2015-12-07', 'Exam 1 Crib Sheet', 0),
 (11, 'http://rpistudygroup.org/ECSE%20-%20Electrical%2C%20Computer%2C%20and%20Systems%20Engineering/ECSE%202010%20Electric%20Circuits/Misc/Exam_2_Crib_Sheet.pdf', 'TESTSTUDENT', 11, '2015-12-07', 'Exam 2 Crib Sheet', 0),
 (12, 'http://www.htmlgoodies.com/beyond/php/article.php/3907521', 'ETZINJ', 2, '2015-12-07', 'Tips on using PHP', 1),
