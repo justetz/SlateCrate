@@ -91,7 +91,7 @@ Prefixes are the types of classes that are stored on the database. Using four ch
 When a user logs into the SlateCrate application, the application logs a reference to their Rensselaer Computing System (RCS) username and a 0 to denote non-administrative status. If a user should be granted administrative access, the database can be updated using the following query to define a user as an administrator:
 
 ```sql
-UPDATE `slatecrate` . `users` SET isadmin=1 WHERE rcs_id=’<username>’;
+UPDATE `slatecrate` . `users` SET isadmin=1 WHERE rcs_id='<username>';
 ```
 
 Similarly, a user can be demoted using the same query, except changing the SET portion to: `SET isadmin=0`. Note: the change will be reflected immediately, so this query should be used with caution.
