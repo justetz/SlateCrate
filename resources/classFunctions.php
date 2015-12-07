@@ -12,10 +12,15 @@
 function executeEdit($conn, $newTitle, $newPrefix, $id)
 {
     try {
+
+        //changes the title and the prefix to what the admin executed in the edit page
         $conn->query("UPDATE `categories` SET `title` = '" . $newTitle . "', `prefix` = '" . $newPrefix . "' WHERE `category_id` = " . $id);
 
+        //returns whether or not the it was successful
         return array("success", $newTitle . " was successfully edited!");
+
     } catch (PDOException $e) {
+        //if that didn't work, return the error
         return array("error", $e);
     }
 }
@@ -33,12 +38,17 @@ function executeEdit($conn, $newTitle, $newPrefix, $id)
 function executeAdd($conn, $className, $inputCategory, $user)
 {
     try {
+        //a string of the title, prefix, username, and date to add directly into the subsequent query
         $string = "'" . $className . "', '" . $inputCategory . "', '" . $user . "', " . "CURDATE()";
 
+        //insert the information
         $conn->query("INSERT INTO `categories` (`title`, `prefix`, `rcs_id`, `creation_date`) VALUES (" . $string . ");");
 
+        //if it works, return success message
         return array("success", "Your new class, entitled " . $_POST["className"] . ", was successfully added!");
+
     } catch (PDOException $e) {
+        //if it doesn't work, return error message
         return array("error", $e);
     }
 }
@@ -54,15 +64,23 @@ function executeAdd($conn, $className, $inputCategory, $user)
 function executeDelete($conn, $categoryId)
 {
     try {
+        //prepared statement to get the links, then execute statement
         $del = $conn->prepare("SELECT `link_id` FROM `links` WHERE `category_id` = " . $categoryId);
         $del->execute();
+
+        //delete all the links within the class
         while ($result = $del->fetch(PDO::FETCH_ASSOC)) {
             $conn->query("DELETE FROM `links` WHERE `link_id` = " . $result["link_id"]);
         }
+
+        //delete the class
         $conn->query("DELETE FROM `categories` WHERE `category_id` = " . $categoryId);
 
+        //return a success message
         return array("success", "The class, and its links, have been deleted!");
+
     } catch (PDOException $e) {
+        //if it didn't work, return this
         return array("error", $e);
     }
 }
@@ -76,14 +94,17 @@ function executeDelete($conn, $categoryId)
  */
 function populateSidebar($currentPrefix)
 {
+    //print all prefixes, if it is the active one, set it
     echo "<li role='presentation'";
     if ($currentPrefix == "") {
         echo " class='active'";
     }
     echo "><a href='classes.php'>All Prefixes</a></li>";
 
+    //add in the prefixes area
     require_once 'resources/prefixes.php';
 
+    //go through each of the prefixes
     foreach ($prefixes as $p) {
         // Add another item to the list, calling the function
         // 'determineIfActive' to determine if the active class
@@ -102,14 +123,19 @@ function populateSidebar($currentPrefix)
  */
 function populatePagination($count, $prefix, $currentPage)
 {
+    //show only if there are at least two pages
     if (($count / 19) + 1 >= 2) {
         echo "<div class=\"col-xs-12 centered\"><hr/><div class=\"btn-group\">";
 
+        //link is the get request
         $link = "?";
+        //add the prefix if it was set
         if ($prefix != "") {
             $link .= "prefix=" . $prefix . "&";
         }
 
+        //add the link to the previous page if applicable
+        //grey it out if not
         echo "<a ";
         if ($currentPage > 1) {
             echo "href=\"" . $link . "page=" . ($currentPage - 1) . "\"";
@@ -118,6 +144,7 @@ function populatePagination($count, $prefix, $currentPage)
         }
         echo " class=\"btn btn-primary\"><span class='fa fa-chevron-left'></span></a>";
 
+        //add the links to the specific pages
         for ($button = 1; $button < ($count / 18) + 1; $button++) {
             echo "<a href=\"" . $link . "page=$button\" class=\"btn btn-primary";
             if (intval($button) == intval($currentPage)) {
@@ -126,6 +153,7 @@ function populatePagination($count, $prefix, $currentPage)
             echo "\">$button</a>";
         }
 
+        //add next page button after all the original buttons
         echo "<a ";
         if ($currentPage < ($count / 18)) {
             echo "href=\"" . $link . "page=" . ($currentPage + 1) . "\"";
@@ -151,6 +179,7 @@ function populatePagination($count, $prefix, $currentPage)
 function populateData($conn, $prefix, $search, $sort, $page, $isAdmin)
 {
     try {
+        //includes possibilitied for sort and search depending on what was selected
         if ($prefix != "") {
             $p = "'" . $prefix . "'";
             $var = $conn->prepare("SELECT * FROM `categories` WHERE `prefix` = $p AND `title` LIKE '%$search%' ORDER BY $sort");
@@ -159,14 +188,19 @@ function populateData($conn, $prefix, $search, $sort, $page, $isAdmin)
             $var = $conn->prepare("SELECT * FROM `categories` WHERE `title` LIKE '%$search%' ORDER BY $sort");
             $count = $conn->query("SELECT COUNT(`title`) FROM `categories` WHERE `title` LIKE '%$search%'")->fetchColumn();
         }
+
+        //count will be used for pagination
         if ($count == NULL) {
             $count = 0;
         }
+        //execute prepared statements
         $var->execute();
 
+        //c will also be used for pagination
         $c = 0;
         $p = $page != "" ? intval($page) : 1;
 
+        //print them in columns
         echo "<div class='row'>";
         while ($result = $var->fetch(PDO::FETCH_ASSOC)) {
             if ($c >= ($p - 1) * 18 && $c < $p * 18) {
@@ -222,6 +256,7 @@ function populateData($conn, $prefix, $search, $sort, $page, $isAdmin)
             ++$c;
         }
 
+        //if there were no classes to display
         if ($c == 0) {
             echo "<div class='col-xs-12'>" . infoAlert("No classes. You should add one!") . "</div>";
         }
@@ -229,6 +264,7 @@ function populateData($conn, $prefix, $search, $sort, $page, $isAdmin)
         echo $e;
     }
 
+    //add the pagination
     populatePagination($count, $prefix, $p);
 }
 
