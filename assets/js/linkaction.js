@@ -2,6 +2,9 @@
  * This document manages any javascript tasks for the addlink.php and editlink.php pages.
  */
 
+/**
+ * Functions that occur once the page has been fully loaded.
+ */
 $(document).ready(function () {
     // jQuery Selectors -- assigned to variables to prevent redundant selection
     var alertLocation = $("#alertLocation"),

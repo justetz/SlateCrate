@@ -1,7 +1,9 @@
 <header id="blue">
     <div class="container">
         <div class="row">
-            <h3><?php echo $pageHeader; ?></h3>
+            <!-- To populate this header, set the variable $pageHeader to a
+            string value prior to requiring this partial. -->
+            <h3><?php echo isset($pageHeader) ? $pageHeader : ""; ?></h3>
         </div>
         <!-- /row -->
     </div>
